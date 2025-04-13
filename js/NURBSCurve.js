@@ -3,7 +3,7 @@ import {
 	Vector3,
 	Vector4
 } from 'three';
-import * as NURBSUtils from '../theinternetmap/js/NURBSUtils.js';
+import * as NURBSUtils from '../js/NURBSUtils.js';
 
 /**
  * This class represents a NURBS curve.
