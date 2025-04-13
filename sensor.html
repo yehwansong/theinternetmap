@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi-Person Pose Glows</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+    }
+    video, canvas, svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      /*width: 100vw;*/
+      height: 100vh;
+      object-fit: cover;
+    }
+    svg{
+    width: 133.3vh;}
+    video {
+      /*display: none;*/
+    }
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<script type="text/javascript">
+  // ✅ Your Firebase config (replace with your actual config)
+const firebaseConfig = {
+  apiKey: "AIzaSyBb7Hf1EfZFt4ZBV7D-83ZoYh2_268-fA0",
+  authDomain: "internetmap-40f5f.firebaseapp.com",
+  databaseURL: "https://internetmap-40f5f-default-rtdb.firebaseio.com",
+  projectId: "internetmap-40f5f",
+  storageBucket: "internetmap-40f5f.firebasestorage.app",
+  messagingSenderId: "58899228247",
+  appId: "1:58899228247:web:d04ea480cc5ffbf4b06512",
+  measurementId: "G-TR5860MX5M"
+};
+
+// ✅ Init Firebase app and database
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+</script>
+</head>
+<body>
+<video id="webcam" autoplay muted playsinline></video>
+<div id="container" style="position: relative; width: 100vw; height: 100vh; overflow: hidden;">
+  <canvas id="output" style="position: absolute; top: 0; left: 0;"></canvas>
+  <svg id="svg-lines" viewBox="0 0 1258.24 928.4"
+       xmlns="http://www.w3.org/2000/svg">
+    <defs><style>.cls-1{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;}</style></defs>
+    <!-- your lines -->
+    <line class="cls-1" x1="0.08" y1="375.48" x2="464.65" y2="401.56"/>
+    <line class="cls-1" x1="101" y1="133.03" x2="501.55" y2="340.43"/>
+    <line class="cls-1" x1="375.15" y1="0.88" x2="567.64" y2="300.92"/>
+    <line class="cls-1" x1="658.56" y1="0.88" x2="644.75" y2="283"/>
+    <line class="cls-1" x1="960.83" y1="0.88" x2="709.12" y2="321.36"/>
+    <line class="cls-1" x1="1187.98" y1="185.68" x2="757.48" y2="362.45"/>
+    <line class="cls-1" x1="1258.16" y1="445.08" x2="786.33" y2="419.37"/>
+    <line class="cls-1" x1="1148.61" y1="698.62" x2="768.19" y2="484.37"/>
+    <line class="cls-1" x1="905.99" y1="873.76" x2="711.78" y2="538.04"/>
+    <line class="cls-1" x1="588.65" y1="928.26" x2="624.62" y2="554.97"/>
+    <line class="cls-1" x1="281.14" y1="843.59" x2="538.31" y2="532.48"/>
+    <line class="cls-1" x1="65.78" y1="643.24" x2="483.87" y2="473.93"/>
+  </svg>
+  <button id="reset-btn" style="
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  background: red;
+  color: white;
+  font-size: 16px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+">
+  RESET!
+</button>
+
+</div>
+
+
+  <!-- TensorFlow + Pose Detection -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+
+  <script>
+    let detector, video, canvas, ctx, svg ;
+let previousFeetPositions = {};   // key: person index + foot name
+let lastCrossedLine = {};         // key: person index + foot name
+
+
+    async function setup() {
+      // Ensure backend is set first
+      await tf.setBackend('webgl');
+      await tf.ready();
+
+      video = document.getElementById('webcam');
+      canvas = document.getElementById('output');
+      svg = document.getElementById('svg-lines');
+      ctx = canvas.getContext('2d');
+
+      // Resize canvas to window
+      function resizeCanvas() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  svg.setAttribute('width', video.videoWidth);
+  svg.setAttribute('height', canvas.height);
+
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      // Start webcam
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+      video.srcObject = stream;
+      await new Promise(resolve => video.onloadedmetadata = resolve);
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  svg = document.getElementById('svg-lines');
+  svg.setAttribute('width', video.videoWidth);
+  svg.setAttribute('height', canvas.height);
+
+      // Create pose detector
+      detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
+        modelType: poseDetection.movenet.modelType.MULTIPOSE_LIGHTNING
+      });
+
+      detectLoop();
+    }
+
+    function scaleX(x) {
+      return (x / video.videoWidth) * canvas.width;
+    }
+
+    function scaleY(y) {
+      return (y / video.videoHeight) * canvas.height;
+    }
+    function pointToSegmentDistance(px, py, x1, y1, x2, y2) {
+  const A = px - x1;
+  const B = py - y1;
+  const C = x2 - x1;
+  const D = y2 - y1;
+
+  const dot = A * C + B * D;
+  const len_sq = C * C + D * D;
+  let param = -1;
+  if (len_sq !== 0) param = dot / len_sq;
+
+  let xx, yy;
+  if (param < 0) {
+    xx = x1;
+    yy = y1;
+  } else if (param > 1) {
+    xx = x2;
+    yy = y2;
+  } else {
+    xx = x1 + param * C;
+    yy = y1 + param * D;
+  }
+
+  const dx = px - xx;
+  const dy = py - yy;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+function getSideOfLine(px, py, x1, y1, x2, y2) {
+  const value = (x2 - x1) * (py - y1) - (y2 - y1) * (px - x1);
+  if (value > 0) return 1;
+  if (value < 0) return -1;
+  return 0; // exactly on the line
+}
+
+
+async function detectLoop() {
+  const poses = await detector.estimatePoses(video);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const centerX = canvas.width / 2;
+  const lines = document.querySelectorAll('#svg-lines line');
+
+for (let personIndex = 0; personIndex < poses.length; personIndex++) {
+  const pose = poses[personIndex];
+  const keypoints = pose.keypoints;
+
+  const leftAnkle = keypoints.find(k => k.name === 'left_ankle');
+  const rightAnkle = keypoints.find(k => k.name === 'right_ankle');
+
+  const feet = [
+    { point: leftAnkle, name: 'left_ankle' },
+    { point: rightAnkle, name: 'right_ankle' }
+  ];
+
+  for (const { point, name } of feet) {
+    const key = `${personIndex}_${name}`;
+
+    if (!previousFeetPositions[key]) previousFeetPositions[key] = null;
+
+    if (point && point.score > 0.4) {
+      const current = {
+        x: (point.x / video.videoWidth) * 1258.24,
+        y: (point.y / video.videoHeight) * 928.4
+      };
+
+      const prev = previousFeetPositions[key];
+      if (prev) {
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          const x1 = parseFloat(line.getAttribute('x1'));
+          const y1 = parseFloat(line.getAttribute('y1'));
+          const x2 = parseFloat(line.getAttribute('x2'));
+          const y2 = parseFloat(line.getAttribute('y2'));
+
+          const sidePrev = getSideOfLine(prev.x, prev.y, x1, y1, x2, y2);
+          const sideCurr = getSideOfLine(current.x, current.y, x1, y1, x2, y2);
+
+          const lineNum = i + 1;
+          const footLineKey = `${key}_line_${i}`;
+          if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr) {
+            if (lastCrossedLine[key] !== lineNum) {
+              console.log(`👣 Person ${personIndex} ${name} crossed line ${lineNum}`);
+              lastCrossedLine[key] = lineNum;
+
+              // ✅ Update Firebase count for this line
+              const lineKey = `crossings/line${lineNum}`;
+              const ref = db.ref(lineKey);
+              ref.transaction(current => (current || 0) + 1);
+
+              setTimeout(() => {
+                if (lastCrossedLine[key] === lineNum) {
+                  lastCrossedLine[key] = null;
+                }
+              }, 500);
+            }
+          }
+
+
+        }
+      }
+
+      previousFeetPositions[key] = current;
+    }
+  }
+
+
+
+  }
+
+  requestAnimationFrame(detectLoop);
+}
+
+
+    setup();
+
+
+    document.getElementById('reset-btn').onclick = () => {
+  for (let i = 1; i <= 12; i++) {
+    const ref = db.ref(`crossings/line${i}`);
+    ref.set(0);
+  }
+  console.log("✅ All lines reset to 0");
+};
+
+  </script>
+</body>
+</html>

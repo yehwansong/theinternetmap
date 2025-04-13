@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Three.js Cube Drop + Particle Whirlpool</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <div id="buttons" style="position: absolute; top: 10px; left: 10px; z-index: 1;"></div>
+  <script src="js/three.min.js"></script>
+  <script>
+    // --- Basic Setup ---
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xeeeeee);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    document.body.appendChild(renderer.domElement);
+
+    let aspect = window.innerWidth / window.innerHeight;
+    let frustumSize = 10;
+    const camera = new THREE.OrthographicCamera(
+      (frustumSize * aspect) / -2,
+      (frustumSize * aspect) / 2,
+      frustumSize / 2,
+      frustumSize / -2,
+      0.1,
+      100
+    );
+    camera.position.set(0, 2.5, 5);
+    camera.lookAt(0, 0, 0);
+
+    // --- Lighting + Water Plane ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 10, 7.5);
+    scene.add(ambientLight, directionalLight);
+
+    const waterGeometry = new THREE.PlaneGeometry(20, 20);
+    const waterMaterial = new THREE.MeshStandardMaterial({
+      color: 0x3399ff,
+      transparent: true,
+      opacity: 0.4,
+      side: THREE.DoubleSide,
+    });
+    const waterPlane = new THREE.Mesh(waterGeometry, waterMaterial);
+    waterPlane.rotation.x = -Math.PI / 2;
+    waterPlane.position.y = 1;
+    scene.add(waterPlane);
+
+    // --- Cube Groups and Drop Buttons ---
+    const total = 12;
+    const radius = 4;
+    const groups = [];
+    const stacks = Array(total).fill(0);
+    const dropHeight = 10;
+
+    const buttonContainer = document.getElementById('buttons');
+    for (let i = 0; i < total; i++) {
+      const btn = document.createElement('button');
+      btn.innerText = (i + 1).toString();
+      btn.style.margin = '2px';
+      btn.onclick = () => dropCube(i);
+      buttonContainer.appendChild(btn);
+
+      const angle = (Math.PI * 2 / total) * i;
+      const group = new THREE.Group();
+      group.rotation.y = angle;
+      scene.add(group);
+      groups.push(group);
+    }
+
+    function dropCube(index) {
+      const group = groups[index];
+      const sx = THREE.MathUtils.lerp(0.2, 0.5, Math.random());
+      const sy = THREE.MathUtils.lerp(0.2, 0.5, Math.random());
+      const sz = THREE.MathUtils.lerp(0.2, 0.5, Math.random());
+      const geometry = new THREE.BoxGeometry(2 * sx, 1 * sy, 1 * sz);
+      const material = new THREE.MeshStandardMaterial({ color: 0x00aaff });
+      const cube = new THREE.Mesh(geometry, material);
+
+      const boxHeight = 1 * sy;
+      const currentStackY = stacks[index];
+      const targetY = currentStackY + boxHeight / 2;
+      stacks[index] += boxHeight;
+
+      cube.position.z = radius;
+      cube.position.y = dropHeight;
+      group.add(cube);
+
+      // Animate falling
+      let progress = 0;
+      const duration = 60;
+      function animateDrop() {
+        if (progress < 1) {
+          progress += 1 / duration;
+          const eased = 1 - (1 - progress) * (1 - progress);
+          cube.position.y = dropHeight * (1 - eased) + targetY * eased;
+          requestAnimationFrame(animateDrop);
+        } else {
+          cube.position.y = targetY;
+        }
+      }
+      animateDrop();
+    }
+
+    // --- Whirlpool Setup ---
+    const vortexCenter = new THREE.Vector3(0, 1, 0);
+    const vortexRadius = 5;
+    const vortexStrength = 0.15;
+
+    const ringGeo = new THREE.RingGeometry(vortexRadius - 0.05, vortexRadius + 0.05, 64);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0x0000ff,
+      transparent: true,
+      opacity: 0.3,
+      side: THREE.DoubleSide
+    });
+    const whirlpool = new THREE.Mesh(ringGeo, ringMat);
+    whirlpool.rotation.x = Math.PI / 2;
+    whirlpool.position.copy(vortexCenter);
+    // scene.add(whirlpool);
+
+    // --- Particle Setup ---
+    const particles = [];
+    const numParticles = 150;
+    const particleGeo = new THREE.PlaneGeometry(0.2, 0.05);
+    const particleMat = new THREE.MeshBasicMaterial({ color: 0x0077ff, side: THREE.DoubleSide });
+
+    for (let i = 0; i < numParticles; i++) {
+      const particle = new THREE.Mesh(particleGeo, particleMat.clone());
+      const startX = Math.random() * 20 - 10;
+      const startY = 1 + (Math.random() - 0.5) * 5;
+      particle.position.set(startX, startY, 0);
+      particle.userData.originalY = startY;
+
+      const angle = -0.3 * (startY / 2.5);
+      const speed = 0.02;
+      particle.userData.velocity = new THREE.Vector3(
+        Math.cos(angle) * speed,
+        Math.sin(angle) * speed,
+        0
+      );
+      particle.rotation.z = angle;
+
+      scene.add(particle);
+      particles.push(particle);
+    }
+
+    // --- Particle Animation with Whirlpool Effect ---
+    function animateFlow() {
+      for (let p of particles) {
+        const pos = p.position;
+        const vel = p.userData.velocity.clone();
+        const originalY = p.userData.originalY;
+
+        // Whirlpool influence
+        const dx = pos.x - vortexCenter.x;
+        const dy = pos.y - vortexCenter.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < vortexRadius) {
+          const strength = 1 - dist / vortexRadius;
+          const tangentX = -dy;
+          const tangentY = dx;
+
+          vel.x += tangentX * vortexStrength * strength;
+          vel.y += tangentY * vortexStrength * strength;
+
+          vel.x -= dx * 0.01 * strength;
+          vel.y -= dy * 0.01 * strength;
+        }
+
+        pos.add(vel);
+        const angle = Math.atan2(vel.y, vel.x);
+        p.rotation.z = angle;
+
+        if (pos.x > 10) {
+          pos.x = -10;
+          pos.y = 1 + (Math.random() - 0.5) * 5;
+          p.userData.originalY = pos.y;
+
+          const resetAngle = -0.3 * (pos.y / 2.5);
+          p.userData.velocity.set(
+            Math.cos(resetAngle) * 0.02,
+            Math.sin(resetAngle) * 0.02,
+            0
+          );
+          p.rotation.z = resetAngle;
+        }
+      }
+    }
+
+    // --- Render Loop ---
+    function animate() {
+      requestAnimationFrame(animate);
+      animateFlow();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // --- Resize ---
+    function onWindowResize() {
+      aspect = window.innerWidth / window.innerHeight;
+      camera.left = (-frustumSize * aspect) / 2;
+      camera.right = (frustumSize * aspect) / 2;
+      camera.top = frustumSize / 2;
+      camera.bottom = -frustumSize / 2;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+    window.addEventListener('resize', onWindowResize, false);
+    onWindowResize();
+  </script>
+</body>
+</html>

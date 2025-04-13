@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>The internet map</title>
+  <link rel="stylesheet" href="style.css" />
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "/js/three.module.js",
+                "OrbitControls": "/js/OrbitControls.js",
+                "FBXLoader": "/js/FBXLoader.js",
+                "OutlineEffect": "/js/OutlineEffect.js"
+            }
+        }
+    </script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<script type="text/javascript">
+  // ✅ Your Firebase config (replace with your actual config)
+const firebaseConfig = {
+  apiKey: "AIzaSyBb7Hf1EfZFt4ZBV7D-83ZoYh2_268-fA0",
+  authDomain: "internetmap-40f5f.firebaseapp.com",
+  databaseURL: "https://internetmap-40f5f-default-rtdb.firebaseio.com",
+  projectId: "internetmap-40f5f",
+  storageBucket: "internetmap-40f5f.firebasestorage.app",
+  messagingSenderId: "58899228247",
+  appId: "1:58899228247:web:d04ea480cc5ffbf4b06512",
+  measurementId: "G-TR5860MX5M"
+};
+
+// ✅ Init Firebase app and database
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+</script>
+</head>
+<body>
+    <div class="netgrid"></div>
+  <div id="buttons"></div>
+  <div id="labels"></div>
+        <div class="label" id="chain-label" style="position: absolute; pointer-events: none; color: blue; color: red;font-weight: bold;">data trading</div>
+        <div class="label" id="particle_whirl-label-1" style="position: absolute; pointer-events: none; color: red; font-weight: bold;">
+            <img src="icons/drown_01.jpg">Web Surfer</div>
+        <div class="label" id="particle_whirl-label-2" style="position: absolute; pointer-events: none; color: red; font-weight: bold;">
+            <img src="icons/drown_01.jpg">Web Surfer</div>
+        <div class="label" id="particle_whirl-label-3" style="position: absolute; pointer-events: none; color: red; font-weight: bold;">
+            <img src="icons/drown_01.jpg">Web Surfer</div>
+        <div class="label" id="particle-label-1" style="position: absolute; pointer-events: none; color: white; font-family: sans-serif; font-weight: bold;">
+            <img src="icons/surfer_01.jpg">Web Surfer</div>
+        <div class="label" id="particle-label-2" style="position: absolute; pointer-events: none; color: white; font-family: sans-serif; font-weight: bold;">
+            <img src="icons/surfer_02.jpg">Web Surfer</div>
+        <div class="label" id="particle-label-3" style="position: absolute; pointer-events: none; color: white; font-family: sans-serif; font-weight: bold;">
+            <img src="icons/surfer_03.jpg">Web Surfer</div>
+
+        <!-- <img src="cloud.png" class="cloud"> -->
+
+
+ <script type="module">
+
+
+        const total = 12;
+    for (let i = 0; i < total; i++) {
+  const lineKey = `crossings/line${i + 1}`;
+  const ref = db.ref(lineKey);
+
+  ref.on('value', snapshot => {
+    const count = snapshot.val() || 0;
+
+    while (firebaseCounts[i] < count) {
+      dropCube(i); // ✅ drop cube when new count arrives
+      firebaseCounts[i]++;
+    }
+  });
+}
+
+    import * as THREE from '/js/three.module.js';
+    import { FBXLoader } from '/js/FBXLoader.js';
+    // import { OutlineEffect } from '/js/OutlineEffect.js';
+
+        // --- Basic Setup ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xeeeeee);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFHardShadowMap;
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.NoToneMapping;
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// const effect = new OutlineEffect(renderer);
+
+
+        let aspect = window.innerWidth / window.innerHeight;
+        let frustumSize = 10;
+        const camera = new THREE.OrthographicCamera(
+                (frustumSize * aspect) / -2,
+                (frustumSize * aspect) / 2,
+                frustumSize / 2,
+                frustumSize / -2,
+                0.05, 
+                100
+        );
+        camera.position.set(0, 10, 0);
+        camera.lookAt(0, 1.2, 0);
+        camera.zoom = 1.1; // > 1 zooms in, < 1 zooms out
+camera.updateProjectionMatrix();
+
+
+        // --- Lighting + Water Plane ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const directionalLight = new THREE.DirectionalLight(0xfffffff, 1.2);
+        directionalLight.position.set(3, 10, 5); // angle to reach water + ground
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.set(1024, 1024);
+        directionalLight.shadow.bias = -0.001;
+        scene.add(directionalLight);
+
+        directionalLight.shadow.camera.left = -20;
+        directionalLight.shadow.camera.right = 20;
+        directionalLight.shadow.camera.top = 20;
+        directionalLight.shadow.camera.bottom = -20;
+        directionalLight.shadow.camera.near = 1;
+        directionalLight.shadow.camera.far = 50;
+        directionalLight.shadow.bias = -0.001;
+
+
+        directionalLight.position.set(5, 10, 7.5);
+        scene.add(ambientLight, directionalLight);
+
+        var clockwise = true
+
+        const obstacles = [];
+        const obstacleRadius = 0.08;
+        const obstacleGeo = new THREE.CylinderGeometry(obstacleRadius, obstacleRadius, 0.05, 32);
+        const obstacleMat = new THREE.MeshStandardMaterial({ color: 0xff4444 });
+
+        var obstaclePositions = [
+            // new THREE.Vector3(-2, -1.5, 0),
+            // new THREE.Vector3(0, 0, 0),
+            // new THREE.Vector3(3, 1.5, 0)
+        ];
+
+
+        const waterGeometry = new THREE.PlaneGeometry(20, 20);
+        const waterMat = new THREE.MeshStandardMaterial({
+                color: 0x0043ff,
+                transparent: true,
+                opacity: 0.5,
+                depthWrite: false,             // ✅ Already set
+        });
+        const water = new THREE.Mesh(waterGeometry, waterMat);
+        water.rotation.x = -Math.PI / 2;
+        water.position.y = 1;
+        water.receiveShadow = true;
+        water.renderOrder = 1; // ✅ Renders before particles
+        // scene.add(water);
+
+
+        const totalRainFrames = 99;
+        let rainFrame = 0;
+        let rainFrameTime = 0;
+        const rainTexture = new THREE.TextureLoader().load('rain.png');
+        rainTexture.wrapS = THREE.RepeatWrapping;
+        rainTexture.wrapT = THREE.RepeatWrapping;
+        rainTexture.repeat.set(1 / totalRainFrames, 1); // 40 frames across 1 row
+        const rainSprite = new THREE.Mesh(
+            new THREE.PlaneGeometry(1/1.2, 1.25/1.2),
+            new THREE.MeshBasicMaterial({
+                map: rainTexture,
+                transparent: true,
+                depthWrite: false,
+                side: THREE.DoubleSide
+            })
+        );
+        rainSprite.renderOrder = 1000;
+        scene.add(rainSprite);
+
+        const groundGeo = new THREE.PlaneGeometry(20, 20);
+        const groundMat = new THREE.ShadowMaterial({ opacity: 0.7 }); // 🌫️ softer shadow
+
+        let currentVisibleChainIndex = -1; // new variable 
+        const groundPlane = new THREE.Mesh(groundGeo, groundMat);
+        groundPlane.rotation.x = -Math.PI / 2;
+        groundPlane.position.y = 0; // below water
+        groundPlane.receiveShadow = true;
+        scene.add(groundPlane);
+
+
+        let lightAngle = 0;
+
+                // --- Cube Groups and Drop Buttons ---
+        const radius = 2.5;
+        const groups = [];
+        const groups_rot_index = [];
+        const stacks = Array(total).fill(0);
+        const dropHeight = 10;
+        var drop_count = 0
+        let index5_drop_count = 0
+
+        const waterDropTexture = new THREE.CanvasTexture(createWaterDropCanvas());
+
+        const customTexture = new THREE.TextureLoader().load('streamline-01.png');
+
+        customTexture.wrapS = THREE.ClampToEdgeWrapping;
+        customTexture.wrapT = THREE.ClampToEdgeWrapping;
+        customTexture.encoding = THREE.sRGBEncoding;
+
+
+
+//buttons
+        const buttonContainer = document.getElementById('buttons');
+        for (let i = 0; i < total; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = (i + 1).toString();
+                btn.style.margin = '2px';
+                // btn.onclick = () => dropCube(i);
+                buttonContainer.appendChild(btn);
+
+                const angle = (Math.PI * 2 / total) * i+(Math.PI * 2 / total)/2;
+                const group = new THREE.Group();
+                group.rotation.y = angle;
+                group.castShadow = true; // ✅ allow shadow casting
+                group.receiveShadow = false; // just in case
+                scene.add(group);
+
+                groups.push(group);
+
+                groups_rot_index[i] = 0
+        }
+        const firebaseCounts = new Array(total).fill(0); // tracks how many cubes dropped per group
+
+    for (let i = 0; i < 12; i++) {
+        const lineKey = `crossings/line${i + 1}`;
+        const ref = db.ref(lineKey);
+
+        ref.on('value', snapshot => {
+            const count = snapshot.val() || 0;
+
+            while (firebaseCounts[i] < count) {
+                dropCube(i); // drop into group[i]
+                firebaseCounts[i]++;
+            }
+        });
+    }
+
+        const splashBtn = document.createElement('button');
+        splashBtn.innerText = 'Splash!';
+        splashBtn.style.margin = '2px';
+        splashBtn.onclick = () => {
+                const worldPos = new THREE.Vector3(0, 0, 0); // Replace with your actual position logic
+                playSplashAnimation(new THREE.Vector3(worldPos.x, 1.01, worldPos.z));
+        };
+
+        buttonContainer.appendChild(splashBtn);
+
+
+
+
+
+
+        function spawnRippleSprite(x, z) {
+                const frameCount = 45; // how many frames in the sprite sheet
+                const duration = 1000; // total animation duration in ms
+                const frameDuration = duration / frameCount;
+
+                const texture = new THREE.TextureLoader().load("ripple-sprite.png");
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.repeat.set(1 / frameCount, 1);
+
+                const material = new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                side: THREE.DoubleSide,
+                depthWrite: false,
+                });
+
+                const geometry = new THREE.PlaneGeometry(2, 2);
+                const ripple = new THREE.Mesh(geometry, material);
+                ripple.rotation.x = -Math.PI / 2;
+                ripple.position.set(x, 1.001, z);
+                scene.add(ripple);
+
+                let currentFrame = 0;
+
+                const interval = setInterval(() => {
+                currentFrame++;
+                if (currentFrame >= frameCount) {
+                    clearInterval(interval);
+                    scene.remove(ripple);
+                    ripple.geometry.dispose();
+                    ripple.material.dispose();
+                    texture.dispose();
+                } else {
+                    texture.offset.x = currentFrame / frameCount;
+                }
+                }, frameDuration);
+        }
+        function playSplashAnimation(position) {
+                const totalFrames = 12;
+                const duration = 800; // ms
+                const frameDuration = duration / totalFrames;
+
+                const texture = new THREE.TextureLoader().load('splash.png');
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.set(1 / totalFrames, 1); // single row
+
+                const material = new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                depthWrite: false,
+                side: THREE.DoubleSide,
+                });
+
+                const geometry = new THREE.PlaneGeometry(2, 2);
+                const splash = new THREE.Mesh(geometry, material);
+                splash.rotation.x = -Math.PI / 2;
+                splash.position.copy(position);
+                splash.renderOrder = 999;
+                scene.add(splash);
+
+                let frame = 0;
+                const interval = setInterval(() => {
+                texture.offset.x = frame / totalFrames;
+                frame++;
+                        if (frame >= totalFrames) {
+                                clearInterval(interval);
+                                scene.remfove(splash);
+                                splash.geometry.dispose();
+                                splash.material.dispose();
+                                texture.dispose();
+                        }
+                }, frameDuration);
+        }
+
+        function toScreenPosition(obj, camera) {
+                const vector = new THREE.Vector3();
+                const widthHalf = window.innerWidth / 2;
+                const heightHalf = window.innerHeight / 2;
+
+                obj.updateMatrixWorld();
+                vector.setFromMatrixPosition(obj.matrixWorld);
+                vector.project(camera);
+
+                return {
+                        x: ( vector.x * widthHalf ) + widthHalf,
+                        y: -( vector.y * heightHalf ) + heightHalf
+                };
+        }
+        function createWaterDropCanvas() {
+                const canvas = document.createElement('canvas');
+                canvas.width = 128;
+                canvas.height = 128;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = 'transparent';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.font = '100px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('💧', canvas.width / 2, canvas.height / 2);
+
+                return canvas;
+        }
+        function createCombinedTexture(baseColorHex, overlayImagePath) {
+                const canvas = document.createElement('canvas');
+                canvas.width = 512;
+                canvas.height = 512;
+                const ctx = canvas.getContext('2d');
+
+                // fill base color
+                ctx.fillStyle = baseColorHex;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const image = new Image();
+                const texture = new THREE.CanvasTexture(canvas);
+
+                image.onload = () => {
+                        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                        texture.needsUpdate = true;
+                };
+                image.src = overlayImagePath;
+
+                return texture;
+        }
+
+let cubeGeometryFromFBX = null;
+const fbxLoader = new FBXLoader();
+let sortedFBXChildren = [];
+fbxLoader.load('img/st_new.fbx', (object) => {
+    for (var i = object.children.length - 1; i >= 0; i--) {
+        console.log(object.children[i].position.y)
+    }
+    cubeGeometryFromFBX = object;
+    // Sort children by original Y position (lowest first)
+    sortedFBXChildren = [...object.children].sort((a, b) => a.position.y - b.position.y);
+    console.log(sortedFBXChildren)
+    for (var i = sortedFBXChildren.length - 1; i >= 0; i--) {
+        console.log(sortedFBXChildren[i].position.y)
+    }
+});
+
+
+
+
+function dropCube(index) {
+  if (!cubeGeometryFromFBX) {
+    console.warn('FBX not loaded yet');
+    return;
+  }
+
+  const group = groups[index];
+  const inner_group = new THREE.Group();
+
+  const sx = 0.3, sy = 0.3, sz = 0.3, pz = 0;
+
+  groups_rot_index[index] = (groups_rot_index[index] + 1) % 2;
+  inner_group.rotation.y = 0;
+
+  const gradientTexture = new THREE.TextureLoader().load('img/gradient4.png');
+  gradientTexture.minFilter = THREE.NearestFilter;
+  gradientTexture.magFilter = THREE.NearestFilter;
+  gradientTexture.generateMipmaps = false;
+
+const loader = new THREE.TextureLoader();
+const topTexture = loader.load('img/text.png');
+
+// Create 6 materials, one for each face
+const cubeMaterials = [
+  new THREE.MeshBasicMaterial({ map: topTexture }), // right
+  new THREE.MeshBasicMaterial({ map: topTexture }), // left
+  new THREE.MeshBasicMaterial({ map: topTexture }), // top (this will be replaced below)
+  new THREE.MeshBasicMaterial({ map: topTexture }), // bottom
+  new THREE.MeshBasicMaterial({ map: topTexture }), // front (texture here)
+  new THREE.MeshBasicMaterial({ map: topTexture })  // back
+];
+
+const childIndex = group.children.length % sortedFBXChildren.length;
+const fbxChild = sortedFBXChildren[childIndex];
+
+  const cube = fbxChild.clone();
+const scale_whole = 0.0175
+  cube.material = cubeMaterials
+  cube.scale.set(sortedFBXChildren[childIndex].scale.x*scale_whole, sortedFBXChildren[childIndex].scale.y*scale_whole, sortedFBXChildren[childIndex].scale.z*scale_whole);
+  cube.position.set(sortedFBXChildren[childIndex].position.x*scale_whole, dropHeight, radius + sortedFBXChildren[childIndex].position.z*scale_whole);
+  cube.castShadow = true;
+  cube.renderOrder = 20;
+
+  // Add overlay planes if index === 5
+    if (index === 5) {
+        const overlayTexture = new THREE.TextureLoader().load('streamline-01.png');
+
+        const backOverlay = new THREE.Mesh(
+          new THREE.PlaneGeometry(2 * sx, 1 * sy),
+          new THREE.MeshBasicMaterial({
+            map: overlayTexture,
+            transparent: true,
+            depthWrite: false,
+            side: THREE.DoubleSide
+          })
+        );
+        backOverlay.position.z = -0.5 * sz - 0.001;
+        backOverlay.position.y = 0;
+        cube.add(backOverlay);
+
+        const topOverlay = new THREE.Mesh(
+          new THREE.PlaneGeometry(2 * sx, 1 * sz),
+          new THREE.MeshBasicMaterial({
+            map: overlayTexture,
+            transparent: true,
+            depthWrite: false,
+            side: THREE.DoubleSide
+          })
+        );
+        topOverlay.rotation.x = -Math.PI / 2;
+        topOverlay.position.y = 0.5 * sy + 0.001;
+        topOverlay.position.z = 0;
+        cube.add(topOverlay);
+    }
+// 🔲 Add visible black edges around the cube
+const edgeGeo = new THREE.EdgesGeometry(cube.geometry);
+const edgeMat = new THREE.LineBasicMaterial({ 
+  color: 0x000000,
+  // transparent: true,
+  opacity: 1 // ✅ Appears thinner visually 
+});
+const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+
+// Match scale and position
+edges.scale.copy(cube.scale);
+edges.position.copy(cube.position);
+edges.rotation.copy(cube.rotation);
+edges.renderOrder = cube.renderOrder + 1;
+
+inner_group.add(edges); // ⬅️ Add the edge lines to the same group
+
+    inner_group.add(cube);
+    group.add(inner_group);
+
+    // Stacking logic
+    const boxHeight = 1 * sy;
+    const currentStackY = stacks[index];
+    const targetY = sortedFBXChildren[childIndex].position.y*scale_whole;
+    stacks[index] += boxHeight;
+
+    // Particle/chain trigger logic
+    drop_count++;
+    if (drop_count > 10 && (drop_count - 10) <= 50) {
+        const visibleCount = Math.floor((particles_whirl.length / 50) * (drop_count - 10));
+        for (let i = 0; i < visibleCount; i++) {
+          particles_whirl[i].visible = true;
+        }
+    }
+    if (drop_count > 10 && (drop_count - 10) <= 50) {
+    const indexToShow = Math.floor((drop_count - 10) / 2);
+        if (indexToShow !== currentVisibleChainIndex) {
+            currentVisibleChainIndex = indexToShow;
+            chain[currentVisibleChainIndex].visible = true;
+        }
+    }
+
+  // Animate cube dropping
+  let progress = 0;
+  const duration = 60;
+
+  function animateDrop() {
+    if (progress < 1) {
+      progress += 1 / duration;
+      const eased = 1 - (1 - progress) * (1 - progress);
+      cube.position.y = dropHeight * (1 - eased) + targetY * eased;
+      requestAnimationFrame(animateDrop);
+    } else {
+      cube.position.y = targetY;
+edges.scale.copy(cube.scale);
+edges.position.copy(cube.position);
+edges.rotation.copy(cube.rotation);
+
+      const worldPos = new THREE.Vector3();
+      cube.getWorldPosition(worldPos);
+
+      // 💧 Ripple if hitting water
+      if (targetY <= 1.05) {
+        spawnRippleSprite(worldPos.x, worldPos.z);
+      }
+
+      // 💬 Explosion label
+        const labelContainer = document.getElementById('labels');
+      if (targetY > 1.0) {
+        const screenPos = toScreenPosition(cube, camera);
+        const label = document.createElement('div');
+        label.innerText = 'Freebasis';
+        label.style.position = 'absolute';
+        label.style.left = `${screenPos.x}px`;
+        label.style.top = `${screenPos.y}px`;
+        label.style.pointerEvents = 'none';
+
+        labelContainer.appendChild(label);
+      }
+
+
+      // 🔴 Invisible obstacle
+      const obstacle = new THREE.Mesh(obstacleGeo, obstacleMat);
+      obstacle.position.copy(worldPos);
+      obstacle.rotation.z = Math.PI / 2;
+      obstacle.visible = false;
+      scene.add(obstacle);
+      obstacles.push(obstacle);
+
+      // 🌧️ Rain follows cube (index 5)
+      if (index === 5) {
+        rainSprite.position.set(worldPos.x, worldPos.y + 1.25, worldPos.z);
+        rainSprite.lookAt(camera.position);
+      }
+    }
+  }
+
+  animateDrop();
+}
+
+
+
+        // --- Whirlpool Setup ---
+        const vortexCenter = new THREE.Vector3(0, 1, 0);
+        var vortexRadius = 0;
+        var vortexStrength = 0.0;
+        var counter = 0
+
+        const ringGeo = new THREE.RingGeometry(vortexRadius - 0.05, vortexRadius + 0.05, 64);
+        const ringMat = new THREE.MeshBasicMaterial({
+                color: 0x0000ff,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.DoubleSide
+        });
+        const whirlpool = new THREE.Mesh(ringGeo, ringMat);
+        whirlpool.rotation.x = Math.PI / 2;
+        whirlpool.position.copy(vortexCenter);
+        // scene.add(whirlpool);
+
+        // --- Particle Setup ---
+        const particles = [];
+        const numParticles = 150;
+        const particleGeo = new THREE.PlaneGeometry(0.1*3, 0.05*3);
+        const arrowTexture = new THREE.TextureLoader().load('img/arrow.png');
+
+        const particleMat = new THREE.MeshBasicMaterial({
+          map: arrowTexture,
+          transparent: true,
+          depthWrite: true,
+          depthTest: true,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending
+        });
+
+
+// let drop_count = 0;
+
+// Create cloud
+const cloudTexture = new THREE.TextureLoader().load('cloud.png', () => {
+        console.log('✅ cloud.png loaded');
+});
+
+const cloudMat = new THREE.MeshBasicMaterial({
+        map: cloudTexture,
+        transparent: true,
+        opacity: 0, // start invisible
+        depthWrite: false,
+        side: THREE.DoubleSide
+});
+
+const cloud = new THREE.Mesh(new THREE.PlaneGeometry(8/3, 4/3), cloudMat);
+cloud.position.set(0, 5, 5); // In front of camera
+cloud.renderOrder = 999;
+scene.add(cloud);
+
+// Manually simulate drop count increase every second
+setInterval(() => {
+        drop_count++;
+        console.log('🧱 Drop count:', drop_count);
+
+        const targetOpacity = Math.min(0.5, (drop_count - 10) / 30);
+        cloud.material.opacity = Math.max(0, targetOpacity);
+        cloud.material.needsUpdate = true;
+
+}, 1000); // 1 cube per second
+
+const anchor = new THREE.Mesh(
+    new THREE.BoxGeometry(0.1, 0.1, 0.1),
+    new THREE.MeshBasicMaterial({ visible: false })
+);
+scene.add(anchor);
+
+
+
+        const particles_whirl = [];
+        const numParticles_whirl = 100;
+        const particleGeo_whirl = new THREE.PlaneGeometry(0.1*3, 0.05*3);
+
+        const particleMat_whirl = new THREE.MeshBasicMaterial({
+          map: arrowTexture,
+          transparent: true,
+          depthWrite: true,
+          depthTest: true,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending
+        });
+
+        const chain = [];
+        const numLinks = 20;
+        const linkLength = 0.1;
+        const gravity = new THREE.Vector3(0, -0.005, 0); // simple downward force
+        const chainGeo = new THREE.PlaneGeometry(0.1*2, 0.05*2);
+        const chainTexture = new THREE.TextureLoader().load('img/chain.png');
+
+        const chainMat = new THREE.MeshBasicMaterial({
+          map: chainTexture,
+          transparent: true,
+          depthWrite: true,
+          depthTest: true,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending
+        });
+
+        for (let i = 0; i < numLinks; i++) {
+            const link = new THREE.Mesh(chainGeo, chainMat.clone());
+            link.position.set(0, 1.5 - i * linkLength, 0); // hanging from y = 1.5
+            link.userData.velocity = new THREE.Vector3();
+            scene.add(link);
+            chain.push(link);
+    chain[i].visible = false
+        }
+
+        for (let i = 0; i < numParticles_whirl; i++) {
+            const particle_whirl = new THREE.Mesh(particleGeo_whirl, particleMat_whirl.clone());
+            particle_whirl.visible = false
+            const angle_init = Math.random() * Math.PI * 2;
+            const startX_whirl = vortexCenter.x + Math.cos(angle_init) * vortexRadius;
+            const startZ_whirl = vortexCenter.z + Math.sin(angle_init) * vortexRadius;
+            particle_whirl.position.set(startX_whirl, 0.1, startZ_whirl);
+            particle_whirl.userData.originalZ = startZ_whirl;
+
+
+            // Pre-angled direction based on offset from obstacle
+            let angle = 0;
+
+            const speed_whirl = 0;
+            particle_whirl.userData.velocity = new THREE.Vector3(
+                Math.cos(angle) * speed_whirl,
+                0,
+                Math.sin(angle) * speed_whirl
+            );
+            particle_whirl.rotation.y = angle;
+
+
+            particles_whirl.push(particle_whirl);
+            particle_whirl.renderOrder = 10; // ✅ Renders on top of water
+            scene.add(particle_whirl);
+
+        }
+        for (let i = 0; i < numParticles; i++) {
+            const particle = new THREE.Mesh(particleGeo, particleMat.clone());
+            const startX = Math.random() * 20 - 10;
+            const startZ = 1 + (Math.random() - 0.5) * 15;
+            particle.position.set(startX, 0.1, startZ);
+            particle.userData.originalZ = startZ;
+
+            // Find nearest obstacle
+            let nearest = null;
+            let nearestDist = Infinity;
+            for (let obstacle of obstacles) {
+                const dx = startX - obstacle.position.x;
+                const dz = startZ - obstacle.position.z;
+                const dist = Math.sqrt(dx * dx + dz * dz);
+                if (dist < nearestDist) {
+                    nearest = obstacle;
+                    nearestDist = dist;
+                }
+            }
+
+            // Pre-angled direction based on offset from obstacle
+            let angle = 0;
+            if (nearest) {
+                const dz = startZ - nearest.position.z;
+                angle = -0.3 * (dz / 2.5);
+            }
+
+            const speed = 0.02;
+            particle.userData.velocity = new THREE.Vector3(
+                Math.cos(angle) * speed,
+                0,
+                Math.sin(angle) * speed
+            );
+            particle.rotation.y = angle;
+            particles.push(particle);
+            particle.renderOrder = 10; // ✅ Renders on top of water
+
+            scene.add(particle);
+
+        }
+
+        // --- Particle Animation with Whirlpool Effect ---
+        function animateFlow() {
+                counter ++
+
+                vortexRadius = 3;
+                vortexStrength = 0.1;
+// vortexStrength = Math.abs(Math.sin(counter/100))*0.15
+// vortexStrength = 0
+                for (let p of particles) {
+                        const pos = p.position;
+                        const vel = p.userData.velocity.clone();
+                        const originalZ = p.userData.originalZ;
+
+                        for (let obstacle of obstacles) {
+                            const dx = pos.x - obstacle.position.x;
+                            const dz = pos.z - obstacle.position.z;
+                            const dist = Math.sqrt(dx * dx + dz * dz);
+
+                            const influenceRadius = 2;
+                            if (dist < influenceRadius) {
+                                const strength = 1 - dist / influenceRadius;
+                                const repulsion = 0.05 * strength;
+                                vel.z += repulsion * Math.sign(dz);
+                                vel.x *= 1 - 0.2 * strength;
+                            }
+
+                            if (pos.x > obstacle.position.x + obstacleRadius) {
+                                const diffZ = pos.z - originalZ;
+                                vel.z -= diffZ * 0.02;
+                            }
+                        }
+                        // Whirlpool influence
+                        const dx = pos.x - vortexCenter.x;
+                        const dz = pos.z - vortexCenter.z;
+                        const dist = Math.sqrt(dx * dx + dz * dz);
+                        pos.add(vel);
+
+
+                        const angle = Math.atan2(vel.x, vel.z)+Math.PI / 2;
+                        p.rotation.z = angle;
+
+                        if (pos.x > 10) {
+                            pos.x = -10;
+                            pos.z = 1 + (Math.random() - 0.5) * 15;
+                            p.userData.originalZ = pos.z;
+
+                            const resetAngle = 0;
+                            p.userData.velocity.set(
+                                Math.cos(resetAngle) * 0.02,
+                                Math.sin(resetAngle) * 0.02,
+                                0
+                            );
+                            p.rotation.y = resetAngle;
+                        }
+                }
+                for (let p_whirl of particles_whirl) {
+                        const pos_whirl = p_whirl.position;
+                        const vel_whirl = p_whirl.userData.velocity.clone();
+                        const originalZ_whirl = p_whirl.userData.originalZ_whirl;
+
+                        // Whirlpool influence
+                        const dx = pos_whirl.x - vortexCenter.x;
+                        const dz = pos_whirl.z - vortexCenter.z;
+                        const dist = Math.sqrt(dx * dx + dz * dz);
+                        if (dist < vortexRadius) {
+                            const strength = 1 - dist / vortexRadius;
+                            const tangentX = -dz;
+                            const tangentZ = dx;
+
+                            vel_whirl.x += tangentX * vortexStrength * strength;
+                            vel_whirl.z += tangentZ * vortexStrength * strength;
+
+                            vel_whirl.x -= dx * 0.01 * strength;
+                            vel_whirl.z -= dz * 0.01 * strength;
+                         }
+
+                        pos_whirl.add(vel_whirl);
+
+
+                        const angle_whirl = Math.atan2(vel_whirl.x, vel_whirl.z)+Math.PI / 2;
+                        p_whirl.rotation.z = angle_whirl;
+
+                        if (dist > vortexRadius || dist < vortexRadius/10) {
+                            const angle = Math.random() * Math.PI * 2;
+                            pos_whirl.x = vortexCenter.x + Math.cos(angle) * vortexRadius;
+                            pos_whirl.z = vortexCenter.z + Math.sin(angle) * vortexRadius;
+                            p_whirl.userData.originalZ = pos_whirl.z;
+
+                            const resetAngle_whirl = 0;
+                            p_whirl.userData.velocity.set(
+                                Math.cos(resetAngle_whirl) * 0.02,
+                                Math.sin(resetAngle_whirl) * 0.02,
+                                0
+                            );
+                            p_whirl.rotation.y = resetAngle_whirl;
+                        }
+                }
+
+
+                const gravity = new THREE.Vector3(0, -0.005, 0);
+                const windStrength = Math.max(0, Math.sin(counter / 80)) * 0.005;
+                const wind = new THREE.Vector3(windStrength, 0, 0);
+                for (let i = 1; i < chain.length; i++) {
+                        const link = chain[i];
+                        const prev = chain[i - 1];
+
+                        // Apply gravity and wind
+                        link.userData.velocity.add(gravity);
+                        link.userData.velocity.add(wind);
+
+                        // Apply velocity
+                        link.position.add(link.userData.velocity);
+
+                        // Constraint: keep fixed distance from previous
+                        const dir = new THREE.Vector3().subVectors(link.position, prev.position);
+                        const dist = dir.length();
+                        const diff = dist - linkLength;
+
+                        // Re-align only the current link
+                        if (dist > 0.0001) {
+                        dir.normalize().multiplyScalar(diff);
+                        link.position.add(dir.negate());
+                        }
+
+                        // ✅ Face toward the previous link
+                        link.rotation.z = Math.atan2(prev.position.y - link.position.y, prev.position.x - link.position.x);
+
+                        // Damping
+                        link.userData.velocity.multiplyScalar(0.1);
+                }
+
+
+
+                chain[0].position.set(0, 0, 0);
+                chain[0].visible = false
+                chain[0].userData.velocity.set(0, 0, 0);
+
+        }
+function updateLabels() {
+    const chainLabel = document.getElementById('chain-label');
+    if (currentVisibleChainIndex >= 0) {
+        const link = chain[Math.min(currentVisibleChainIndex, chain.length - 1)];
+        const screen = toScreenPosition(link, camera);
+        chainLabel.style.left = `${screen.x}px`;
+        chainLabel.style.top = `${screen.y}px`;
+        chainLabel.style.display = 'block';
+    } else {
+        chainLabel.style.display = 'none';
+    }
+
+    const particleLabels = [
+        document.getElementById('particle-label-1'),
+        document.getElementById('particle-label-2'),
+        document.getElementById('particle-label-3')
+    ];
+    const visibleParticles = particles.filter(p => p.visible).slice(0, 3);
+
+    for (let i = 0; i < particleLabels.length; i++) {
+        const label = particleLabels[i];
+        const particle = visibleParticles[i];
+        if (particle) {
+            const screen = toScreenPosition(particle, camera);
+            label.style.left = `${screen.x}px`;
+            label.style.top = `${screen.y}px`;
+            label.style.display = 'block';
+        } else {
+            label.style.display = 'none';
+        }
+    }
+
+    const whirlLabels = [
+        document.getElementById('particle_whirl-label-1'),
+        document.getElementById('particle_whirl-label-2'),
+        document.getElementById('particle_whirl-label-3')
+    ];
+    const visibleWhirls = particles_whirl.filter(p => p.visible).slice(0, 3);
+
+    for (let i = 0; i < whirlLabels.length; i++) {
+        const label = whirlLabels[i];
+        const particle = visibleWhirls[i];
+        if (particle) {
+            const screen = toScreenPosition(particle, camera);
+            label.style.left = `${screen.x}px`;
+            label.style.top = `${screen.y}px`;
+            label.style.display = 'block';
+        } else {
+            label.style.display = 'none';
+        }
+    }
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+
+    // ☀️ Animate the directional light
+    lightAngle += 0.01;
+    const radius = 10;
+    directionalLight.position.set(
+        Math.cos(lightAngle) * radius,
+        10,
+        Math.sin(lightAngle) * radius
+    );
+    directionalLight.target.position.set(0, 0, 0);
+    scene.add(directionalLight.target);
+
+    // Rain sprite animation
+    rainFrameTime++;
+    if (rainFrameTime % 2 === 0) {
+        rainFrame = (rainFrame + 1) % (totalRainFrames/3);
+        rainTexture.offset.x = rainFrame / totalRainFrames;
+    }
+
+    // Label follow logic (no changes needed)
+    updateLabels();
+
+    // Particle + chain motion
+    animateFlow();
+        // ☁️ Animate cloud opacity based on drop_count
+        const targetOpacity = Math.min(1, (drop_count - 10) / 30);
+        cloud.material.opacity += (targetOpacity - cloud.material.opacity) * 0.05;
+        cloud.material.needsUpdate = true;
+
+    // 🧠 Final render with outline
+    renderer.shadowMap.autoUpdate = true;
+renderer.render(scene, camera); // for shadows ✅
+
+renderer.autoClear = false;
+renderer.render(scene, camera);
+
+renderer.autoClear = true;
+
+
+    // effect.render(scene, camera);
+}
+
+                animate();
+
+                // --- Resize ---
+                function onWindowResize() {
+                        aspect = window.innerWidth / window.innerHeight;
+                        camera.left = (-frustumSize * aspect) / 2;
+                        camera.right = (frustumSize * aspect) / 2;
+                        camera.top = frustumSize / 2;
+                        camera.bottom = -frustumSize / 2;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(window.innerWidth, window.innerHeight);
+                }
+                window.addEventListener('resize', onWindowResize, false);
+                onWindowResize();
+    </script>
+
+</body>
+</html>

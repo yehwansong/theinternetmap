@@ -1,0 +1,61 @@
+  body { margin: 0; overflow: hidden; }
+                canvas { display: block; }
+
+                .cloud{
+        width: 20vh;
+        left: calc(50% - 10vh);
+        top: 0;
+        position: absolute;
+        z-index: 10;
+        opacity: 0.5;
+        filter: blur(2px) brightness(1.25);
+                }
+                div{
+                        position: absolute;
+                }
+                #buttons{
+                    z-index: 100
+                    /*opacity: 0*/
+                }
+.label {
+    background-color: black;
+    border: 1px solid white;
+    font-weight: normal ! Important;
+    padding: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 12px;
+    font-family: sans-serif !Important;
+    z-index: 10
+}
+.label img {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    margin-left: -25px;
+    margin-top: -25px;
+                }
+                #labels div{
+    background-color: black;
+    border: 1px solid white;
+    font-weight: normal ! Important;
+    padding: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 12px;
+                }
+                canvas{
+                    filter: saturate(0) contrast(1)
+                }
+                .netgrid{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-size: auto 225%;
+                    background-image: url(img/netgrid.png);
+                    z-index: 10;
+                    background-position: center;
+
+                }
