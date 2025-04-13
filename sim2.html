@@ -60,6 +60,11 @@ const db = firebase.database();
 
         <!-- <img src="cloud.png" class="cloud"> -->
 
+<!-- ✅ Three.js core (non-module build) -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+
+<!-- ✅ FBXLoader (make sure it loads after Three.js) -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/FBXLoader.js"></script>
 
  <script type="module">
 
@@ -79,8 +84,8 @@ const db = firebase.database();
 
 
 
-    import * as THREE from '/js/three.module.js';
-    import { FBXLoader } from '/js/FBXLoader.js';
+    import * as THREE from '/theinternetmap/js/three.module.js';
+    import { FBXLoader } from '/theinternetmap/js/FBXLoader.js';
     // import { OutlineEffect } from '/js/OutlineEffect.js';
 
         // --- Basic Setup ---
