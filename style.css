@@ -50,7 +50,8 @@
                     width: 100%;
                     height: 100%;
                     background-size:cover, auto 225% !important;
-                    background-image: radial-gradient(#00c1ff1a, #4c95ff38), url(img/netgrid.png);
+                    background-image: radial-gradient(#00c1ff1a, #4c95ff45), url(img/netgrid.png);
+                    background-image: radial-gradient(#ff83001a, #ff7e4c24), url(img/netgrid.png));
                     background-blend-mode: color-burn;
                     z-index: 10;
                     background-position: center,center;

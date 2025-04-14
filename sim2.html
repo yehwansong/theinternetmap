@@ -19,7 +19,8 @@
                     position: absolute;
                     left: 0;
                     top: 0;
-                    background-color: radial-gradient(transparent 50%, #03cdfff2);
+                    background: radial-gradient(transparent 50%, #03cdff);
+                    /*background:radial-gradient(transparent 50%, orange);*/
                     mix-blend-mode:hard-light;
                     /*opacity: 0*/
                 }
@@ -166,7 +167,7 @@ camera.updateProjectionMatrix();
             // new THREE.Vector3(0, 0, 0),
             // new THREE.Vector3(3, 1.5, 0)
         ];
-
+// 0043ff , 000000 , 0xff4100
 
         const waterGeometry = new THREE.PlaneGeometry(20, 20);
         const waterMat = new THREE.MeshStandardMaterial({
@@ -518,7 +519,9 @@ inner_group.add(edges); // ⬅️ Add the edge lines to the same group
     const indexToShow = Math.floor((drop_count - 10) / 2);
         if (indexToShow !== currentVisibleChainIndex) {
             currentVisibleChainIndex = indexToShow;
-            chain[currentVisibleChainIndex].visible = true;
+            if(chain[currentVisibleChainIndex]){
+                chain[currentVisibleChainIndex].visible = true;
+            }
         }
     }
 
@@ -565,7 +568,10 @@ edges.rotation.copy(cube.rotation);
       const obstacle = new THREE.Mesh(obstacleGeo, obstacleMat);
       obstacle.position.copy(worldPos);
       obstacle.rotation.z = Math.PI / 2;
-      obstacle.visible = false;
+if (obstacle) {
+  obstacle.visible = false;
+}
+
       scene.add(obstacle);
       obstacles.push(obstacle);
 

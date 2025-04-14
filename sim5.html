@@ -518,7 +518,9 @@ inner_group.add(edges); // ⬅️ Add the edge lines to the same group
     const indexToShow = Math.floor((drop_count - 10) / 2);
         if (indexToShow !== currentVisibleChainIndex) {
             currentVisibleChainIndex = indexToShow;
-            chain[currentVisibleChainIndex].visible = true;
+            if(chain[currentVisibleChainIndex]){
+                chain[currentVisibleChainIndex].visible = true;
+            }
         }
     }
 
