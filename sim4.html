@@ -4,34 +4,13 @@
 <meta charset="UTF-8" />
 <title>The internet map</title>
   <link rel="stylesheet" href="style.css" />
-  <style type="text/css">
-      
-                canvas{
-                    filter: saturate(4) contrast(1.75);
-                    /*transform: scale(1.15);*/
-                    transform-origin: center 30%
-
-                }
-                #buttons{
-                    z-index: 100;
-                    width: 100vw;
-                    height: 100vh;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    background: radial-gradient(transparent 50%, #03cdff);
-                    /*background:radial-gradient(transparent 50%, orange);*/
-                    mix-blend-mode:hard-light;
-                    /*opacity: 0*/
-                }
-  </style>
     <script type="importmap">
         {
             "imports": {
                 "three": "/js/three.module.js",
                 "OrbitControls": "/js/OrbitControls.js",
                 "FBXLoader": "/js/FBXLoader.js",
-"OutlineEffect": "/js/OutlineEffect.js"
+                "OutlineEffect": "/js/OutlineEffect.js"
             }
         }
     </script>
@@ -57,271 +36,29 @@ const db = firebase.database();
 </script>
 </head>
 <body>
-<video id="webcam" autoplay muted playsinline></video>
-<div id="container" style="position: relative; width: 100vw; height: 100vh; overflow: hidden;">
-  <canvas id="output" style="position: absolute; top: 0; left: 0;"></canvas>
-  <svg id="svg-lines" viewBox="0 0 1258.24 928.4"
-       xmlns="http://www.w3.org/2000/svg">
-    <defs><style>.cls-1{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;}</style></defs>
-    <!-- your lines -->
-    <line class="cls-1" x1="0.08" y1="375.48" x2="464.65" y2="401.56"/>
-    <line class="cls-1" x1="101" y1="133.03" x2="501.55" y2="340.43"/>
-    <line class="cls-1" x1="375.15" y1="0.88" x2="567.64" y2="300.92"/>
-    <line class="cls-1" x1="658.56" y1="0.88" x2="644.75" y2="283"/>
-    <line class="cls-1" x1="960.83" y1="0.88" x2="709.12" y2="321.36"/>
-    <line class="cls-1" x1="1187.98" y1="185.68" x2="757.48" y2="362.45"/>
-    <line class="cls-1" x1="1258.16" y1="445.08" x2="786.33" y2="419.37"/>
-    <line class="cls-1" x1="1148.61" y1="698.62" x2="768.19" y2="484.37"/>
-    <line class="cls-1" x1="905.99" y1="873.76" x2="711.78" y2="538.04"/>
-    <line class="cls-1" x1="588.65" y1="928.26" x2="624.62" y2="554.97"/>
-    <line class="cls-1" x1="281.14" y1="843.59" x2="538.31" y2="532.48"/>
-    <line class="cls-1" x1="65.78" y1="643.24" x2="483.87" y2="473.93"/>
-  </svg>
-  <button id="reset-btn" style="
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-  background: red;
-  color: white;
-  font-size: 16px;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-">
-  RESET!
-</button>
-
-
-  <!-- TensorFlow + Pose Detection -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
-
-  <script>
-    let detector, video, canvas, ctx, svg ;
-let previousFeetPositions = {};   // key: person index + foot name
-let lastCrossedLine = {};         // key: person index + foot name
-
-
-    async function setup() {
-      // Ensure backend is set first
-      await tf.setBackend('webgl');
-      await tf.ready();
-
-      video = document.getElementById('webcam');
-      canvas = document.getElementById('output');
-      svg = document.getElementById('svg-lines');
-      ctx = canvas.getContext('2d');
-
-      // Resize canvas to window
-      function resizeCanvas() {
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-
-  svg.setAttribute('width', video.videoWidth);
-  svg.setAttribute('height', canvas.height);
-
-      }
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
-
-      // Start webcam
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-      video.srcObject = stream;
-      await new Promise(resolve => video.onloadedmetadata = resolve);
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-
-  svg = document.getElementById('svg-lines');
-  svg.setAttribute('width', video.videoWidth);
-  svg.setAttribute('height', canvas.height);
-
-      // Create pose detector
-      detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
-        modelType: poseDetection.movenet.modelType.MULTIPOSE_LIGHTNING
-      });
-
-      detectLoop();
-    }
-
-    function scaleX(x) {
-      return (x / video.videoWidth) * canvas.width;
-    }
-
-    function scaleY(y) {
-      return (y / video.videoHeight) * canvas.height;
-    }
-    function pointToSegmentDistance(px, py, x1, y1, x2, y2) {
-  const A = px - x1;
-  const B = py - y1;
-  const C = x2 - x1;
-  const D = y2 - y1;
-
-  const dot = A * C + B * D;
-  const len_sq = C * C + D * D;
-  let param = -1;
-  if (len_sq !== 0) param = dot / len_sq;
-
-  let xx, yy;
-  if (param < 0) {
-    xx = x1;
-    yy = y1;
-  } else if (param > 1) {
-    xx = x2;
-    yy = y2;
-  } else {
-    xx = x1 + param * C;
-    yy = y1 + param * D;
-  }
-
-  const dx = px - xx;
-  const dy = py - yy;
-  return Math.sqrt(dx * dx + dy * dy);
-}
-function getSideOfLine(px, py, x1, y1, x2, y2) {
-  const value = (x2 - x1) * (py - y1) - (y2 - y1) * (px - x1);
-  if (value > 0) return 1;
-  if (value < 0) return -1;
-  return 0; // exactly on the line
-}
-
-
-async function detectLoop() {
-  const poses = await detector.estimatePoses(video);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const centerX = canvas.width / 2;const centerY = canvas.height / 2;
-
-  const lines = document.querySelectorAll('#svg-lines line');
-
-for (let personIndex = 0; personIndex < poses.length; personIndex++) {
-  const pose = poses[personIndex];
-  const keypoints = pose.keypoints;
-
-  const leftAnkle = keypoints.find(k => k.name === 'left_ankle');
-  const rightAnkle = keypoints.find(k => k.name === 'right_ankle');
-
-  const feet = [
-    { point: leftAnkle, name: 'left_ankle' },
-    { point: rightAnkle, name: 'right_ankle' }
-  ];
-
-  for (const { point, name } of feet) {
-    const key = `${personIndex}_${name}`;
-
-    if (!previousFeetPositions[key]) previousFeetPositions[key] = null;
-
-    if (point && point.score > 0.4) {
-      const current = {
-        x: (point.x / video.videoWidth) * 1258.24,
-        y: (point.y / video.videoHeight) * 928.4
-      };
-
-      const prev = previousFeetPositions[key];
-if (prev) {
-  const isBottom = current.y > centerY;
-  const allowedLines = isBottom
-    ? [1, 2, 3, 4, 5, 6]
-    : [7, 8, 9, 10, 11, 12];
-
-  for (let i = 0; i < lines.length; i++) {
-    const lineNum = i + 1;
-    if (!allowedLines.includes(lineNum)) continue;
-
-    const line = lines[i];
-    const x1 = parseFloat(line.getAttribute('x1'));
-    const y1 = parseFloat(line.getAttribute('y1'));
-    const x2 = parseFloat(line.getAttribute('x2'));
-    const y2 = parseFloat(line.getAttribute('y2'));
-
-    const sidePrev = getSideOfLine(prev.x, prev.y, x1, y1, x2, y2);
-    const sideCurr = getSideOfLine(current.x, current.y, x1, y1, x2, y2);
-
-    if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr) {
-      if (lastCrossedLine[key] !== lineNum) {
-        console.log(`👣 Person ${personIndex} ${name} crossed line ${lineNum}`);
-
-        // ✅ Send to Firebase
-        const ref = db.ref(`crossings/line${lineNum}`);
-        ref.transaction(current => (current || 0) + 1);
-
-        lastCrossedLine[key] = lineNum;
-
-        setTimeout(() => {
-          if (lastCrossedLine[key] === lineNum) {
-            lastCrossedLine[key] = null;
-          }
-        }, 500);
-      }
-    }
-  }
-}
-
-
-// if this ankle is lower than screen Ycenter it should only be : 1,2,3,4,5,6,12
-// if this ankle is higher than screen Ycenter it should only be :7,8,9,10,11,12,1
-// if this ankle is lower than screen Xcenter(left side) it should only be : 9,10,11,12,1,2,3
-// if this ankle is higher than screen Xcenter(right side) it should only be : 3,4,5,6,7,8,9
-
-      previousFeetPositions[key] = current;
-    }
-  }
-
-
-
-  }
-
-  requestAnimationFrame(detectLoop);
-}
-
-
-    setup();
-
-
-    document.getElementById('reset-btn').onclick = () => {
-  for (let i = 1; i <= 12; i++) {
-    const ref = db.ref(`crossings/line${i}`);
-    ref.set(0);
-  }
-  console.log("✅ All lines reset to 0");
-};
-
-  </script>
-
-
-
+    <div class="netgrid"></div>
   <div id="buttons"></div>
   <div id="labels"></div>
-            <img class="bgicons bgicons_1" src="img/bgicons-02.png">웹 서퍼</div>
-            <img class="bgicons bgicons_2" src="img/bgicons-03.png">웹 서퍼</div>
-            <img class="bgicons bgicons_3" src="img/bgicons-04.png">웹 서퍼</div>
         <div class="label" id="chain-label" style="position: absolute; pointer-events: none; color: blue; color: red;font-weight: bold;">data trading</div>
-        <div class="label" id="particle_whirl-label-1">
-            <img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle_whirl-label-2">
-            <img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle_whirl-label-3">
-            <img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-1">
-            <img src="img/surfer.png">웹 서퍼
-        <div class="label" id="particle-label-2">
-            <img src="img/surfer.png">웹 서퍼
-        <div class="label" id="particle-label-3">
-            <img src="img/surfer.png">웹 서퍼
+        <div class="label" id="particle_whirl-label-1" style="position: absolute; pointer-events: none; color: red; font-weight: bold;">
+            <img src="icons/drown_01.jpg">Web Surfer</div>
+        <div class="label" id="particle_whirl-label-2" style="position: absolute; pointer-events: none; color: red; font-weight: bold;">
+            <img src="icons/drown_01.jpg">Web Surfer</div>
+        <div class="label" id="particle_whirl-label-3" style="position: absolute; pointer-events: none; color: red; font-weight: bold;">
+            <img src="icons/drown_01.jpg">Web Surfer</div>
+        <div class="label" id="particle-label-1" style="position: absolute; pointer-events: none; color: white; font-family: sans-serif; font-weight: bold;">
+            <img src="icons/surfer_01.jpg">Web Surfer</div>
+        <div class="label" id="particle-label-2" style="position: absolute; pointer-events: none; color: white; font-family: sans-serif; font-weight: bold;">
+            <img src="icons/surfer_02.jpg">Web Surfer</div>
+        <div class="label" id="particle-label-3" style="position: absolute; pointer-events: none; color: white; font-family: sans-serif; font-weight: bold;">
+            <img src="icons/surfer_03.jpg">Web Surfer</div>
 
         <!-- <img src="cloud.png" class="cloud"> -->
 
-<!-- ✅ Three.js core (non-module build) -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script> -->
-
-<!-- ✅ FBXLoader (make sure it loads after Three.js) -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/FBXLoader.js"></script> -->
 
  <script type="module">
 
+var cube_counter = 0
         const total = 12;
     for (let i = 0; i < total; i++) {
   const lineKey = `crossings/line${i + 1}`;
@@ -329,31 +66,19 @@ if (prev) {
 
   ref.on('value', snapshot => {
     const count = snapshot.val() || 0;
+
     while (firebaseCounts[i] < count) {
-      dropCube(i);
+      dropCube(i); // ✅ drop cube when new count arrives
       firebaseCounts[i]++;
-    }
-
-    // If count is reset to 0, clear group
-    if (count === 0 && firebaseCounts[i] !== 0) {
-      firebaseCounts[i] = 0;
-
-      const group = innerGroups[i]; // assuming you have one group per line
-      while (group.children.length > 0) {
-        group.remove(group.children[0]);
-      }
     }
   });
 }
 
-
-
-    import * as THREE from '/theinternetmap/js/three.module.js';
-    import { FBXLoader } from '/theinternetmap/js/FBXLoader.js';
+    import * as THREE from '/js/three.module.js';
+    import { FBXLoader } from '/js/FBXLoader.js';
     // import { OutlineEffect } from '/js/OutlineEffect.js';
 
         // --- Basic Setup ---
-        var cube_counter = 0
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0xeeeeee);
 
@@ -378,7 +103,7 @@ document.body.appendChild(renderer.domElement);
                 0.05, 
                 100
         );
-        camera.position.set(0, 7, 7);
+        camera.position.set(0, 10, 0);
         camera.lookAt(0, 1.2, 0);
         camera.zoom = 1.4; // > 1 zooms in, < 1 zooms out
 camera.updateProjectionMatrix();
@@ -417,18 +142,18 @@ camera.updateProjectionMatrix();
             // new THREE.Vector3(0, 0, 0),
             // new THREE.Vector3(3, 1.5, 0)
         ];
-// 0043ff , 000000 , 0xff4100
+
 
         const waterGeometry = new THREE.PlaneGeometry(20, 20);
         const waterMat = new THREE.MeshStandardMaterial({
-                color: 0x0043ff,
+                color: 0x7ebbff,
                 transparent: true,
-                opacity: 0.4,
+                opacity: 0.35,
                 depthWrite: false,             // ✅ Already set
         });
         const water = new THREE.Mesh(waterGeometry, waterMat);
         water.rotation.x = -Math.PI / 2;
-        water.position.y = 1;
+        water.position.y = 0;
         water.receiveShadow = true;
         water.renderOrder = 1; // ✅ Renders before particles
         scene.add(water);
@@ -492,7 +217,7 @@ camera.updateProjectionMatrix();
                 btn.innerText = (i + 1).toString();
                 btn.style.margin = '2px';
                 // btn.onclick = () => dropCube(i);
-                // buttonContainer.appendChild(btn);
+                buttonContainer.appendChild(btn);
 
                 const angle = (Math.PI * 2 / total) * i+(Math.PI * 2 / total)/2;
                 const group = new THREE.Group();
@@ -505,7 +230,22 @@ camera.updateProjectionMatrix();
 
                 groups_rot_index[i] = 0
         }
-        const firebaseCounts = new Array(total).fill(0); // tracks how many cubes dropped per groups
+        const firebaseCounts = new Array(total).fill(0); // tracks how many cubes dropped per group
+
+    for (let i = 0; i < 12; i++) {
+        const lineKey = `crossings/line${i + 1}`;
+        const ref = db.ref(lineKey);
+
+        ref.on('value', snapshot => {
+            const count = snapshot.val() || 0;
+
+            while (firebaseCounts[i] < count) {
+                dropCube(i); // drop into group[i]
+                firebaseCounts[i]++;
+            }
+        });
+    }
+
         const splashBtn = document.createElement('button');
         splashBtn.innerText = 'Splash!';
         splashBtn.style.margin = '2px';
@@ -514,7 +254,7 @@ camera.updateProjectionMatrix();
                 playSplashAnimation(new THREE.Vector3(worldPos.x, 1.01, worldPos.z));
         };
 
-        // buttonContainer.appendChild(splashBtn);
+        buttonContainer.appendChild(splashBtn);
 
 
 
@@ -656,9 +396,12 @@ fbxLoader.load('img/st_new.fbx', (object) => {
     }
     cubeGeometryFromFBX = object;
     // Sort children by original Y position (lowest first)
-    sortedFBXChildren = [...object.children].sort((a, b) => a.position.y - b.position.y).reverse();
+    sortedFBXChildren = [...object.children].sort((a, b) => a.position.y - b.position.y);
+    console.log(sortedFBXChildren)
+    for (var i = sortedFBXChildren.length - 1; i >= 0; i--) {
+        console.log(sortedFBXChildren[i].position.y)
+    }
 });
-
 
 
 function padToTwoDigits(num) {
@@ -686,43 +429,26 @@ function dropCube(index) {
   gradientTexture.magFilter = THREE.NearestFilter;
   gradientTexture.generateMipmaps = false;
 
-// const loader = new THREE.TextureLoader();
-// const padded = padToTwoDigits(cube_counter%85+1); // "01"
-// const topTexture = loader.load(`img/text/text-${padded}.png`);
+const loader = new THREE.TextureLoader();
+const padded = padToTwoDigits(cube_counter%85+1); // "01"
+const topTexture = loader.load(`img/text/text-${padded}.png`);
 
-// // Create 6 materials, one for each face
-// const toonMaterial = new THREE.MeshPhongMaterial({color:0xffffff})
+// Create 6 materials, one for each face
+const cubeMaterials = [
+  new THREE.MeshBasicMaterial({ map: topTexture }), // right
+  new THREE.MeshBasicMaterial({ map: topTexture }), // left
+  new THREE.MeshBasicMaterial({ map: topTexture }), // top (this will be replaced below)
+  new THREE.MeshBasicMaterial({ map: topTexture }), // bottom
+  new THREE.MeshBasicMaterial({ map: topTexture }), // front (texture here)
+  new THREE.MeshBasicMaterial({ map: topTexture })  // back
+];
 
-
-//   // new THREE.MeshBasicMaterial({ map: topTexture }), // top (this will be replaced below)
-  const toonMaterial = new THREE.MeshPhongMaterial({color:0xffffff})
-
-const childIndex = sortedFBXChildren.length-(group.children.length % sortedFBXChildren.length)-1;
+const childIndex = group.children.length % sortedFBXChildren.length;
 const fbxChild = sortedFBXChildren[childIndex];
-const cube = fbxChild.clone();
-// const boundingBox = new THREE.Box3().setFromObject(cube);
-// const size = new THREE.Vector3();
-// boundingBox.getSize(size);
 
-// const texture = new THREE.TextureLoader().load('img/map.png');
-// const plane = new THREE.Mesh(
-//   new THREE.PlaneGeometry(size.x, size.z),
-//   new THREE.MeshBasicMaterial({ map: texture, transparent: true })
-// );
-
-// const center = new THREE.Vector3();
-// boundingBox.getCenter(center);
-
-// plane.position.set(center.x, boundingBox.max.y + 0.001, center.z);
-// plane.rotation.x = -Math.PI / 2;
-
-// scene.add(plane);
-
-
-
-
+  const cube = fbxChild.clone();
 const scale_whole = 0.0175
-  cube.material = toonMaterial;
+  cube.material = cubeMaterials
   cube.scale.set(sortedFBXChildren[childIndex].scale.x*scale_whole, sortedFBXChildren[childIndex].scale.y*scale_whole, sortedFBXChildren[childIndex].scale.z*scale_whole);
   cube.position.set(sortedFBXChildren[childIndex].position.x*scale_whole, dropHeight, radius + sortedFBXChildren[childIndex].position.z*scale_whole);
   cube.castShadow = true;
@@ -758,37 +484,13 @@ const scale_whole = 0.0175
         topOverlay.position.y = 0.5 * sy + 0.001;
         topOverlay.position.z = 0;
         cube.add(topOverlay);
-    }else{
     }
-
-
-
-const loader = new THREE.TextureLoader();
-const padded = padToTwoDigits(cube_counter%85+1); // "01"
-const topTexture = loader.load(`img/text/text-${padded}.png`);
-const overlayTexture = topTexture;
-
-
-const topOverlay = new THREE.Mesh(
-  new THREE.PlaneGeometry(10, 30),
-  new THREE.MeshBasicMaterial({
-    map: overlayTexture,
-    transparent: true,
-    depthWrite: false,
-    side: THREE.DoubleSide
-  })
-);
-topOverlay.rotation.x = -Math.PI / 2;
-topOverlay.position.y = 5.1;
-topOverlay.position.z = 0;
-cube.add(topOverlay);
-
 // 🔲 Add visible black edges around the cube
 const edgeGeo = new THREE.EdgesGeometry(cube.geometry);
 const edgeMat = new THREE.LineBasicMaterial({ 
-    color: 0x000000,
-    // transparent: true,
-    opacity: 1 // ✅ Appears thinner visually 
+  color: 0x000000,
+  // transparent: true,
+  opacity: 1 // ✅ Appears thinner visually 
 });
 const edges = new THREE.LineSegments(edgeGeo, edgeMat);
 
@@ -870,10 +572,7 @@ edges.rotation.copy(cube.rotation);
       const obstacle = new THREE.Mesh(obstacleGeo, obstacleMat);
       obstacle.position.copy(worldPos);
       obstacle.rotation.z = Math.PI / 2;
-if (obstacle) {
-  obstacle.visible = false;
-}
-
+      obstacle.visible = false;
       scene.add(obstacle);
       obstacles.push(obstacle);
 
@@ -942,11 +641,12 @@ const cloudMat = new THREE.MeshBasicMaterial({
 const cloud = new THREE.Mesh(new THREE.PlaneGeometry(8/3, 4/3), cloudMat);
 cloud.position.set(0, 5, 5); // In front of camera
 cloud.renderOrder = 999;
-// scene.add(cloud);
+scene.add(cloud);
 
 // Manually simulate drop count increase every second
 setInterval(() => {
         drop_count++;
+        console.log('🧱 Drop count:', drop_count);
 
         const targetOpacity = Math.min(0.5, (drop_count - 10) / 30);
         cloud.material.opacity = Math.max(0, targetOpacity);
@@ -1072,7 +772,7 @@ scene.add(anchor);
         function animateFlow() {
                 counter ++
 
-                vortexRadius = 3;
+                vortexRadius = 2.5 ;
                 vortexStrength = 0.1;
 // vortexStrength = Math.abs(Math.sin(counter/100))*0.15
 // vortexStrength = 0

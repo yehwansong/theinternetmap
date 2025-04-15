@@ -184,7 +184,8 @@ async function detectLoop() {
   const poses = await detector.estimatePoses(video);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const centerX = canvas.width / 2;
+  const centerX = canvas.width / 2;const centerY = canvas.height / 2;
+
   const lines = document.querySelectorAll('#svg-lines line');
 
 for (let personIndex = 0; personIndex < poses.length; personIndex++) {
@@ -211,40 +212,50 @@ for (let personIndex = 0; personIndex < poses.length; personIndex++) {
       };
 
       const prev = previousFeetPositions[key];
-      if (prev) {
-        for (let i = 0; i < lines.length; i++) {
-          const line = lines[i];
-          const x1 = parseFloat(line.getAttribute('x1'));
-          const y1 = parseFloat(line.getAttribute('y1'));
-          const x2 = parseFloat(line.getAttribute('x2'));
-          const y2 = parseFloat(line.getAttribute('y2'));
+if (prev) {
+  const isBottom = current.y > centerY;
+  const allowedLines = isBottom
+    ? [1, 2, 3, 4, 5, 6]
+    : [7, 8, 9, 10, 11, 12];
 
-          const sidePrev = getSideOfLine(prev.x, prev.y, x1, y1, x2, y2);
-          const sideCurr = getSideOfLine(current.x, current.y, x1, y1, x2, y2);
+  for (let i = 0; i < lines.length; i++) {
+    const lineNum = i + 1;
+    if (!allowedLines.includes(lineNum)) continue;
 
-          const lineNum = i + 1;
-          const footLineKey = `${key}_line_${i}`;
-          if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr) {
-            if (lastCrossedLine[key] !== lineNum) {
-              console.log(`👣 Person ${personIndex} ${name} crossed line ${lineNum}`);
-              lastCrossedLine[key] = lineNum;
+    const line = lines[i];
+    const x1 = parseFloat(line.getAttribute('x1'));
+    const y1 = parseFloat(line.getAttribute('y1'));
+    const x2 = parseFloat(line.getAttribute('x2'));
+    const y2 = parseFloat(line.getAttribute('y2'));
 
-              // ✅ Update Firebase count for this line
-              const lineKey = `crossings/line${lineNum}`;
-              const ref = db.ref(lineKey);
-              ref.transaction(current => (current || 0) + 1);
+    const sidePrev = getSideOfLine(prev.x, prev.y, x1, y1, x2, y2);
+    const sideCurr = getSideOfLine(current.x, current.y, x1, y1, x2, y2);
 
-              setTimeout(() => {
-                if (lastCrossedLine[key] === lineNum) {
-                  lastCrossedLine[key] = null;
-                }
-              }, 500);
-            }
+    if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr) {
+      if (lastCrossedLine[key] !== lineNum) {
+        console.log(`👣 Person ${personIndex} ${name} crossed line ${lineNum}`);
+
+        // ✅ Send to Firebase
+        const ref = db.ref(`crossings/line${lineNum}`);
+        ref.transaction(current => (current || 0) + 1);
+
+        lastCrossedLine[key] = lineNum;
+
+        setTimeout(() => {
+          if (lastCrossedLine[key] === lineNum) {
+            lastCrossedLine[key] = null;
           }
-
-
-        }
+        }, 500);
       }
+    }
+  }
+}
+
+
+// if this ankle is lower than screen Ycenter it should only be : 1,2,3,4,5,6,12
+// if this ankle is higher than screen Ycenter it should only be :7,8,9,10,11,12,1
+// if this ankle is lower than screen Xcenter(left side) it should only be : 9,10,11,12,1,2,3
+// if this ankle is higher than screen Xcenter(right side) it should only be : 3,4,5,6,7,8,9
 
       previousFeetPositions[key] = current;
     }

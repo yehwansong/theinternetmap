@@ -74,8 +74,8 @@ const db = firebase.database();
   });
 }
 
-    import * as THREE from '/theinternetmap/js/three.module.js';
-    import { FBXLoader } from '/theinternetmap/js/FBXLoader.js';
+    import * as THREE from '/js/three.module.js';
+    import { FBXLoader } from '/js/FBXLoader.js';
     // import { OutlineEffect } from '/js/OutlineEffect.js';
 
         // --- Basic Setup ---
@@ -404,6 +404,9 @@ fbxLoader.load('img/st_new.fbx', (object) => {
 });
 
 
+function padToTwoDigits(num) {
+  return num.toString().padStart(2, '0');
+}
 
 
 function dropCube(index) {
@@ -426,7 +429,8 @@ function dropCube(index) {
   gradientTexture.generateMipmaps = false;
 
 const loader = new THREE.TextureLoader();
-const topTexture = loader.load('img/text.png');
+const padded = padToTwoDigits(index); // "01"
+const topTexture = loader.load(`img/text/text-${padded}.png`);
 
 // Create 6 materials, one for each face
 const cubeMaterials = [
