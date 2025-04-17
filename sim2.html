@@ -7,7 +7,7 @@
   <style type="text/css">
       
                 canvas{
-                    filter: saturate(4) contrast(1.75);
+                    filter: saturate(2) contrast(1.75);
                     /*transform: scale(1.15);*/
                     transform-origin: center 30%
 
@@ -22,6 +22,7 @@
                     background: radial-gradient(transparent 50%, #03cdff);
                     /*background:radial-gradient(transparent 50%, orange);*/
                     mix-blend-mode:hard-light;
+                    transition: background-image 1s ease;
                     /*opacity: 0*/
                 }
   </style>
@@ -64,18 +65,12 @@ const db = firebase.database();
        xmlns="http://www.w3.org/2000/svg">
     <defs><style>.cls-1{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;}</style></defs>
     <!-- your lines -->
-    <line class="cls-1" x1="0.08" y1="375.48" x2="464.65" y2="401.56"/>
-    <line class="cls-1" x1="101" y1="133.03" x2="501.55" y2="340.43"/>
-    <line class="cls-1" x1="375.15" y1="0.88" x2="567.64" y2="300.92"/>
-    <line class="cls-1" x1="658.56" y1="0.88" x2="644.75" y2="283"/>
-    <line class="cls-1" x1="960.83" y1="0.88" x2="709.12" y2="321.36"/>
-    <line class="cls-1" x1="1187.98" y1="185.68" x2="757.48" y2="362.45"/>
-    <line class="cls-1" x1="1258.16" y1="445.08" x2="786.33" y2="419.37"/>
-    <line class="cls-1" x1="1148.61" y1="698.62" x2="768.19" y2="484.37"/>
-    <line class="cls-1" x1="905.99" y1="873.76" x2="711.78" y2="538.04"/>
-    <line class="cls-1" x1="588.65" y1="928.26" x2="624.62" y2="554.97"/>
-    <line class="cls-1" x1="281.14" y1="843.59" x2="538.31" y2="532.48"/>
-    <line class="cls-1" x1="65.78" y1="643.24" x2="483.87" y2="473.93"/>
+<line class="st0 cls-1" x1="1258.2" y1="358.5" x2="756.9" y2="372.3"/>//12
+<line class="st0 cls-1" x1="1258.2" y1="571.9" x2="738.9" y2="418.2"/>//11
+<line class="st0 cls-1" x1="1184.4" y1="928.4" x2="692.3" y2="454.5"/>//10
+<line class="st0 cls-1" x1="584.6" y1="928.4" x2="595.6" y2="464.2"/>//9
+<line class="st0 cls-1" x1="141.7" y1="839.5" x2="508.3" y2="454.5"/>//8
+<line class="st0 cls-1" x1="0" y1="571.9" x2="452.2" y2="426.9"/>//7
   </svg>
   <button id="reset-btn" style="
   position: absolute;
@@ -99,11 +94,20 @@ const db = firebase.database();
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+<script>
+  setInterval(() => {
+    const url = window.location.href.split('?')[0]; // remove previous query
+    const timestamp = new Date().getTime();
+    window.location.href = `${url}?t=${timestamp}`;
+  }, 30000);
+</script>
 
   <script>
     let detector, video, canvas, ctx, svg ;
 let previousFeetPositions = {};   // key: person index + foot name
 let lastCrossedLine = {};         // key: person index + foot name
+const lastCrossedLineTimestamps = {};
+
 
 
     async function setup() {
@@ -204,71 +208,70 @@ for (let personIndex = 0; personIndex < poses.length; personIndex++) {
   const leftAnkle = keypoints.find(k => k.name === 'left_ankle');
   const rightAnkle = keypoints.find(k => k.name === 'right_ankle');
 
-  const feet = [
-    { point: leftAnkle, name: 'left_ankle' },
-    { point: rightAnkle, name: 'right_ankle' }
-  ];
+ const point = rightAnkle;
+const name = 'right_ankle';
+const key = `${personIndex}_${name}`;
 
-  for (const { point, name } of feet) {
-    const key = `${personIndex}_${name}`;
+if (!previousFeetPositions[key]) previousFeetPositions[key] = null;
 
-    if (!previousFeetPositions[key]) previousFeetPositions[key] = null;
+if (point && point.score > 0.4) {
+  const current = {
+    x: (point.x / video.videoWidth) * 1258.24,
+    y: (point.y / video.videoHeight) * 928.4
+  };
 
-    if (point && point.score > 0.4) {
-      const current = {
-        x: (point.x / video.videoWidth) * 1258.24,
-        y: (point.y / video.videoHeight) * 928.4
-      };
+  const prev = previousFeetPositions[key];
+  if (prev) {
+  const svgToFirebaseLineMap = [12, 11, 10, 9, 8, 7];
 
-      const prev = previousFeetPositions[key];
-if (prev) {
-  const isBottom = current.y > centerY;
-  const allowedLines = isBottom
-    ? [1, 2, 3, 4, 5, 6]
-    : [7, 8, 9, 10, 11, 12];
+  // Step 1: Find closest line
+  let closestLine = null;
+  let closestDistance = Infinity;
+  let closestIndex = -1;
 
   for (let i = 0; i < lines.length; i++) {
-    const lineNum = i + 1;
-    if (!allowedLines.includes(lineNum)) continue;
-
     const line = lines[i];
     const x1 = parseFloat(line.getAttribute('x1'));
     const y1 = parseFloat(line.getAttribute('y1'));
     const x2 = parseFloat(line.getAttribute('x2'));
     const y2 = parseFloat(line.getAttribute('y2'));
 
-    const sidePrev = getSideOfLine(prev.x, prev.y, x1, y1, x2, y2);
-    const sideCurr = getSideOfLine(current.x, current.y, x1, y1, x2, y2);
+    const dist = pointToSegmentDistance(current.x, current.y, x1, y1, x2, y2);
+    if (dist < closestDistance) {
+      closestDistance = dist;
+      closestLine = { x1, y1, x2, y2 };
+      closestIndex = i;
+    }
+  }
+
+  // Step 2: Check crossing with only the closest line
+  if (closestLine) {
+    const firebaseLineNum = svgToFirebaseLineMap[closestIndex];
+    const sidePrev = getSideOfLine(prev.x, prev.y, closestLine.x1, closestLine.y1, closestLine.x2, closestLine.y2);
+    const sideCurr = getSideOfLine(current.x, current.y, closestLine.x1, closestLine.y1, closestLine.x2, closestLine.y2);
 
     if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr) {
-      if (lastCrossedLine[key] !== lineNum) {
-        console.log(`👣 Person ${personIndex} ${name} crossed line ${lineNum}`);
+     if (!lastCrossedLineTimestamps[key]) lastCrossedLineTimestamps[key] = {};
+        const lastTime = lastCrossedLineTimestamps[key][firebaseLineNum] || 0;
+        const now = Date.now();
 
-        // ✅ Send to Firebase
-        const ref = db.ref(`crossings/line${lineNum}`);
-        ref.transaction(current => (current || 0) + 1);
+        // Only count crossing if it's been at least 1500ms since last time *this person* crossed *this line*
+        if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime > 1500)) {
+          console.log(`👣 Person ${personIndex} ${name} crossed line ${firebaseLineNum}`);
 
-        lastCrossedLine[key] = lineNum;
+          const ref = db.ref(`crossings/line${firebaseLineNum}`);
+          ref.transaction(current => (current || 0) + 1);
 
-        setTimeout(() => {
-          if (lastCrossedLine[key] === lineNum) {
-            lastCrossedLine[key] = null;
-          }
-        }, 500);
-      }
+          lastCrossedLineTimestamps[key][firebaseLineNum] = now;
+        }
+
     }
   }
 }
 
+  previousFeetPositions[key] = current;
+}
 
-// if this ankle is lower than screen Ycenter it should only be : 1,2,3,4,5,6,12
-// if this ankle is higher than screen Ycenter it should only be :7,8,9,10,11,12,1
-// if this ankle is lower than screen Xcenter(left side) it should only be : 9,10,11,12,1,2,3
-// if this ankle is higher than screen Xcenter(right side) it should only be : 3,4,5,6,7,8,9
-
-      previousFeetPositions[key] = current;
-    }
-  }
 
 
 
@@ -299,18 +302,24 @@ if (prev) {
             <img class="bgicons bgicons_2" src="img/bgicons-03.png">웹 서퍼</div>
             <img class="bgicons bgicons_3" src="img/bgicons-04.png">웹 서퍼</div>
         <div class="label" id="chain-label" style="position: absolute; pointer-events: none; color: blue; color: red;font-weight: bold;">data trading</div>
-        <div class="label" id="particle_whirl-label-1">
-            <img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle_whirl-label-2">
-            <img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle_whirl-label-3">
-            <img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-1"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-2"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-3"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-4"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-5"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-6"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-7"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-8"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-9"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-10"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-11"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-12"><img src="img/surfer.png">웹 서퍼</div>
         <div class="label" id="particle-label-1">
-            <img src="img/surfer.png">웹 서퍼
+            <img src="img/surfer.png">웹 서퍼</div>
         <div class="label" id="particle-label-2">
-            <img src="img/surfer.png">웹 서퍼
+            <img src="img/surfer.png">웹 서퍼</div>
         <div class="label" id="particle-label-3">
-            <img src="img/surfer.png">웹 서퍼
+            <img src="img/surfer.png">웹 서퍼</div>
 
         <!-- <img src="cloud.png" class="cloud"> -->
 
@@ -321,7 +330,12 @@ if (prev) {
 <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/FBXLoader.js"></script> -->
 
  <script type="module">
-
+// cameramovement
+// 서퍼늘리기
+//라벨내임
+//리셋
+//주황조금만
+//trading chain
         const total = 12;
     for (let i = 0; i < total; i++) {
   const lineKey = `crossings/line${i + 1}`;
@@ -487,6 +501,9 @@ camera.updateProjectionMatrix();
 
 //buttons
         const buttonContainer = document.getElementById('buttons');
+        const masterGroup = new THREE.Group();
+        scene.add(masterGroup);
+
         for (let i = 0; i < total; i++) {
                 const btn = document.createElement('button');
                 btn.innerText = (i + 1).toString();
@@ -499,7 +516,8 @@ camera.updateProjectionMatrix();
                 group.rotation.y = angle;
                 group.castShadow = true; // ✅ allow shadow casting
                 group.receiveShadow = false; // just in case
-                scene.add(group);
+                masterGroup.add(group);
+
 
                 groups.push(group);
 
@@ -668,65 +686,64 @@ function padToTwoDigits(num) {
 
 function dropCube(index) {
     cube_counter++
-  if (!cubeGeometryFromFBX) {
-    console.warn('FBX not loaded yet');
-    return;
-  }
+    if (!cubeGeometryFromFBX) {
+        console.warn('FBX not loaded yet');
+        return;
+    }
 
-  const group = groups[index];
-  const inner_group = new THREE.Group();
+    const group = groups[index];
+    const inner_group = new THREE.Group();
 
-  const sx = 0.3, sy = 0.3, sz = 0.3, pz = 0;
+    const sx = 0.3, sy = 0.3, sz = 0.3, pz = 0;
 
-  groups_rot_index[index] = (groups_rot_index[index] + 1) % 2;
-  inner_group.rotation.y = 0;
+    groups_rot_index[index] = (groups_rot_index[index] + 1) % 2;
+    inner_group.rotation.y = 0;
 
-  const gradientTexture = new THREE.TextureLoader().load('img/gradient4.png');
-  gradientTexture.minFilter = THREE.NearestFilter;
-  gradientTexture.magFilter = THREE.NearestFilter;
-  gradientTexture.generateMipmaps = false;
+    const gradientTexture = new THREE.TextureLoader().load('img/gradient4.png');
+    gradientTexture.minFilter = THREE.NearestFilter;
+    gradientTexture.magFilter = THREE.NearestFilter;
+    gradientTexture.generateMipmaps = false;
 
-// const loader = new THREE.TextureLoader();
-// const padded = padToTwoDigits(cube_counter%85+1); // "01"
-// const topTexture = loader.load(`img/text/text-${padded}.png`);
+    // const loader = new THREE.TextureLoader();
+    // const padded = padToTwoDigits(cube_counter%85+1); // "01"
+    // const topTexture = loader.load(`img/text/text-${padded}.png`);
 
-// // Create 6 materials, one for each face
-// const toonMaterial = new THREE.MeshPhongMaterial({color:0xffffff})
+    // // Create 6 materials, one for each face
+    // const toonMaterial = new THREE.MeshPhongMaterial({color:0xffffff})
 
 
-//   // new THREE.MeshBasicMaterial({ map: topTexture }), // top (this will be replaced below)
-  const toonMaterial = new THREE.MeshPhongMaterial({color:0xffffff})
+    //   // new THREE.MeshBasicMaterial({ map: topTexture }), // top (this will be replaced below)
+    const toonMaterial = new THREE.MeshPhongMaterial({color:0xffffff})
+    const childIndex = sortedFBXChildren.length-(group.children.length % sortedFBXChildren.length)-1;
+    const fbxChild = sortedFBXChildren[childIndex];
+    const cube = fbxChild.clone();
+    // const boundingBox = new THREE.Box3().setFromObject(cube);
+    // const size = new THREE.Vector3();
+    // boundingBox.getSize(size);
 
-const childIndex = sortedFBXChildren.length-(group.children.length % sortedFBXChildren.length)-1;
-const fbxChild = sortedFBXChildren[childIndex];
-const cube = fbxChild.clone();
-// const boundingBox = new THREE.Box3().setFromObject(cube);
-// const size = new THREE.Vector3();
-// boundingBox.getSize(size);
+    // const texture = new THREE.TextureLoader().load('img/map.png');
+    // const plane = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(size.x, size.z),
+    //   new THREE.MeshBasicMaterial({ map: texture, transparent: true })
+    // );
 
-// const texture = new THREE.TextureLoader().load('img/map.png');
-// const plane = new THREE.Mesh(
-//   new THREE.PlaneGeometry(size.x, size.z),
-//   new THREE.MeshBasicMaterial({ map: texture, transparent: true })
-// );
+    // const center = new THREE.Vector3();
+    // boundingBox.getCenter(center);
 
-// const center = new THREE.Vector3();
-// boundingBox.getCenter(center);
+    // plane.position.set(center.x, boundingBox.max.y + 0.001, center.z);
+    // plane.rotation.x = -Math.PI / 2;
 
-// plane.position.set(center.x, boundingBox.max.y + 0.001, center.z);
-// plane.rotation.x = -Math.PI / 2;
-
-// scene.add(plane);
-
+    // scene.add(plane);
 
 
 
-const scale_whole = 0.0175
-  cube.material = toonMaterial;
-  cube.scale.set(sortedFBXChildren[childIndex].scale.x*scale_whole, sortedFBXChildren[childIndex].scale.y*scale_whole, sortedFBXChildren[childIndex].scale.z*scale_whole);
-  cube.position.set(sortedFBXChildren[childIndex].position.x*scale_whole, dropHeight, radius + sortedFBXChildren[childIndex].position.z*scale_whole);
-  cube.castShadow = true;
-  cube.renderOrder = 20;
+
+    const scale_whole = 0.0175
+    cube.material = toonMaterial;
+    cube.scale.set(sortedFBXChildren[childIndex].scale.x*scale_whole, sortedFBXChildren[childIndex].scale.y*scale_whole, sortedFBXChildren[childIndex].scale.z*scale_whole);
+    cube.position.set(sortedFBXChildren[childIndex].position.x*scale_whole, dropHeight, radius + sortedFBXChildren[childIndex].position.z*scale_whole);
+    cube.castShadow = true;
+    cube.renderOrder = 20;
 
   // Add overlay planes if index === 5
     if (index === 5) {
@@ -763,42 +780,42 @@ const scale_whole = 0.0175
 
 
 
-const loader = new THREE.TextureLoader();
-const padded = padToTwoDigits(cube_counter%85+1); // "01"
-const topTexture = loader.load(`img/text/text-${padded}.png`);
-const overlayTexture = topTexture;
+    const loader = new THREE.TextureLoader();
+    const padded = padToTwoDigits(cube_counter%85+1); // "01"
+    const topTexture = loader.load(`img/text/text-${padded}.png`);
+    const overlayTexture = topTexture;
 
 
-const topOverlay = new THREE.Mesh(
-  new THREE.PlaneGeometry(10, 30),
-  new THREE.MeshBasicMaterial({
-    map: overlayTexture,
-    transparent: true,
-    depthWrite: false,
-    side: THREE.DoubleSide
-  })
-);
-topOverlay.rotation.x = -Math.PI / 2;
-topOverlay.position.y = 5.1;
-topOverlay.position.z = 0;
-cube.add(topOverlay);
+    const topOverlay = new THREE.Mesh(
+      new THREE.PlaneGeometry(10, 30),
+      new THREE.MeshBasicMaterial({
+        map: overlayTexture,
+        transparent: true,
+        depthWrite: false,
+        side: THREE.DoubleSide
+      })
+    );
+    topOverlay.rotation.x = -Math.PI / 2;
+    topOverlay.position.y = 5.1;
+    topOverlay.position.z = 0;
+    cube.add(topOverlay);
 
-// 🔲 Add visible black edges around the cube
-const edgeGeo = new THREE.EdgesGeometry(cube.geometry);
-const edgeMat = new THREE.LineBasicMaterial({ 
-    color: 0x000000,
-    // transparent: true,
-    opacity: 1 // ✅ Appears thinner visually 
-});
-const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+    // 🔲 Add visible black edges around the cube
+    const edgeGeo = new THREE.EdgesGeometry(cube.geometry);
+    const edgeMat = new THREE.LineBasicMaterial({ 
+        color: 0x000000,
+        // transparent: true,
+        opacity: 1 // ✅ Appears thinner visually 
+    });
+    const edges = new THREE.LineSegments(edgeGeo, edgeMat);
 
-// Match scale and position
-edges.scale.copy(cube.scale);
-edges.position.copy(cube.position);
-edges.rotation.copy(cube.rotation);
-edges.renderOrder = cube.renderOrder + 1;
+    // Match scale and position
+    edges.scale.copy(cube.scale);
+    edges.position.copy(cube.position);
+    edges.rotation.copy(cube.rotation);
+    edges.renderOrder = cube.renderOrder + 1;
 
-inner_group.add(edges); // ⬅️ Add the edge lines to the same group
+    inner_group.add(edges); // ⬅️ Add the edge lines to the same group
 
     inner_group.add(cube);
     group.add(inner_group);
@@ -826,66 +843,65 @@ inner_group.add(edges); // ⬅️ Add the edge lines to the same group
             }
         }
     }
-
   // Animate cube dropping
-  let progress = 0;
-  const duration = 60;
+    let progress = 0;
+    const duration = 60;
 
-  function animateDrop() {
+    function animateDrop() {
     if (progress < 1) {
-      progress += 1 / duration;
-      const eased = 1 - (1 - progress) * (1 - progress);
-      cube.position.y = dropHeight * (1 - eased) + targetY * eased;
-      requestAnimationFrame(animateDrop);
+        progress += 1 / duration;
+        const eased = 1 - (1 - progress) * (1 - progress);
+        cube.position.y = dropHeight * (1 - eased) + targetY * eased;
+        requestAnimationFrame(animateDrop);
     } else {
-      cube.position.y = targetY;
-edges.scale.copy(cube.scale);
-edges.position.copy(cube.position);
-edges.rotation.copy(cube.rotation);
+        cube.position.y = targetY;
+        edges.scale.copy(cube.scale);
+        edges.position.copy(cube.position);
+        edges.rotation.copy(cube.rotation);
 
-      const worldPos = new THREE.Vector3();
-      cube.getWorldPosition(worldPos);
+        const worldPos = new THREE.Vector3();
+        cube.getWorldPosition(worldPos);
 
       // 💧 Ripple if hitting water
-      if (targetY <= 1.05) {
-        spawnRippleSprite(worldPos.x, worldPos.z);
-      }
+        if (targetY <= 1.05) {
+            spawnRippleSprite(worldPos.x, worldPos.z);
+        }
 
-      // 💬 Explosion label
-        const labelContainer = document.getElementById('labels');
-      if (targetY > 1.0) {
-        const screenPos = toScreenPosition(cube, camera);
-        const label = document.createElement('div');
-        label.innerText = 'Freebasis';
-        label.style.position = 'absolute';
-        label.style.left = `${screenPos.x}px`;
-        label.style.top = `${screenPos.y}px`;
-        label.style.pointerEvents = 'none';
+          // 💬 Explosion label
+            const labelContainer = document.getElementById('labels');
+        if (targetY > 1.0) {
+            const screenPos = toScreenPosition(cube, camera);
+            const label = document.createElement('div');
+            label.innerText = 'Freebasis';
+            label.style.position = 'absolute';
+            label.style.left = `${screenPos.x}px`;
+            label.style.top = `${screenPos.y}px`;
+            label.style.pointerEvents = 'none';
 
-        labelContainer.appendChild(label);
-      }
+            labelContainer.appendChild(label);
+        }
 
 
-      // 🔴 Invisible obstacle
-      const obstacle = new THREE.Mesh(obstacleGeo, obstacleMat);
-      obstacle.position.copy(worldPos);
-      obstacle.rotation.z = Math.PI / 2;
-if (obstacle) {
-  obstacle.visible = false;
-}
+          // 🔴 Invisible obstacle
+            const obstacle = new THREE.Mesh(obstacleGeo, obstacleMat);
+            obstacle.position.copy(worldPos);
+            obstacle.rotation.z = Math.PI / 2;
+            if(obstacle) {
+                obstacle.visible = false;
+            }
 
-      scene.add(obstacle);
-      obstacles.push(obstacle);
+          scene.add(obstacle);
+          obstacles.push(obstacle);
 
-      // 🌧️ Rain follows cube (index 5)
-      if (index === 5) {
-        rainSprite.position.set(worldPos.x, worldPos.y + 1.25, worldPos.z);
-        rainSprite.lookAt(camera.position);
-      }
+          // 🌧️ Rain follows cube (index 5)
+            if (index === 5) {
+                rainSprite.position.set(worldPos.x, worldPos.y + 1.25, worldPos.z);
+                rainSprite.lookAt(camera.position);
+            }
+        }
     }
-  }
 
-  animateDrop();
+    animateDrop();
 }
 
 
@@ -1072,7 +1088,7 @@ scene.add(anchor);
         function animateFlow() {
                 counter ++
 
-                vortexRadius = 3;
+                vortexRadius = 2;
                 vortexStrength = 0.1;
 // vortexStrength = Math.abs(Math.sin(counter/100))*0.15
 // vortexStrength = 0
@@ -1260,6 +1276,7 @@ function updateLabels() {
 }
 
 function animate() {
+    updateWaterColor()
     requestAnimationFrame(animate);
 
     // ☀️ Animate the directional light
@@ -1292,15 +1309,62 @@ function animate() {
 
     // 🧠 Final render with outline
     renderer.shadowMap.autoUpdate = true;
-renderer.render(scene, camera); // for shadows ✅
+    renderer.render(scene, camera); // for shadows ✅
 
-renderer.autoClear = false;
-renderer.render(scene, camera);
+    renderer.autoClear = false;
+    renderer.render(scene, camera);
 
-renderer.autoClear = true;
+    renderer.autoClear = true;
 
 
     // effect.render(scene, camera);
+}
+function lerpColor(a, b, t) {
+    const c1 = new THREE.Color(a);
+    const c2 = new THREE.Color(b);
+    return c1.lerp(c2, t);
+}
+
+function updateWaterColor() {
+    const now = new Date();
+    const seconds = now.getMinutes() * 60 + now.getSeconds();
+    const t = seconds % 600; // 10-minute loop
+
+    let color;
+
+    if (t < 300) {
+        // 0–5 min: solid blue
+        color = "#0043ff";
+    } else if (t < 360) {
+        // 5:00–6:00 — blue to orange
+        const p = (t - 300) / 60;
+        color = lerpColor("#0043ff", "#ff4100", p);
+    } else if (t < 390) {
+        // 6:00–6:30 — hold orange
+        color = "#ff4100";
+    } else if (t < 420) {
+        // 6:30–7:00 — orange to black
+        const p = (t - 390) / 30;
+        color = "#ff4100";
+    } else if (t < 450) {
+        // 7:00–7:30 — black to orange
+        const p = (t - 420) / 30;
+        color = lerpColor("#000000", "#ff4100", p);
+    } else if (t < 480) {
+        // 7:30–8:00 — hold orange
+        color = "#ff4100";
+    } else {
+        // 8:00–10:00 — orange to blue
+        const p = (t - 480) / 120;
+        color = lerpColor("#ff4100", "#0043ff", p);
+    }
+    const buttons = document.getElementById('buttons');
+    if (buttons) {
+        console.log('!')
+        buttons.style.background = `radial-gradient(transparent 50%, ${color})`;
+    }
+
+    waterMat.color.set(color);
 }
 
                 animate();

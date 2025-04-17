@@ -4,10 +4,10 @@
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 10
+    /*z-index: 10*/
 }
 svg{
-    z-index: 100;
+    /*z-index: 100;*/
     position: absolute;
 }
 #reset-btn{
@@ -52,7 +52,7 @@ svg{
                     left: auto;
                 }
 .bgicons_3 {
-    right: 55vh;
+    right: -5vh;
     left: auto;
     width: 30vh;
     top: 30vh;}
@@ -91,6 +91,12 @@ svg{
                     left: 0;
                     top: 0;
                 }
+                #netgrid {
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease;
+}
+
                 .netgrid{
                     position: absolute;
                     left: 0;
@@ -99,7 +105,8 @@ svg{
                     height: 100%;
                     background-size:cover, auto 225% !important;
                     background-image: radial-gradient(#00c1ff1a, #4c95ff45), url(img/netgrid.png);
-                    background-image: radial-gradient(#ff83001a, #ff7e4c24), url(img/netgrid.png));
+                    /*background-image: radial-gradient(#ff83001a, #ff7e4c24), url(img/netgrid.png));*/
+                    /*background-image: radial-gradient(#00000015, #000000140), url(img/netgrid.png));*/
                     background-blend-mode: color-burn;
                     z-index: 10;
                     background-position: center,center;

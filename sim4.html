@@ -36,26 +36,279 @@ const db = firebase.database();
 </script>
 </head>
 <body>
-    <div class="netgrid"></div>
+    <div id="netgrid" class="netgrid"></div>
   <div id="buttons"></div>
   <div id="labels"></div>
+            <img class="bgicons bgicons_1" src="img/bgicons-02.png">웹 서퍼</div>
+            <img class="bgicons bgicons_2" src="img/bgicons-03.png">웹 서퍼</div>
+            <img class="bgicons bgicons_3" src="img/bgicons-04.png">웹 서퍼</div>
         <div class="label" id="chain-label" style="position: absolute; pointer-events: none; color: blue; color: red;font-weight: bold;">data trading</div>
-        <div class="label" id="particle_whirl-label-1" style="position: absolute; pointer-events: none; color: red; font-weight: bold;">
-            <img src="icons/drown_01.jpg">Web Surfer</div>
-        <div class="label" id="particle_whirl-label-2" style="position: absolute; pointer-events: none; color: red; font-weight: bold;">
-            <img src="icons/drown_01.jpg">Web Surfer</div>
-        <div class="label" id="particle_whirl-label-3" style="position: absolute; pointer-events: none; color: red; font-weight: bold;">
-            <img src="icons/drown_01.jpg">Web Surfer</div>
-        <div class="label" id="particle-label-1" style="position: absolute; pointer-events: none; color: white; font-family: sans-serif; font-weight: bold;">
-            <img src="icons/surfer_01.jpg">Web Surfer</div>
-        <div class="label" id="particle-label-2" style="position: absolute; pointer-events: none; color: white; font-family: sans-serif; font-weight: bold;">
-            <img src="icons/surfer_02.jpg">Web Surfer</div>
-        <div class="label" id="particle-label-3" style="position: absolute; pointer-events: none; color: white; font-family: sans-serif; font-weight: bold;">
-            <img src="icons/surfer_03.jpg">Web Surfer</div>
-
+        <div class="label" id="particle_whirl-label-1" ><img src="img/surfer.png">웹 서퍼1</div>
+        <div class="label" id="particle_whirl-label-2" ><img src="img/surfer.png">웹 서퍼2</div>
+        <div class="label" id="particle_whirl-label-3" ><img src="img/surfer.png">웹 서퍼3</div>
+        <div class="label" id="particle_whirl-label-4" ><img src="img/surfer.png">웹 서퍼4</div>
+        <div class="label" id="particle_whirl-label-5" ><img src="img/surfer.png">웹 서퍼5</div>
+        <div class="label" id="particle_whirl-label-6" ><img src="img/surfer.png">웹 서퍼6</div>
+        <div class="label" id="particle_whirl-label-7" ><img src="img/surfer.png">웹 서퍼7</div>
+        <div class="label" id="particle_whirl-label-8" ><img src="img/surfer.png">웹 서퍼8</div>
+        <div class="label" id="particle_whirl-label-9" ><img src="img/surfer.png">웹 서퍼9</div>
+        <div class="label" id="particle_whirl-label-10"><img src="img/surfer.png">웹 서퍼10</div>
+        <div class="label" id="particle_whirl-label-11"><img src="img/surfer.png">웹 서퍼11</div>
+        <div class="label" id="particle_whirl-label-12"><img src="img/surfer.png">웹 서퍼12</div>
+        <div class="label" id="particle_whirl-label-13"><img src="img/surfer.png">웹 서퍼13</div>
+        <div class="label" id="particle_whirl-label-14"><img src="img/surfer.png">웹 서퍼14</div>
+        <div class="label" id="particle_whirl-label-15"><img src="img/surfer.png">웹 서퍼15</div>
+        <div class="label" id="particle-label-1"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-2"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-3"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-4"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-5"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-6"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-7"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-8"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-9"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-10"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-11"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-12"><img src="img/surfer.png">웹 서퍼</div>
         <!-- <img src="cloud.png" class="cloud"> -->
 
 
+<video id="webcam" autoplay muted playsinline></video>
+<div id="container" style="position: relative; width: 100vw; height: 100vh; overflow: hidden;">
+  <canvas id="output" style="position: absolute; top: 0; left: 0;"></canvas>
+  <svg id="svg-lines" viewBox="0 0 1258.24 928.4"
+       xmlns="http://www.w3.org/2000/svg">
+    <defs><style>.cls-1{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;}</style></defs>
+    <!-- your lines -->
+<line class="st0 cls-1" x1="848.5" y1="362.9" x2="1262.1" y2="368.6"/>//6
+<line class="st0 cls-1" x1="1213.6" y1="531.6" x2="829.2" y2="417.9"/>//5
+<line class="st0 cls-1" x1="1088.4" y1="694.9" x2="790.9" y2="435.2"/>//4
+<line class="st0 cls-1" x1="683.3" y1="935.3" x2="692.3" y2="454.5"/>//3
+<line class="st0 cls-1" x1="141.7" y1="867.3" x2="595.6" y2="439"/> //2
+<line class="st0 cls-1" x1="0" y1="554.8" x2="551.4" y2="394.7"/> // 1
+
+  </svg>
+  <button id="reset-btn" style="
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  background: red;
+  color: white;
+  font-size: 16px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+">
+  RESET!
+</button>
+
+<script>
+  setInterval(() => {
+    const url = window.location.href.split('?')[0]; // remove previous query
+    const timestamp = new Date().getTime();
+    window.location.href = `${url}?t=${timestamp}`;
+  }, 30000);
+</script>
+
+  <!-- TensorFlow + Pose Detection -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+
+  <script>
+    let detector, video, canvas, ctx, svg ;
+let previousFeetPositions = {};   // key: person index + foot name
+let lastCrossedLine = {};         // key: person index + foot name
+const lastCrossedLineTimestamps = {};
+
+
+
+    async function setup() {
+      // Ensure backend is set first
+      await tf.setBackend('webgl');
+      await tf.ready();
+
+      video = document.getElementById('webcam');
+      canvas = document.getElementById('output');
+      svg = document.getElementById('svg-lines');
+      ctx = canvas.getContext('2d');
+
+      // Resize canvas to window
+      function resizeCanvas() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  svg.setAttribute('width', video.videoWidth);
+  svg.setAttribute('height', canvas.height);
+
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      // Start webcam
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+      video.srcObject = stream;
+      await new Promise(resolve => video.onloadedmetadata = resolve);
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  svg = document.getElementById('svg-lines');
+  svg.setAttribute('width', video.videoWidth);
+  svg.setAttribute('height', canvas.height);
+
+      // Create pose detector
+      detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
+        modelType: poseDetection.movenet.modelType.MULTIPOSE_LIGHTNING
+      });
+
+      detectLoop();
+    }
+
+    function scaleX(x) {
+      return (x / video.videoWidth) * canvas.width;
+    }
+
+    function scaleY(y) {
+      return (y / video.videoHeight) * canvas.height;
+    }
+    function pointToSegmentDistance(px, py, x1, y1, x2, y2) {
+  const A = px - x1;
+  const B = py - y1;
+  const C = x2 - x1;
+  const D = y2 - y1;
+
+  const dot = A * C + B * D;
+  const len_sq = C * C + D * D;
+  let param = -1;
+  if (len_sq !== 0) param = dot / len_sq;
+
+  let xx, yy;
+  if (param < 0) {
+    xx = x1;
+    yy = y1;
+  } else if (param > 1) {
+    xx = x2;
+    yy = y2;
+  } else {
+    xx = x1 + param * C;
+    yy = y1 + param * D;
+  }
+
+  const dx = px - xx;
+  const dy = py - yy;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+function getSideOfLine(px, py, x1, y1, x2, y2) {
+  const value = (x2 - x1) * (py - y1) - (y2 - y1) * (px - x1);
+  if (value > 0) return 1;
+  if (value < 0) return -1;
+  return 0; // exactly on the line
+}
+
+
+async function detectLoop() {
+  const poses = await detector.estimatePoses(video);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const centerX = canvas.width / 2;const centerY = canvas.height / 2;
+
+  const lines = document.querySelectorAll('#svg-lines line');
+
+for (let personIndex = 0; personIndex < poses.length; personIndex++) {
+      const pose = poses[personIndex];
+      const keypoints = pose.keypoints;
+
+      const leftAnkle = keypoints.find(k => k.name === 'left_ankle');
+      const rightAnkle = keypoints.find(k => k.name === 'right_ankle');
+
+      const point = rightAnkle;
+    const name = 'right_ankle';
+    const key = `${personIndex}_${name}`;
+
+    if (!previousFeetPositions[key]) previousFeetPositions[key] = null;
+
+    if (point && point.score > 0.4) {
+      const current = {
+        x: (point.x / video.videoWidth) * 1258.24,
+        y: (point.y / video.videoHeight) * 928.4
+      };
+
+      const prev = previousFeetPositions[key];
+      if (prev) {
+  const svgToFirebaseLineMap = [6, 5, 4, 3, 2, 1];
+
+  // Step 1: Find the closest line
+  let closestLine = null;
+  let closestDistance = Infinity;
+  let closestIndex = -1;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const x1 = parseFloat(line.getAttribute('x1'));
+    const y1 = parseFloat(line.getAttribute('y1'));
+    const x2 = parseFloat(line.getAttribute('x2'));
+    const y2 = parseFloat(line.getAttribute('y2'));
+
+    const distance = pointToSegmentDistance(current.x, current.y, x1, y1, x2, y2);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestLine = { x1, y1, x2, y2 };
+      closestIndex = i;
+    }
+  }
+
+  // Step 2: Only detect crossing for that line
+  if (closestLine) {
+    const firebaseLineNum = svgToFirebaseLineMap[closestIndex];
+    const sidePrev = getSideOfLine(prev.x, prev.y, closestLine.x1, closestLine.y1, closestLine.x2, closestLine.y2);
+    const sideCurr = getSideOfLine(current.x, current.y, closestLine.x1, closestLine.y1, closestLine.x2, closestLine.y2);
+
+    if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr) {
+if (!lastCrossedLineTimestamps[key]) lastCrossedLineTimestamps[key] = {};
+const lastTime = lastCrossedLineTimestamps[key][firebaseLineNum] || 0;
+const now = Date.now();
+
+// Only count crossing if it's been at least 1500ms since last time *this person* crossed *this line*
+if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime > 1500)) {
+  console.log(`👣 Person ${personIndex} ${name} crossed line ${firebaseLineNum}`);
+
+  const ref = db.ref(`crossings/line${firebaseLineNum}`);
+  ref.transaction(current => (current || 0) + 1);
+
+  lastCrossedLineTimestamps[key][firebaseLineNum] = now;
+}
+
+    }
+  }
+}
+
+
+      previousFeetPositions[key] = current;
+    }
+
+
+}
+
+  requestAnimationFrame(detectLoop);
+}
+
+
+    setup();
+
+
+    document.getElementById('reset-btn').onclick = () => {
+  for (let i = 1; i <= 12; i++) {
+    const ref = db.ref(`crossings/line${i}`);
+    ref.set(0);
+  }
+  console.log("✅ All lines reset to 0");
+};
+
+  </script>
  <script type="module">
 
 var cube_counter = 0
@@ -74,8 +327,8 @@ var cube_counter = 0
   });
 }
 
-    import * as THREE from '/js/three.module.js';
-    import { FBXLoader } from '/js/FBXLoader.js';
+    import * as THREE from '/theinternetmap/js/three.module.js';
+    import { FBXLoader } from '/theinternetmap/js/FBXLoader.js';
     // import { OutlineEffect } from '/js/OutlineEffect.js';
 
         // --- Basic Setup ---
@@ -541,9 +794,9 @@ inner_group.add(edges); // ⬅️ Add the edge lines to the same group
       requestAnimationFrame(animateDrop);
     } else {
       cube.position.y = targetY;
-edges.scale.copy(cube.scale);
-edges.position.copy(cube.position);
-edges.rotation.copy(cube.rotation);
+        edges.scale.copy(cube.scale);
+        edges.position.copy(cube.position);
+        edges.rotation.copy(cube.rotation);
 
       const worldPos = new THREE.Vector3();
       cube.getWorldPosition(worldPos);
@@ -555,17 +808,17 @@ edges.rotation.copy(cube.rotation);
 
       // 💬 Explosion label
         const labelContainer = document.getElementById('labels');
-      if (targetY > 1.0) {
-        const screenPos = toScreenPosition(cube, camera);
-        const label = document.createElement('div');
-        label.innerText = 'Freebasis';
-        label.style.position = 'absolute';
-        label.style.left = `${screenPos.x}px`;
-        label.style.top = `${screenPos.y}px`;
-        label.style.pointerEvents = 'none';
+        if (targetY > 1.0) {
+            const screenPos = toScreenPosition(cube, camera);
+            const label = document.createElement('div');
+            label.innerText = 'Freebasis';
+            label.style.position = 'absolute';
+            label.style.left = `${screenPos.x}px`;
+            label.style.top = `${screenPos.y}px`;
+            label.style.pointerEvents = 'none';
 
-        labelContainer.appendChild(label);
-      }
+            labelContainer.appendChild(label);
+        }
 
 
       // 🔴 Invisible obstacle
@@ -772,7 +1025,7 @@ scene.add(anchor);
         function animateFlow() {
                 counter ++
 
-                vortexRadius = 2.5 ;
+                vortexRadius = 2 ;
                 vortexStrength = 0.1;
 // vortexStrength = Math.abs(Math.sin(counter/100))*0.15
 // vortexStrength = 0
@@ -941,9 +1194,18 @@ function updateLabels() {
     const whirlLabels = [
         document.getElementById('particle_whirl-label-1'),
         document.getElementById('particle_whirl-label-2'),
-        document.getElementById('particle_whirl-label-3')
+        document.getElementById('particle_whirl-label-3'),
+        document.getElementById('particle_whirl-label-4'),
+        document.getElementById('particle_whirl-label-5'),
+        document.getElementById('particle_whirl-label-6'),
+        document.getElementById('particle_whirl-label-7'),
+        document.getElementById('particle_whirl-label-8'),
+        document.getElementById('particle_whirl-label-9'),
+        document.getElementById('particle_whirl-label-10'),
+        document.getElementById('particle_whirl-label-11'),
+        document.getElementById('particle_whirl-label-12'),
     ];
-    const visibleWhirls = particles_whirl.filter(p => p.visible).slice(0, 3);
+    const visibleWhirls = particles_whirl.filter(p => p.visible).slice(0, whirlLabels.length);
 
     for (let i = 0; i < whirlLabels.length; i++) {
         const label = whirlLabels[i];
@@ -960,6 +1222,7 @@ function updateLabels() {
 }
 
 function animate() {
+     updateWaterColor()
     requestAnimationFrame(animate);
 
     // ☀️ Animate the directional light
@@ -1001,6 +1264,77 @@ renderer.autoClear = true;
 
 
     // effect.render(scene, camera);
+}
+function lerpColorRGBA(a, b, t) {
+    const c1 = parseColor(a);
+    const c2 = parseColor(b);
+    const r = Math.round(c1.r + (c2.r - c1.r) * t);
+    const g = Math.round(c1.g + (c2.g - c1.g) * t);
+    const b_ = Math.round(c1.b + (c2.b - c1.b) * t);
+    const a_ = +(c1.a + (c2.a - c1.a) * t).toFixed(3);
+    return `rgba(${r}, ${g}, ${b_}, ${a_})`;
+}
+
+function parseColor(hex) {
+    const clean = hex.replace('#', '');
+    const r = parseInt(clean.slice(0, 2), 16);
+    const g = parseInt(clean.slice(2, 4), 16);
+    const b = parseInt(clean.slice(4, 6), 16);
+    const a = clean.length >= 8 ? parseInt(clean.slice(6, 8), 16) / 255 : 1;
+    return { r, g, b, a };
+}
+
+function updateWaterColor() {
+    const now = new Date();
+    const seconds = now.getMinutes() * 60 + now.getSeconds();
+    const t = seconds % 600; // 10-minute loop
+    const buttons = document.getElementById('netgrid');
+
+        if (buttons) {
+            let startColor, endColor;
+
+            if (t < 300) {
+                // Blue phase
+                startColor = '#00c1ff1a';
+                endColor = '#4c95ff45';
+            } else if (t < 360) {
+                // Blue → Orange
+                const p = (t - 300) / 60;
+                startColor = lerpColorRGBA('#00c1ff1a', '#ff83001a', p);
+                endColor = lerpColorRGBA('#4c95ff45', '#ff7e4c24', p);
+            } else if (t < 390) {
+                // Stable Orange
+                startColor = '#ff83001a';
+                endColor = '#ff7e4c24';
+            } else if (t < 420) {
+                // Orange → Black
+                const p = (t - 390) / 30;
+                startColor = lerpColorRGBA('#ff83001a', '#00000015', p);
+                endColor = lerpColorRGBA('#ff7e4c24', '#00000040', p);
+            } else if (t < 450) {
+                // Black → Orange
+                const p = (t - 420) / 30;
+                startColor = lerpColorRGBA('#00000015', '#ff83001a', p);
+                endColor = lerpColorRGBA('#00000040', '#ff7e4c24', p);
+            } else if (t < 480) {
+                // Stable Orange
+                startColor = '#ff83001a';
+                endColor = '#ff7e4c24';
+            } else {
+                // Orange → Blue
+                const p = (t - 480) / 120;
+                startColor = lerpColorRGBA('#ff83001a', '#00c1ff1a', p);
+                endColor = lerpColorRGBA('#ff7e4c24', '#4c95ff45', p);
+            }
+            console.log(`
+              radial-gradient(${startColor}, ${endColor}),
+              url(img/netgrid.png)
+            `)
+
+            buttons.style.backgroundImage = `radial-gradient(${startColor}, ${endColor}), url(img/netgrid.png)`;
+
+}
+
 }
 
                 animate();
