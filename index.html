@@ -1332,30 +1332,30 @@ function updateWaterColor() {
 
     let color;
 
-    if (t < 300) {
-        // 0–5 min: solid blue
+    if (t < 450) {
+        // 0–7.5 min: solid blue
         color = "#0043ff";
-    } else if (t < 360) {
-        // 5:00–6:00 — blue to orange
-        const p = (t - 300) / 60;
+    } else if (t < 540) {
+        // 7:30–9:00 — blue to orange
+        const p = (t - 450) / 90;
         color = lerpColor("#0043ff", "#ff4100", p);
-    } else if (t < 390) {
-        // 6:00–6:30 — hold orange
+    } else if (t < 600) {
+        // 9:00–10:00 — hold orange
         color = "#ff4100";
-    } else if (t < 420) {
-        // 6:30–7:00 — orange to black
-        const p = (t - 390) / 30;
-        color = "#ff4100";
-    } else if (t < 450) {
-        // 7:00–7:30 — black to orange
-        const p = (t - 420) / 30;
+    } else if (t < 660) {
+        // 10:00–11:00 — orange to black
+        const p = (t - 600) / 60;
+        color = lerpColor("#ff4100", "#000000", p);
+    } else if (t < 720) {
+        // 11:00–12:00 — black to orange
+        const p = (t - 660) / 60;
         color = lerpColor("#000000", "#ff4100", p);
-    } else if (t < 480) {
-        // 7:30–8:00 — hold orange
+    } else if (t < 780) {
+        // 12:00–13:00 — hold orange
         color = "#ff4100";
     } else {
-        // 8:00–10:00 — orange to blue
-        const p = (t - 480) / 120;
+        // 13:00–15:00 — orange to blue
+        const p = (t - 780) / 120;
         color = lerpColor("#ff4100", "#0043ff", p);
     }
     const buttons = document.getElementById('buttons');
