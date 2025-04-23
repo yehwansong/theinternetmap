@@ -109,7 +109,7 @@ const db = firebase.database();
     const url = window.location.href.split('?')[0]; // remove previous query
     const timestamp = new Date().getTime();
     window.location.href = `${url}?t=${timestamp}`;
-  }, 100000);
+  }, 1000000);
 </script>
 
   <!-- TensorFlow + Pose Detection -->
