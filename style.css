@@ -46,17 +46,8 @@ svg{
                 }
                 .bgicons_1{left: 10vh;top: 5vh}
                 .bgicons_2{
-                    right: 10vh;
-                    top: 5vh;
-                    width: 140px;
-                    left: auto;
                 }
-.bgicons_3 {
-    right: -5vh;
-    left: auto;
-    width: 30vh;
-    top: 30vh;}
-.label {
+.label,.bgicons_label span {
     position: absolute;
     color: white;
     background-color: black;
@@ -68,6 +59,31 @@ svg{
     font-size: 15px;
     font-family: sans-serif !Important;
     z-index: 10
+}
+.bgicons_label_1 span {
+    left: 90px;
+    top: 140px;
+}
+.bgicons_label_2{
+                    right: 10vh;
+                    top: 5vh;
+                    width: 140px;
+                    left: auto;
+}
+.bgicons_label_2 span{
+    left: 12vh;
+}
+.bgicons_label_3{
+    right: -5vh;
+    left: auto;
+    width: 30vh;
+    top: 30vh;
+}
+.bgicons_label span{
+    opacity: 0.2
+}
+.bgicons_label_3 img{
+    width: 100%
 }
 .label img {
     width: 45px;

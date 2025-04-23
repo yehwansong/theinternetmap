@@ -39,9 +39,9 @@ const db = firebase.database();
     <div id="netgrid" class="netgrid"></div>
   <div id="buttons"></div>
   <div id="labels"></div>
-            <img class="bgicons bgicons_1" src="img/bgicons-02.png">웹 서퍼</div>
-            <img class="bgicons bgicons_2" src="img/bgicons-03.png">웹 서퍼</div>
-            <img class="bgicons bgicons_3" src="img/bgicons-04.png">웹 서퍼</div>
+             <div class="bgicons_label bgicons_label_1"><img class="bgicons bgicons_1" src="img/bgicons-02.png"><span>정보의바다</span></div>
+             <div class="bgicons_label bgicons_label_2"><img class="bgicons bgicons_2" src="img/bgicons-03.png"><span>해저케이블</span></div>
+             <div class="bgicons_label bgicons_label_3"><img class="bgicons bgicons_3" src="img/bgicons-04.png"></div>
         <div class="label" id="chain-label" style="position: absolute; pointer-events: none; color: blue; color: red;font-weight: bold;">data trading</div>
         <div class="label" id="particle_whirl-label-1" ><img src="img/surfer.png">웹 서퍼1</div>
         <div class="label" id="particle_whirl-label-2" ><img src="img/surfer.png">웹 서퍼2</div>
@@ -88,7 +88,7 @@ const db = firebase.database();
 <line class="st0 cls-1" x1="0" y1="554.8" x2="551.4" y2="394.7"/> // 1
 
   </svg>
-  <button id="reset-btn" style="
+  <!-- <button id="reset-btn" style="
   position: absolute;
   top: 10px;
   left: 10px;
@@ -102,7 +102,7 @@ const db = firebase.database();
   cursor: pointer;
 ">
   RESET!
-</button>
+</button> -->
 
 <script>
   setInterval(() => {
@@ -429,7 +429,7 @@ camera.updateProjectionMatrix();
             })
         );
         rainSprite.renderOrder = 1000;
-        scene.add(rainSprite);
+        // scene.add(rainSprite);
 
         const groundGeo = new THREE.PlaneGeometry(20, 20);
         const groundMat = new THREE.ShadowMaterial({ opacity: 0.7 }); // 🌫️ softer shadow
@@ -781,6 +781,28 @@ inner_group.add(edges); // ⬅️ Add the edge lines to the same group
             }
         }
     }
+// 🔁 Auto-reset + reload if two or more groups exceed 100
+let over100Count = 0;
+for (let i = 0; i < groups.length; i++) {
+    if (groups[i].children.length > 100) {
+        over100Count++;
+    }
+}
+
+if (over100Count >= 2) {
+    console.log('⚠️ Two or more groups exceeded 100 cubes — resetting Firebase and reloading...');
+
+    // Reset Firebase first
+    for (let i = 1; i <= 12; i++) {
+        const ref = db.ref(`crossings/line${i}`);
+        ref.set(0);
+    }
+
+    // Wait a brief moment for Firebase to finish, then reload
+    setTimeout(() => {
+        location.reload();
+    }, 500); // adjust if needed
+}
 
   // Animate cube dropping
   let progress = 0;

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trigger Reset</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+  <h2>Reset Trigger Page</h2>
+  <button onclick="pushResetValues()">Push 101 to Index 6 & 7</button>
+
+  <script>
+    // Replace this with your Firebase config
+    var firebaseConfig = {
+  apiKey: "AIzaSyBb7Hf1EfZFt4ZBV7D-83ZoYh2_268-fA0",
+  authDomain: "internetmap-40f5f.firebaseapp.com",
+  databaseURL: "https://internetmap-40f5f-default-rtdb.firebaseio.com",
+  projectId: "internetmap-40f5f",
+  storageBucket: "internetmap-40f5f.firebasestorage.app",
+  messagingSenderId: "58899228247",
+  appId: "1:58899228247:web:d04ea480cc5ffbf4b06512",
+  measurementId: "G-TR5860MX5M"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function pushResetValues() {
+      const indicesToPush = [5, 6]; // line6, line7
+      indicesToPush.forEach(i => {
+        const ref = db.ref(`crossings/line${i + 1}`);
+        ref.set(101);
+        console.log(`crossings/line${i + 1} set to 101`);
+      });
+    }
+  </script>
+</body>
+</html>
