@@ -36,7 +36,6 @@ const db = firebase.database();
 </script>
 </head>
 <body>
-<img class="btn btn_000 btnimg" src="img/3.png">
 
 
 
@@ -303,17 +302,12 @@ if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime
     setup();
 
 
-    document.getElementById('reset-btn').onclick = () => {
-  for (let i = 1; i <= 12; i++) {
-    const ref = db.ref(`crossings/line${i}`);
-    ref.set(0);
-  }
-  console.log("✅ All lines reset to 0");
-};
 
   </script>
-<img class="btn btn_00 btnimg"  id="toggleCamera"src="img/back.png">
-<img class="btn btn_0 btnimg" src="img/q-01.png">
+<!-- <img class="btn btn_00 btnimg"  id="toggleCamera"src="img/back.png"> -->
+<!-- <img class="btn btn_0 btnimg" src="img/q-01.png"> -->
+<!-- <img class="btn btn_00 btnimg"  id="toggleCamera"src="img/back.png"> -->
+<!-- <img class="btn btn_0 btnimg" src="img/q-01.png"> -->
  <script type="module">
 
 var cube_counter = 0
@@ -375,33 +369,33 @@ const camPos2 = new THREE.Vector3(0, 7, 7);
 const camLookAt = new THREE.Vector3(0, 1.2, 0);
 const camZoom = 1.4;
 
-const toggleBtn = document.getElementById("toggleCamera");
-toggleBtn.addEventListener("click", () => {
-    const startPos = camera.position.clone();
-    const endPos = cameraTargetState ? camPos1 : camPos2;
-    let t = 0;
-    const duration = 1; // seconds
-    const fps = 60;
-    const totalFrames = duration * fps;
+// const toggleBtn = document.getElementById("toggleCamera");
+// toggleBtn.addEventListener("click", () => {
+//     const startPos = camera.position.clone();
+//     const endPos = cameraTargetState ? camPos1 : camPos2;
+//     let t = 0;
+//     const duration = 1; // seconds
+//     const fps = 60;
+//     const totalFrames = duration * fps;
 
-    function animateCameraMove() {
-        if (t <= 1) {
-            t += 1 / totalFrames;
-            camera.position.lerpVectors(startPos, endPos, t);
-            camera.lookAt(camLookAt);
-            camera.zoom = camZoom;
-            camera.updateProjectionMatrix();
-            requestAnimationFrame(animateCameraMove);
-        } else {
-            camera.position.copy(endPos);
-            camera.lookAt(camLookAt);
-            camera.zoom = camZoom;
-            camera.updateProjectionMatrix();
-            cameraTargetState = !cameraTargetState;
-        }
-    }
-    animateCameraMove();
-});
+//     function animateCameraMove() {
+//         if (t <= 1) {
+//             t += 1 / totalFrames;
+//             camera.position.lerpVectors(startPos, endPos, t);
+//             camera.lookAt(camLookAt);
+//             camera.zoom = camZoom;
+//             camera.updateProjectionMatrix();
+//             requestAnimationFrame(animateCameraMove);
+//         } else {
+//             camera.position.copy(endPos);
+//             camera.lookAt(camLookAt);
+//             camera.zoom = camZoom;
+//             camera.updateProjectionMatrix();
+//             cameraTargetState = !cameraTargetState;
+//         }
+//     }
+//     animateCameraMove();
+// });
 
         // --- Lighting + Water Plane ---
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
