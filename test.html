@@ -4,13 +4,193 @@
 <meta charset="UTF-8" />
 <title>The internet map</title>
   <link rel="stylesheet" href="style.css" />
+  <style type="text/css">
+      
+                canvas{
+                    filter: saturate(3) contrast(1.75);
+                    /*transform: scale(1.15);*/
+                    transform-origin: center 30%
+
+                }
+                #buttons{
+                    z-index: 100;
+                    width: 100vw;
+                    height: 100vh;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    background: radial-gradient(transparent 50%, #03cdff);
+                    /*background:radial-gradient(transparent 50%, orange);*/
+                    mix-blend-mode:hard-light;
+                    transition: background-image 1s ease;
+                    /*opacity: 0*/
+                }
+                .extra_img{
+                  position: absolute;
+                  z-index: 100000;
+                  display: none;
+                }
+.extra_img_0.reflect_0 { width: 12%; left: 44%; top: -2%; }
+.extra_img_1.reflect_0 { width: 9%; left: 50%; top: 30%; }
+.extra_img_1.reflect_1 { width: 9%; left: 30%; top: 30%; }
+.extra_img_1.reflect_2 { width: 9%; left: 60%; top: 30%; }
+.extra_img_1.reflect_3 { width: 9%; left: 70%; top: 30%; }
+.extra_img_1.reflect_4 { width: 9%; left: 20%; top: 30%; }
+.extra_img_2.reflect_0 { width: 16.59%; left: 70%; }
+.extra_img_2.reflect_1 { transform: scaleX(-1); width: 16.59%; left:13.41%; }
+.extra_img_3.reflect_0 { width: 9.75%; left: 86.5%; top: 8vw; }
+.extra_img_3.reflect_1 { transform: scaleX(-1); width: 9.75%; left:3.75%; top: 8vw; }
+.extra_img_4.reflect_0 { width: 4.5%; left: 50%; top: 40%; }
+.extra_img_4.reflect_1 { width: 4.5%; left: 50%; top: 50%; }
+.extra_img_4.reflect_2 { width: 4.5%; left: 50%; top: 45%; }
+.extra_img_4.reflect_3 { width: 4.5%; left: 50%; top: 50%; }
+.extra_img_4.reflect_4 { width: 4.5%; left: 50%; top: 30%; }
+.extra_img_4.reflect_5 { width: 4.5%; left: 50%; top: 55%; }
+.extra_img_4.reflect_6 { width: 4.5%; left: 50%; top: 40%; }
+.extra_img_4.reflect_7 { width: 4.5%; left: 50%; top: 30%; }
+.extra_img_5.reflect_0 { width: 20.35%; left: 49%; top: 25%; }
+.extra_img_5.reflect_1 { transform: translateX(-100%); width: 20.35%; left: 49%; top: 25%; }
+.extra_img_5.reflect_2 { transform: translateX(200%); width: 20.35%; left: 49%; top: 25%; }
+.extra_img_6.reflect_0 { width: 52%; left: 0%; }
+.extra_img_7.reflect_0 { width: 41.84%; right: 0; }
+.extra_img_7.reflect_1 { width: 41.84%; right: 0; transform: translateY(80%); }
+.extra_img_8.reflect_0 { width: 20.48%; left: 94%; top: -20%; }
+.extra_img_9.reflect_0 { top:50%; width: 12%; left: 70%; }
+.extra_img_9.reflect_1 { top:50%; width: 12%; left: 70%; transform: translateX(100%); }
+.extra_img_9.reflect_2 { top:50%; width: 12%; left: 70%; transform: translateX(200%); }
+.extra_img_9.reflect_3 { top:50%; width: 12%; left: 70%; transform: translateX(300%); }
+.extra_img_9.reflect_4 { top:50%; width: 12%; left: 70%; transform: translateX(400%); }
+.extra_img_10.reflect_0 { width: 7%; left: 60%; top: 20%; }
+.extra_img_10.reflect_1 { width: 7%; left: 33%; top: 20%; transform: scaleX(-1); }
+.extra_img_11.reflect_0 { width: 14.12%; top: 50%; }
+.extra_img_11.reflect_1 { width: 14.12%; top: 50%; transform: translateX(100%); }
+.extra_img_11.reflect_2 { width: 14.12%; top: 50%; transform: translateX(200%); }
+.extra_img_11.reflect_3 { width: 14.12%; top: 50%; transform: translateX(300%); }
+.extra_img_11.reflect_4 { width: 14.12%; top: 50%; transform: translateX(400%); }
+.extra_img_11.reflect_5 { width: 14.12%; top: 50%; transform: translateX(500%); }
+.extra_img_11.reflect_6 { width: 14.12%; top: 50%; transform: translateX(600%); }
+.extra_img_11.reflect_7 { width: 14.12%; top: 50%; transform: translateX(700%); }
+.extra_img_11.reflect_8 { width: 14.12%; top: 50%; transform: translateX(800%); }
+.extra_img_12.reflect_0 { width: 90%; left: 5%; top: 30%; }
+.extra_img_13.reflect_0 { width: 14%; left: 50%; top: 50%; }
+.extra_img_13.reflect_1 { width: 14%; left: 50%; top: 50%; transform: translate(80%, -100%); }
+.extra_img_13.reflect_2 { width: 14%; left: 50%; top: 50%; transform: translate(160%, -200%); }
+.extra_img_13.reflect_3 { width: 14%; left: 50%; top: 50%; transform: translate(240%, -300%); }
+.extra_img_13.reflect_4 { width: 14%; left: 50%; top: 50%; transform: translate(320%, -400%); }
+/* === KEYFRAMES === */
+@keyframes moveExtraImg8 {
+  0% {
+    left: 94%;
+    top: -20%;
+  }
+  99.9% {
+    left: -10%;
+    top: 100%;
+  }
+  100% {
+    left: 94%;
+    top: -20%;
+  }
+}
+
+.extra_img_8.reflect_0 {
+  position: absolute;
+  animation: moveExtraImg8 10s linear infinite;
+}
+@keyframes moveUpLoop {
+  0%   { transform: translateY(0); }
+  99.9% { transform: translateY(-200vh); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes moveLeftLoop {
+  0%   { transform: translateX(0); }
+  99.9% { transform: translateX(-200vw); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes moveRightLoop {
+  0%   { transform: translateX(0); }
+  99.9% { transform: translateX(200vw); }
+  100% { transform: translateX(0); }
+}
+
+/* === COMMON ANIMATION SETTINGS === */
+.extra_img_1,
+.extra_img_4 {
+  animation-duration: 18s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+
+/* === .extra_img_1.reflect_X (UPWARD) === */
+.extra_img_1.reflect_0 {
+  animation-name: moveUpLoop;
+  animation-delay: 0s;
+}
+.extra_img_1.reflect_1 {
+  animation-name: moveUpLoop;
+  animation-delay: 1s;
+}
+.extra_img_1.reflect_2 {
+  animation-name: moveUpLoop;
+  animation-delay: 2s;
+}
+.extra_img_1.reflect_3 {
+  animation-name: moveUpLoop;
+  animation-delay: 3s;
+}
+.extra_img_1.reflect_4 {
+  animation-name: moveUpLoop;
+  animation-delay: 4s;
+}
+
+/* === .extra_img_4.reflect_X (HORIZONTAL LEFT/RIGHT) === */
+.extra_img_4.reflect_0 {
+  animation-name: moveRightLoop;
+  animation-delay: 0s;
+}
+.extra_img_4.reflect_1 {
+  animation-name: moveLeftLoop;
+  animation-delay: 1s;
+}
+.extra_img_4.reflect_2 {
+  animation-name: moveRightLoop;
+  animation-delay: 2s;
+}
+.extra_img_4.reflect_3 {
+  animation-name: moveLeftLoop;
+  animation-delay: 3s;
+}
+.extra_img_4.reflect_4 {
+  animation-name: moveRightLoop;
+  animation-delay: 4s;
+}
+.extra_img_4.reflect_5 {
+  animation-name: moveLeftLoop;
+  animation-delay: 5s;
+}
+.extra_img_4.reflect_6 {
+  animation-name: moveRightLoop;
+  animation-delay: 6s;
+}
+.extra_img_4.reflect_7 {
+  animation-name: moveLeftLoop;
+  animation-delay: 7s;
+}
+
+
+/* etc… */
+
+  </style>
     <script type="importmap">
         {
             "imports": {
                 "three": "/js/three.module.js",
                 "OrbitControls": "/js/OrbitControls.js",
                 "FBXLoader": "/js/FBXLoader.js",
-                "OutlineEffect": "/js/OutlineEffect.js"
+"OutlineEffect": "/js/OutlineEffect.js"
             }
         }
     </script>
@@ -36,96 +216,6 @@ const db = firebase.database();
 </script>
 </head>
 <body>
-<img class="btn btn_000 btnimg" src="img/3.png">
-  <div class="popup popup_1">
-    <img class="btn btn_000 btnimg" src="img/3.png">
-    3단계<br>
-    지금까지 20번의 회전으로 60개의 박스가 쌓였습니다.<br>
-    총 10명의 서퍼가 가운데에서 원을 그리고 있습니다.<br><br>
-    지금 정보의 바다의 수면 아래에는, 새로운 힘이 생겨나기 시작했습니다.<br>
-
-    지금 정보의 바다 위 웹서퍼들은, 물결에 휩쓸리기 시작했습니다.<br>
-    서퍼들은 더이상 서핑을 하지 못하고 운반되기 시작했습니다.<br>
-    서퍼들의 영역은 중앙으로 좁아지기 시작했습니다.<br>
-    <br>
-    <br>
-    <br>
-    <br>......
-    
-  </div>
-
-  <div class="popup popup_2"> 
-  바다,
-  정보의 바다,
-  인터,
-  서핑하는 사람들,
-  사용자,
-  바닥의 표기,
-  소셜미디어,
-  템플릿 사이트,
-  제한된 제스,
-  경로를 따르는 사용자들,
-  플랫폼에 의존하는 사용자,
-  쌓이는 탑,
-  기술에 대한 욕망,
-  대중 소비,
-  거대 플랫폼 기업,
-  반복되는 행위,
-  자율성의 상실,
-  고립된 개인,
-  플랫폼 의존성,
-  제어 불가능성,
-  사용자 행위 제한,
-  은유,
-  정보의 흐름,
-  소비 구조,
-  통제,
-  행위의 동기
-    <br>
-    <br>
-    <br>
-    <br>......
-    
-  </div>
-
-
-    <div id="netgrid" class="netgrid"></div>
-  <div id="buttons"></div>
-  <div id="labels"></div>
-             <div class="bgicons_label bgicons_label_1"><img class="bgicons bgicons_1" src="img/bgicons-02.png"><span>정보의바다</span></div>
-             <div class="bgicons_label bgicons_label_2"><img class="bgicons bgicons_2" src="img/bgicons-03.png"><span>해저케이블</span></div>
-             <div class="bgicons_label bgicons_label_3"><img class="bgicons bgicons_3" src="img/bgicons-04.png"></div>
-        <div class="label" id="chain-label" style="position: absolute; pointer-events: none; color: blue; color: red;font-weight: bold;">data trading</div>
-        <div class="label" id="particle_whirl-label-1" ><img src="img/surfer.png">웹 서퍼1</div>
-        <div class="label" id="particle_whirl-label-2" ><img src="img/surfer.png">웹 서퍼2</div>
-        <div class="label" id="particle_whirl-label-3" ><img src="img/surfer.png">웹 서퍼3</div>
-        <div class="label" id="particle_whirl-label-4" ><img src="img/surfer.png">웹 서퍼4</div>
-        <div class="label" id="particle_whirl-label-5" ><img src="img/surfer.png">웹 서퍼5</div>
-        <div class="label" id="particle_whirl-label-6" ><img src="img/surfer.png">웹 서퍼6</div>
-        <div class="label" id="particle_whirl-label-7" ><img src="img/surfer.png">웹 서퍼7</div>
-        <div class="label" id="particle_whirl-label-8" ><img src="img/surfer.png">웹 서퍼8</div>
-        <div class="label" id="particle_whirl-label-9" ><img src="img/surfer.png">웹 서퍼9</div>
-        <div class="label" id="particle_whirl-label-10"><img src="img/surfer.png">웹 서퍼10</div>
-        <div class="label" id="particle_whirl-label-11"><img src="img/surfer.png">웹 서퍼11</div>
-        <div class="label" id="particle_whirl-label-12"><img src="img/surfer.png">웹 서퍼12</div>
-        <div class="label" id="particle_whirl-label-13"><img src="img/surfer.png">웹 서퍼13</div>
-        <div class="label" id="particle_whirl-label-14"><img src="img/surfer.png">웹 서퍼14</div>
-        <div class="label" id="particle_whirl-label-15"><img src="img/surfer.png">웹 서퍼15</div>
-        <div class="label" id="particle-label-1"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-2"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-3"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-4"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-5"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-6"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-7"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-8"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-9"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-10"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-11"><img src="img/surfer.png">웹 서퍼</div>
-        <div class="label" id="particle-label-12"><img src="img/surfer.png">웹 서퍼</div>
-        <!-- <img src="cloud.png" class="cloud"> -->
-
-
 <video id="webcam" autoplay muted playsinline></video>
 <div id="container" style="position: relative; width: 100vw; height: 100vh; overflow: hidden;">
   <canvas id="output" style="position: absolute; top: 0; left: 0;"></canvas>
@@ -133,30 +223,19 @@ const db = firebase.database();
        xmlns="http://www.w3.org/2000/svg">
     <defs><style>.cls-1{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;}</style></defs>
     <!-- your lines -->
-<line class="st0 cls-1" x1="848.5" y1="362.9" x2="1262.1" y2="368.6"/>//6
-<line class="st0 cls-1" x1="1213.6" y1="531.6" x2="829.2" y2="417.9"/>//5
-<line class="st0 cls-1" x1="1088.4" y1="694.9" x2="790.9" y2="435.2"/>//4
-<line class="st0 cls-1" x1="683.3" y1="935.3" x2="692.3" y2="454.5"/>//3
-<line class="st0 cls-1" x1="141.7" y1="867.3" x2="595.6" y2="439"/> //2
-<line class="st0 cls-1" x1="0" y1="554.8" x2="551.4" y2="394.7"/> // 1
-
+<line class="st0 cls-1" x1="1258.2" y1="358.5" x2="756.9" y2="372.3"/>//12
+<line class="st0 cls-1" x1="1258.2" y1="571.9" x2="738.9" y2="418.2"/>//11
+<line class="st0 cls-1" x1="1184.4" y1="928.4" x2="692.3" y2="454.5"/>//10
+<line class="st0 cls-1" x1="584.6" y1="928.4" x2="595.6" y2="464.2"/>//9
+<line class="st0 cls-1" x1="141.7" y1="839.5" x2="508.3" y2="454.5"/>//8
+<line class="st0 cls-1" x1="0" y1="571.9" x2="452.2" y2="426.9"/>//7
   </svg>
-  <!-- <button id="reset-btn" style="
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-  background: red;
-  color: white;
-  font-size: 16px;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-">
-  RESET!
-</button> -->
 
+  <!-- TensorFlow + Pose Detection -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
 <script>
   setInterval(() => {
     const url = window.location.href.split('?')[0]; // remove previous query
@@ -165,17 +244,12 @@ const db = firebase.database();
   }, 1000000);
 </script>
 
-  <!-- TensorFlow + Pose Detection -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
-
   <script>
     let detector, video, canvas, ctx, svg ;
 let previousFeetPositions = {};   // key: person index + foot name
 let lastCrossedLine = {};         // key: person index + foot name
 const lastCrossedLineTimestamps = {};
+
 
 
     async function setup() {
@@ -270,29 +344,29 @@ async function detectLoop() {
   const lines = document.querySelectorAll('#svg-lines line');
 
 for (let personIndex = 0; personIndex < poses.length; personIndex++) {
-      const pose = poses[personIndex];
-      const keypoints = pose.keypoints;
+  const pose = poses[personIndex];
+  const keypoints = pose.keypoints;
 
-      const leftAnkle = keypoints.find(k => k.name === 'left_ankle');
-      const rightAnkle = keypoints.find(k => k.name === 'right_ankle');
+  const leftAnkle = keypoints.find(k => k.name === 'left_ankle');
+  const rightAnkle = keypoints.find(k => k.name === 'right_ankle');
 
-      const point = rightAnkle;
-    const name = 'right_ankle';
-    const key = `${personIndex}_${name}`;
+ const point = rightAnkle;
+const name = 'right_ankle';
+const key = `${personIndex}_${name}`;
 
-    if (!previousFeetPositions[key]) previousFeetPositions[key] = null;
+if (!previousFeetPositions[key]) previousFeetPositions[key] = null;
 
-    if (point && point.score > 0.4) {
-      const current = {
-        x: (point.x / video.videoWidth) * 1258.24,
-        y: (point.y / video.videoHeight) * 928.4
-      };
+if (point && point.score > 0.4) {
+  const current = {
+    x: (point.x / video.videoWidth) * 1258.24,
+    y: (point.y / video.videoHeight) * 928.4
+  };
 
-      const prev = previousFeetPositions[key];
-      if (prev) {
-  const svgToFirebaseLineMap = [6, 5, 4, 3, 2, 1];
+  const prev = previousFeetPositions[key];
+  if (prev) {
+  const svgToFirebaseLineMap = [12, 11, 10, 9, 8, 7];
 
-  // Step 1: Find the closest line
+  // Step 1: Find closest line
   let closestLine = null;
   let closestDistance = Infinity;
   let closestIndex = -1;
@@ -304,46 +378,45 @@ for (let personIndex = 0; personIndex < poses.length; personIndex++) {
     const x2 = parseFloat(line.getAttribute('x2'));
     const y2 = parseFloat(line.getAttribute('y2'));
 
-    const distance = pointToSegmentDistance(current.x, current.y, x1, y1, x2, y2);
-
-    if (distance < closestDistance) {
-      closestDistance = distance;
+    const dist = pointToSegmentDistance(current.x, current.y, x1, y1, x2, y2);
+    if (dist < closestDistance) {
+      closestDistance = dist;
       closestLine = { x1, y1, x2, y2 };
       closestIndex = i;
     }
   }
 
-  // Step 2: Only detect crossing for that line
+  // Step 2: Check crossing with only the closest line
   if (closestLine) {
     const firebaseLineNum = svgToFirebaseLineMap[closestIndex];
     const sidePrev = getSideOfLine(prev.x, prev.y, closestLine.x1, closestLine.y1, closestLine.x2, closestLine.y2);
     const sideCurr = getSideOfLine(current.x, current.y, closestLine.x1, closestLine.y1, closestLine.x2, closestLine.y2);
 
     if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr) {
-if (!lastCrossedLineTimestamps[key]) lastCrossedLineTimestamps[key] = {};
-const lastTime = lastCrossedLineTimestamps[key][firebaseLineNum] || 0;
-const now = Date.now();
+     if (!lastCrossedLineTimestamps[key]) lastCrossedLineTimestamps[key] = {};
+        const lastTime = lastCrossedLineTimestamps[key][firebaseLineNum] || 0;
+        const now = Date.now();
 
-// Only count crossing if it's been at least 1500ms since last time *this person* crossed *this line*
-if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime > 1500)) {
-  console.log(`👣 Person ${personIndex} ${name} crossed line ${firebaseLineNum}`);
+        // Only count crossing if it's been at least 1500ms since last time *this person* crossed *this line*
+        if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime > 1500)) {
 
-  const ref = db.ref(`crossings/line${firebaseLineNum}`);
-  ref.transaction(current => (current || 0) + 1);
+          const ref = db.ref(`crossings/line${firebaseLineNum}`);
+          ref.transaction(current => (current || 0) + 1);
 
-  lastCrossedLineTimestamps[key][firebaseLineNum] = now;
-}
+          lastCrossedLineTimestamps[key][firebaseLineNum] = now;
+        }
 
     }
   }
 }
 
-
-      previousFeetPositions[key] = current;
-    }
-
-
+  previousFeetPositions[key] = current;
 }
+
+
+
+
+  }
 
   requestAnimationFrame(detectLoop);
 }
@@ -352,24 +425,109 @@ if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime
     setup();
 
 
-    document.getElementById('reset-btn').onclick = () => {
-  for (let i = 1; i <= 12; i++) {
-    const ref = db.ref(`crossings/line${i}`);
-    ref.set(0);
-  }
-  console.log("✅ All lines reset to 0");
-};
+// document.getElementById('reset-btn').onclick = () => {
+//   for (let i = 1; i <= 12; i++) {
+//     const ref = db.ref(`crossings/line${i}`);
+//     ref.set(0);
+//   }
+//   console.log("✅ All lines reset to 0");
+// };
 
   </script>
-<img class="btn btn_00 btnimg"  id="toggleCamera"src="img/back.png">
-<img class="btn btn_0 btnimg" src="img/q-01.png">
-  <div class="btn_1 btn">
-    10번째 회전<br>
-    100개의 박스<br>
-    10명의 웹 서퍼</div>
- <script type="module">
+<img class="extra_img extra_img_0 reflect_0" src="extraimg/img-15.png">
+<img class="extra_img extra_img_1 reflect_0" src="extraimg/img-06.png">
+<img class="extra_img extra_img_1 reflect_1" src="extraimg/img-06.png">
+<img class="extra_img extra_img_1 reflect_2" src="extraimg/img-06.png">
+<img class="extra_img extra_img_1 reflect_3" src="extraimg/img-06.png">
+<img class="extra_img extra_img_1 reflect_4" src="extraimg/img-06.png">
+<img class="extra_img extra_img_2 reflect_0" src="extraimg/img-07.png">
+<img class="extra_img extra_img_2 reflect_1" src="extraimg/img-07.png">
+<img class="extra_img extra_img_3 reflect_0" src="extraimg/img-08.png">
+<img class="extra_img extra_img_3 reflect_1" src="extraimg/img-08.png">
+<img class="extra_img extra_img_4 reflect_0" src="extraimg/img-10.png">
+<img class="extra_img extra_img_4 reflect_1" src="extraimg/img-10.png">
+<img class="extra_img extra_img_4 reflect_2" src="extraimg/img-10.png">
+<img class="extra_img extra_img_4 reflect_3" src="extraimg/img-10.png">
+<img class="extra_img extra_img_4 reflect_4" src="extraimg/img-10.png">
+<img class="extra_img extra_img_4 reflect_5" src="extraimg/img-10.png">
+<img class="extra_img extra_img_4 reflect_6" src="extraimg/img-10.png">
+<img class="extra_img extra_img_4 reflect_7" src="extraimg/img-10.png">
+<img class="extra_img extra_img_5 reflect_8" src="extraimg/img-11.png">
+<img class="extra_img extra_img_5 reflect_1" src="extraimg/img-11.png">
+<img class="extra_img extra_img_5 reflect_2" src="extraimg/img-11.png">
+<img class="extra_img extra_img_6 reflect_0" src="extraimg/img-12.png">
+<img class="extra_img extra_img_7 reflect_0" src="extraimg/img-13.png">
+<img class="extra_img extra_img_7 reflect_1" src="extraimg/img-13.png">
+<img class="extra_img extra_img_8 reflect_0" src="extraimg/img-14.png">
+<img class="extra_img extra_img_9 reflect_0" src="extraimg/img-16.png">
+<img class="extra_img extra_img_9 reflect_1" src="extraimg/img-16.png">
+<img class="extra_img extra_img_9 reflect_2" src="extraimg/img-16.png">
+<img class="extra_img extra_img_9 reflect_3" src="extraimg/img-16.png">
+<img class="extra_img extra_img_9 reflect_4" src="extraimg/img-16.png">
+<img class="extra_img extra_img_10 reflect_0" src="extraimg/img-17.png">
+<img class="extra_img extra_img_10 reflect_1" src="extraimg/img-17.png">
+<img class="extra_img extra_img_11 reflect_0" src="extraimg/img-18.png">
+<img class="extra_img extra_img_11 reflect_1" src="extraimg/img-18.png">
+<img class="extra_img extra_img_11 reflect_2" src="extraimg/img-18.png">
+<img class="extra_img extra_img_11 reflect_3" src="extraimg/img-18.png">
+<img class="extra_img extra_img_11 reflect_4" src="extraimg/img-18.png">
+<img class="extra_img extra_img_11 reflect_5" src="extraimg/img-18.png">
+<img class="extra_img extra_img_11 reflect_6" src="extraimg/img-18.png">
+<img class="extra_img extra_img_11 reflect_7" src="extraimg/img-18.png">
+<img class="extra_img extra_img_11 reflect_8" src="extraimg/img-18.png">
+<img class="extra_img extra_img_12 reflect_0" src="extraimg/img-19.png">
+<img class="extra_img extra_img_13 reflect_0" src="extraimg/img-20.png">
+<img class="extra_img extra_img_13 reflect_1" src="extraimg/img-20.png">
+<img class="extra_img extra_img_13 reflect_2" src="extraimg/img-20.png">
+<img class="extra_img extra_img_13 reflect_3" src="extraimg/img-20.png">
+<img class="extra_img extra_img_13 reflect_4" src="extraimg/img-20.png">
 
-var cube_counter = 0
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+</script>
+
+
+  <div id="buttons"></div>
+  <div id="labels"></div>
+             <div class="bgicons_label bgicons_label_1"><img class="bgicons bgicons_1" src="img/bgicons-02.png"><span>정보의바다</span></div>
+             <div class="bgicons_label bgicons_label_2"><img class="bgicons bgicons_2" src="img/bgicons-03.png"><span>해저케이블</span></div>
+             <div class="bgicons_label bgicons_label_3"><img class="bgicons bgicons_3" src="img/bgicons-04.png"></div>
+        <div class="label" id="chain-label" style="position: absolute; pointer-events: none; color: blue; color: red;font-weight: bold;">data trading</div>
+        <div class="label" id="particle_whirl-label-1"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-2"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-3"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-4"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-5"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-6"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-7"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-8"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-9"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-10"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-11"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle_whirl-label-12"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-1">
+            <img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-2">
+            <img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-3">
+            <img src="img/surfer.png">웹 서퍼</div>
+
+        <!-- <img src="cloud.png" class="cloud"> -->
+
+<!-- ✅ Three.js core (non-module build) -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script> -->
+
+<!-- ✅ FBXLoader (make sure it loads after Three.js) -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/FBXLoader.js"></script> -->
+
+ <script type="module">
+// cameramovement
+// 서퍼늘리기
+//라벨내임
+//리셋
+//주황조금만
+//trading chain
         const total = 12;
     for (let i = 0; i < total; i++) {
   const lineKey = `crossings/line${i + 1}`;
@@ -377,19 +535,34 @@ var cube_counter = 0
 
   ref.on('value', snapshot => {
     const count = snapshot.val() || 0;
-
     while (firebaseCounts[i] < count) {
-      dropCube(i); // ✅ drop cube when new count arrives
+      dropCube(i);
+
+  checkGroupMilestones(); // ✅ add this
       firebaseCounts[i]++;
     }
+
+    // If count is reset to 0, clear group
+    if (count === 0 && firebaseCounts[i] !== 0) {
+  firebaseCounts[i] = 0;
+  const group = groups[i];
+  while (group.children.length > 0) {
+    group.remove(group.children[0]);
+  }
+  checkGroupMilestones();
+}
+
   });
 }
+
+
 
     import * as THREE from '/js/three.module.js';
     import { FBXLoader } from '/js/FBXLoader.js';
     // import { OutlineEffect } from '/js/OutlineEffect.js';
 
         // --- Basic Setup ---
+        var cube_counter = 0
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0xeeeeee);
 
@@ -414,47 +587,11 @@ document.body.appendChild(renderer.domElement);
                 0.05, 
                 100
         );
-        camera.position.set(0, 10, 0);
+        camera.position.set(0, 7, 7);
         camera.lookAt(0, 1.2, 0);
         camera.zoom = 1.4; // > 1 zooms in, < 1 zooms out
 camera.updateProjectionMatrix();
 
-
-
-// Inserted camera toggle logic
-let cameraTargetState = false; // false = default top view, true = angled view
-const camPos1 = new THREE.Vector3(0, 10, 0);
-const camPos2 = new THREE.Vector3(0, 7, 7);
-const camLookAt = new THREE.Vector3(0, 1.2, 0);
-const camZoom = 1.4;
-
-const toggleBtn = document.getElementById("toggleCamera");
-toggleBtn.addEventListener("click", () => {
-    const startPos = camera.position.clone();
-    const endPos = cameraTargetState ? camPos1 : camPos2;
-    let t = 0;
-    const duration = 1; // seconds
-    const fps = 60;
-    const totalFrames = duration * fps;
-
-    function animateCameraMove() {
-        if (t <= 1) {
-            t += 1 / totalFrames;
-            camera.position.lerpVectors(startPos, endPos, t);
-            camera.lookAt(camLookAt);
-            camera.zoom = camZoom;
-            camera.updateProjectionMatrix();
-            requestAnimationFrame(animateCameraMove);
-        } else {
-            camera.position.copy(endPos);
-            camera.lookAt(camLookAt);
-            camera.zoom = camZoom;
-            camera.updateProjectionMatrix();
-            cameraTargetState = !cameraTargetState;
-        }
-    }
-    animateCameraMove();
-});
 
         // --- Lighting + Water Plane ---
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -489,18 +626,18 @@ toggleBtn.addEventListener("click", () => {
             // new THREE.Vector3(0, 0, 0),
             // new THREE.Vector3(3, 1.5, 0)
         ];
-
+// 0043ff , 000000 , 0xff4100
 
         const waterGeometry = new THREE.PlaneGeometry(20, 20);
         const waterMat = new THREE.MeshStandardMaterial({
-                color: 0x7ebbff,
+                color: 0x0043ff,
                 transparent: true,
-                opacity: 0.35,
+                opacity: 0.3,
                 depthWrite: false,             // ✅ Already set
         });
         const water = new THREE.Mesh(waterGeometry, waterMat);
         water.rotation.x = -Math.PI / 2;
-        water.position.y = 0;
+        water.position.y = 1;
         water.receiveShadow = true;
         water.renderOrder = 1; // ✅ Renders before particles
         scene.add(water);
@@ -541,6 +678,8 @@ toggleBtn.addEventListener("click", () => {
                 // --- Cube Groups and Drop Buttons ---
         const radius = 2.5;
         const groups = [];
+        const innerGroups = [];
+
         const groups_rot_index = [];
         const stacks = Array(total).fill(0);
         const dropHeight = 10;
@@ -559,40 +698,33 @@ toggleBtn.addEventListener("click", () => {
 
 //buttons
         const buttonContainer = document.getElementById('buttons');
+        const masterGroup = new THREE.Group();
+        masterGroup.position.y = 0
+
+        scene.add(masterGroup);
+
         for (let i = 0; i < total; i++) {
                 const btn = document.createElement('button');
                 btn.innerText = (i + 1).toString();
                 btn.style.margin = '2px';
                 // btn.onclick = () => dropCube(i);
-                buttonContainer.appendChild(btn);
+                // buttonContainer.appendChild(btn);
 
                 const angle = (Math.PI * 2 / total) * i+(Math.PI * 2 / total)/2;
                 const group = new THREE.Group();
                 group.rotation.y = angle;
                 group.castShadow = true; // ✅ allow shadow casting
                 group.receiveShadow = false; // just in case
-                scene.add(group);
+                masterGroup.add(group);
+
 
                 groups.push(group);
+                innerGroups.push(group);
+
 
                 groups_rot_index[i] = 0
         }
-        const firebaseCounts = new Array(total).fill(0); // tracks how many cubes dropped per group
-
-    for (let i = 0; i < 12; i++) {
-        const lineKey = `crossings/line${i + 1}`;
-        const ref = db.ref(lineKey);
-
-        ref.on('value', snapshot => {
-            const count = snapshot.val() || 0;
-
-            while (firebaseCounts[i] < count) {
-                dropCube(i); // drop into group[i]
-                firebaseCounts[i]++;
-            }
-        });
-    }
-
+        const firebaseCounts = new Array(total).fill(0); // tracks how many cubes dropped per groups
         const splashBtn = document.createElement('button');
         splashBtn.innerText = 'Splash!';
         splashBtn.style.margin = '2px';
@@ -601,10 +733,52 @@ toggleBtn.addEventListener("click", () => {
                 playSplashAnimation(new THREE.Vector3(worldPos.x, 1.01, worldPos.z));
         };
 
-        buttonContainer.appendChild(splashBtn);
+        // buttonContainer.appendChild(splashBtn);
+
+
+// Create and shuffle array [1 ~ 14]
+let shuffled = Array.from({ length: 14 }, (_, i) => i + 1);
+for (let i = shuffled.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+}
+let totalChildrenMilestone = 250;
+let milestoneIndex = 0;
+let reflectIndex = 0;
+function checkGroupMilestones() {
+  let total = groups.reduce((sum, g) => sum + g.children.length, 0);
+console.log(total)
+  const visibleCount = Math.max(0, Math.floor((total - 250) / 10));
+
+  // Reset everything
+  // $('.extra_img').hide();
+  milestoneIndex = 0;
+  reflectIndex = 0;
+
+  // Show only the allowed number of images based on total cube count
+  for (let i = 0; i < visibleCount; i++) {
+    const classIndex = shuffled[milestoneIndex];
+    const selector = `.extra_img_${classIndex}.reflect_${reflectIndex}`;
+    $(selector).show();
+
+    reflectIndex++;
+    if (reflectIndex > 4) {
+      reflectIndex = 0;
+      milestoneIndex++;
+    }
+  }
+
+  // Reset base threshold
+  totalChildrenMilestone = 250 + visibleCount * 10;
+}
 
 
 
+
+// 5,6,7,8->50
+// 9,10,4,3->56
+//1,2,11,12->75
+// masterGroup.position.y = exceeded amount*1/3*-1
 
 
 
@@ -739,16 +913,12 @@ const fbxLoader = new FBXLoader();
 let sortedFBXChildren = [];
 fbxLoader.load('img/st_new.fbx', (object) => {
     for (var i = object.children.length - 1; i >= 0; i--) {
-        console.log(object.children[i].position.y)
     }
     cubeGeometryFromFBX = object;
     // Sort children by original Y position (lowest first)
-    sortedFBXChildren = [...object.children].sort((a, b) => a.position.y - b.position.y);
-    console.log(sortedFBXChildren)
-    for (var i = sortedFBXChildren.length - 1; i >= 0; i--) {
-        console.log(sortedFBXChildren[i].position.y)
-    }
+    sortedFBXChildren = [...object.children].sort((a, b) => a.position.y - b.position.y).reverse();
 });
+
 
 
 function padToTwoDigits(num) {
@@ -758,48 +928,37 @@ function padToTwoDigits(num) {
 
 function dropCube(index) {
     cube_counter++
-  if (!cubeGeometryFromFBX) {
-    console.warn('FBX not loaded yet');
-    return;
-  }
+    if (!cubeGeometryFromFBX) {
+        return;
+    }
 
-  const group = groups[index];
-  const inner_group = new THREE.Group();
+    const group = groups[index];
+    const inner_group = new THREE.Group();
 
-  const sx = 0.3, sy = 0.3, sz = 0.3, pz = 0;
+    const sx = 0.3, sy = 0.3, sz = 0.3, pz = 0;
 
-  groups_rot_index[index] = (groups_rot_index[index] + 1) % 2;
-  inner_group.rotation.y = 0;
+    groups_rot_index[index] = (groups_rot_index[index] + 1) % 2;
+    inner_group.rotation.y = 0;
 
-  const gradientTexture = new THREE.TextureLoader().load('img/gradient4.png');
-  gradientTexture.minFilter = THREE.NearestFilter;
-  gradientTexture.magFilter = THREE.NearestFilter;
-  gradientTexture.generateMipmaps = false;
+    const gradientTexture = new THREE.TextureLoader().load('img/gradient4.png');
+    gradientTexture.minFilter = THREE.NearestFilter;
+    gradientTexture.magFilter = THREE.NearestFilter;
+    gradientTexture.generateMipmaps = false;
 
-const loader = new THREE.TextureLoader();
-const padded = padToTwoDigits(cube_counter%85+1); // "01"
-const topTexture = loader.load(`img/text/text-${padded}.png`);
+    const toonMaterial = new THREE.MeshPhongMaterial({color:0xffffff})
+    const childIndex = sortedFBXChildren.length-(group.children.length % sortedFBXChildren.length)-1;
+    const fbxChild = sortedFBXChildren[childIndex];
+    const cube = fbxChild.clone();
 
-// Create 6 materials, one for each face
-const cubeMaterials = [
-  new THREE.MeshBasicMaterial({ map: topTexture }), // right
-  new THREE.MeshBasicMaterial({ map: topTexture }), // left
-  new THREE.MeshBasicMaterial({ map: topTexture }), // top (this will be replaced below)
-  new THREE.MeshBasicMaterial({ map: topTexture }), // bottom
-  new THREE.MeshBasicMaterial({ map: topTexture }), // front (texture here)
-  new THREE.MeshBasicMaterial({ map: topTexture })  // back
-];
 
-const childIndex = group.children.length % sortedFBXChildren.length;
-const fbxChild = sortedFBXChildren[childIndex];
 
-  const cube = fbxChild.clone();
-const scale_whole = 0.0175
-  cube.material = cubeMaterials
-  cube.scale.set(sortedFBXChildren[childIndex].scale.x*scale_whole, sortedFBXChildren[childIndex].scale.y*scale_whole, sortedFBXChildren[childIndex].scale.z*scale_whole);
-  cube.position.set(sortedFBXChildren[childIndex].position.x*scale_whole, dropHeight, radius + sortedFBXChildren[childIndex].position.z*scale_whole);
-  cube.castShadow = true;
-  cube.renderOrder = 20;
+
+    const scale_whole = 0.0175
+    cube.material = toonMaterial;
+    cube.scale.set(sortedFBXChildren[childIndex].scale.x*scale_whole, sortedFBXChildren[childIndex].scale.y*scale_whole, sortedFBXChildren[childIndex].scale.z*scale_whole);
+    cube.position.set(sortedFBXChildren[childIndex].position.x*scale_whole, dropHeight, radius + sortedFBXChildren[childIndex].position.z*scale_whole);
+    cube.castShadow = true;
+    cube.renderOrder = 20;
 
   // Add overlay planes if index === 5
     if (index === 5) {
@@ -831,23 +990,47 @@ const scale_whole = 0.0175
         topOverlay.position.y = 0.5 * sy + 0.001;
         topOverlay.position.z = 0;
         cube.add(topOverlay);
+    }else{
     }
-// 🔲 Add visible black edges around the cube
-const edgeGeo = new THREE.EdgesGeometry(cube.geometry);
-const edgeMat = new THREE.LineBasicMaterial({ 
-  color: 0x000000,
-  // transparent: true,
-  opacity: 1 // ✅ Appears thinner visually 
-});
-const edges = new THREE.LineSegments(edgeGeo, edgeMat);
 
-// Match scale and position
-edges.scale.copy(cube.scale);
-edges.position.copy(cube.position);
-edges.rotation.copy(cube.rotation);
-edges.renderOrder = cube.renderOrder + 1;
 
-inner_group.add(edges); // ⬅️ Add the edge lines to the same group
+
+    const loader = new THREE.TextureLoader();
+    const padded = padToTwoDigits(cube_counter%85+1); // "01"
+    const topTexture = loader.load(`img/text/text-${padded}.png`);
+    const overlayTexture = topTexture;
+
+
+    const topOverlay = new THREE.Mesh(
+      new THREE.PlaneGeometry(10, 30),
+      new THREE.MeshBasicMaterial({
+        map: overlayTexture,
+        transparent: true,
+        depthWrite: false,
+        side: THREE.DoubleSide
+      })
+    );
+    topOverlay.rotation.x = -Math.PI / 2;
+    topOverlay.position.y = 5.1;
+    topOverlay.position.z = 0;
+    cube.add(topOverlay);
+
+    // 🔲 Add visible black edges around the cube
+    const edgeGeo = new THREE.EdgesGeometry(cube.geometry);
+    const edgeMat = new THREE.LineBasicMaterial({ 
+        color: 0x000000,
+        // transparent: true,
+        opacity: 1 // ✅ Appears thinner visually 
+    });
+    const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+
+    // Match scale and position
+    edges.scale.copy(cube.scale);
+    edges.position.copy(cube.position);
+    edges.rotation.copy(cube.rotation);
+    edges.renderOrder = cube.renderOrder + 1;
+
+    inner_group.add(edges); // ⬅️ Add the edge lines to the same group
 
     inner_group.add(cube);
     group.add(inner_group);
@@ -875,6 +1058,30 @@ inner_group.add(edges); // ⬅️ Add the edge lines to the same group
             }
         }
     }
+  // Animate cube dropping
+    let progress = 0;
+    const duration = 60;
+// 📦 Move master group if certain groups exceed specific cube counts
+let threshold = null;
+
+
+
+if ([5, 6, 7, 8].includes(index+1)) {
+    threshold = 50;
+} else if ([9, 4].includes(index+1)) {
+    threshold = 56;
+} else if ([10, 3].includes(index+1)) {
+    threshold = 65;
+} else if ([1, 2, 11, 12].includes(index+1)) {
+    threshold = 75;
+}
+if (threshold !== null) {
+    const groupSize = group.children.length;
+    const exceeded = groupSize - threshold;
+    if (exceeded > 0&&-exceeded * (1 / 3)<masterGroup.position.y) {
+        masterGroup.position.y = -exceeded * (1 / 9);
+    }
+}
 // 🔁 Auto-reset + reload if two or more groups exceed 100
 let over100Count = 0;
 for (let i = 0; i < groups.length; i++) {
@@ -882,9 +1089,8 @@ for (let i = 0; i < groups.length; i++) {
         over100Count++;
     }
 }
-
+checkGroupMilestones()
 if (over100Count >= 2) {
-    console.log('⚠️ Two or more groups exceeded 100 cubes — resetting Firebase and reloading...');
 
     // Reset Firebase first
     for (let i = 1; i <= 12; i++) {
@@ -898,32 +1104,29 @@ if (over100Count >= 2) {
     }, 500); // adjust if needed
 }
 
-  // Animate cube dropping
-  let progress = 0;
-  const duration = 60;
 
-  function animateDrop() {
+    function animateDrop() {
     if (progress < 1) {
-      progress += 1 / duration;
-      const eased = 1 - (1 - progress) * (1 - progress);
-      cube.position.y = dropHeight * (1 - eased) + targetY * eased;
-      requestAnimationFrame(animateDrop);
+        progress += 1 / duration;
+        const eased = 1 - (1 - progress) * (1 - progress);
+        cube.position.y = dropHeight * (1 - eased) + targetY * eased;
+        requestAnimationFrame(animateDrop);
     } else {
-      cube.position.y = targetY;
+        cube.position.y = targetY;
         edges.scale.copy(cube.scale);
         edges.position.copy(cube.position);
         edges.rotation.copy(cube.rotation);
 
-      const worldPos = new THREE.Vector3();
-      cube.getWorldPosition(worldPos);
+        const worldPos = new THREE.Vector3();
+        cube.getWorldPosition(worldPos);
 
       // 💧 Ripple if hitting water
-      if (targetY <= 1.05) {
-        spawnRippleSprite(worldPos.x, worldPos.z);
-      }
+        if (targetY <= 1.05) {
+            spawnRippleSprite(worldPos.x, worldPos.z);
+        }
 
-      // 💬 Explosion label
-        const labelContainer = document.getElementById('labels');
+          // 💬 Explosion label
+            const labelContainer = document.getElementById('labels');
         if (targetY > 1.0) {
             const screenPos = toScreenPosition(cube, camera);
             const label = document.createElement('div');
@@ -937,23 +1140,26 @@ if (over100Count >= 2) {
         }
 
 
-      // 🔴 Invisible obstacle
-      const obstacle = new THREE.Mesh(obstacleGeo, obstacleMat);
-      obstacle.position.copy(worldPos);
-      obstacle.rotation.z = Math.PI / 2;
-      obstacle.visible = false;
-      scene.add(obstacle);
-      obstacles.push(obstacle);
+          // 🔴 Invisible obstacle
+            const obstacle = new THREE.Mesh(obstacleGeo, obstacleMat);
+            obstacle.position.copy(worldPos);
+            obstacle.rotation.z = Math.PI / 2;
+            if(obstacle) {
+                obstacle.visible = false;
+            }
 
-      // 🌧️ Rain follows cube (index 5)
-      if (index === 5) {
-        rainSprite.position.set(worldPos.x, worldPos.y + 1.25, worldPos.z);
-        rainSprite.lookAt(camera.position);
-      }
+          scene.add(obstacle);
+          obstacles.push(obstacle);
+
+          // 🌧️ Rain follows cube (index 5)
+            if (index === 5) {
+                rainSprite.position.set(worldPos.x, worldPos.y + 1.25, worldPos.z);
+                rainSprite.lookAt(camera.position);
+            }
+        }
     }
-  }
 
-  animateDrop();
+    animateDrop();
 }
 
 
@@ -996,7 +1202,6 @@ if (over100Count >= 2) {
 
 // Create cloud
 const cloudTexture = new THREE.TextureLoader().load('cloud.png', () => {
-        console.log('✅ cloud.png loaded');
 });
 
 const cloudMat = new THREE.MeshBasicMaterial({
@@ -1010,12 +1215,11 @@ const cloudMat = new THREE.MeshBasicMaterial({
 const cloud = new THREE.Mesh(new THREE.PlaneGeometry(8/3, 4/3), cloudMat);
 cloud.position.set(0, 5, 5); // In front of camera
 cloud.renderOrder = 999;
-scene.add(cloud);
+// scene.add(cloud);
 
 // Manually simulate drop count increase every second
 setInterval(() => {
         drop_count++;
-        console.log('🧱 Drop count:', drop_count);
 
         const targetOpacity = Math.min(0.5, (drop_count - 10) / 30);
         cloud.material.opacity = Math.max(0, targetOpacity);
@@ -1141,7 +1345,7 @@ scene.add(anchor);
         function animateFlow() {
                 counter ++
 
-                vortexRadius = 2 ;
+                vortexRadius = 2;
                 vortexStrength = 0.1;
 // vortexStrength = Math.abs(Math.sin(counter/100))*0.15
 // vortexStrength = 0
@@ -1338,7 +1542,7 @@ function updateLabels() {
 }
 
 function animate() {
-     updateWaterColor()
+    updateWaterColor()
     requestAnimationFrame(animate);
 
     // ☀️ Animate the directional light
@@ -1371,89 +1575,115 @@ function animate() {
 
     // 🧠 Final render with outline
     renderer.shadowMap.autoUpdate = true;
-renderer.render(scene, camera); // for shadows ✅
+    renderer.render(scene, camera); // for shadows ✅
 
-renderer.autoClear = false;
-renderer.render(scene, camera);
+    renderer.autoClear = false;
+    renderer.render(scene, camera);
 
-renderer.autoClear = true;
+    renderer.autoClear = true;
 
 
     // effect.render(scene, camera);
 }
-function lerpColorRGBA(a, b, t) {
-    const c1 = parseColor(a);
-    const c2 = parseColor(b);
-    const r = Math.round(c1.r + (c2.r - c1.r) * t);
-    const g = Math.round(c1.g + (c2.g - c1.g) * t);
-    const b_ = Math.round(c1.b + (c2.b - c1.b) * t);
-    const a_ = +(c1.a + (c2.a - c1.a) * t).toFixed(3);
-    return `rgba(${r}, ${g}, ${b_}, ${a_})`;
-}
-
-function parseColor(hex) {
-    const clean = hex.replace('#', '');
-    const r = parseInt(clean.slice(0, 2), 16);
-    const g = parseInt(clean.slice(2, 4), 16);
-    const b = parseInt(clean.slice(4, 6), 16);
-    const a = clean.length >= 8 ? parseInt(clean.slice(6, 8), 16) / 255 : 1;
-    return { r, g, b, a };
+function lerpColor(a, b, t) {
+    const c1 = new THREE.Color(a);
+    const c2 = new THREE.Color(b);
+    return c1.lerp(c2, t);
 }
 
 function updateWaterColor() {
     const now = new Date();
     const seconds = now.getMinutes() * 60 + now.getSeconds();
     const t = seconds % 600; // 10-minute loop
-    const buttons = document.getElementById('netgrid');
 
-        if (buttons) {
-            let startColor, endColor;
+    let color;
 
-            if (t < 300) {
-                // Blue phase
-                startColor = '#00c1ff1a';
-                endColor = '#4c95ff45';
-            } else if (t < 360) {
-                // Blue → Orange
-                const p = (t - 300) / 60;
-                startColor = lerpColorRGBA('#00c1ff1a', '#ff83001a', p);
-                endColor = lerpColorRGBA('#4c95ff45', '#ff7e4c24', p);
-            } else if (t < 390) {
-                // Stable Orange
-                startColor = '#ff83001a';
-                endColor = '#ff7e4c24';
-            } else if (t < 420) {
-                // Orange → Black
-                const p = (t - 390) / 30;
-                startColor = lerpColorRGBA('#ff83001a', '#00000015', p);
-                endColor = lerpColorRGBA('#ff7e4c24', '#00000040', p);
-            } else if (t < 450) {
-                // Black → Orange
-                const p = (t - 420) / 30;
-                startColor = lerpColorRGBA('#00000015', '#ff83001a', p);
-                endColor = lerpColorRGBA('#00000040', '#ff7e4c24', p);
-            } else if (t < 480) {
-                // Stable Orange
-                startColor = '#ff83001a';
-                endColor = '#ff7e4c24';
-            } else {
-                // Orange → Blue
-                const p = (t - 480) / 120;
-                startColor = lerpColorRGBA('#ff83001a', '#00c1ff1a', p);
-                endColor = lerpColorRGBA('#ff7e4c24', '#4c95ff45', p);
-            }
-            console.log(`
-              radial-gradient(${startColor}, ${endColor}),
-              url(img/netgrid.png)
-            `)
+    if (t < 450) {
+        // 0–7.5 min: solid blue
+        color = "#0043ff";
+    } else if (t < 540) {
+        // 7:30–9:00 — blue to orange
+        const p = (t - 450) / 90;
+        color = lerpColor("#0043ff", "#ff4100", p);
+    } else if (t < 600) {
+        // 9:00–10:00 — hold orange
+        color = "#ff4100";
+    } else if (t < 660) {
+        // 10:00–11:00 — orange to black
+        const p = (t - 600) / 60;
+        color = lerpColor("#ff4100", "#000000", p);
+    } else if (t < 720) {
+        // 11:00–12:00 — black to orange
+        const p = (t - 660) / 60;
+        color = lerpColor("#000000", "#ff4100", p);
+    } else if (t < 780) {
+        // 12:00–13:00 — hold orange
+        color = "#ff4100";
+    } else {
+        // 13:00–15:00 — orange to blue
+        const p = (t - 780) / 120;
+        color = lerpColor("#ff4100", "#0043ff", p);
+    }
+    const buttons = document.getElementById('buttons');
+    if (buttons) {
+        buttons.style.background = `radial-gradient(transparent 50%, ${color})`;
+    }
 
-            buttons.style.backgroundImage = `radial-gradient(${startColor}, ${endColor}), url(img/netgrid.png)`;
-
-}
-
+    waterMat.color.set(color);
 }
 
                 animate();
+setInterval(() => {
+  const nonEmptyGroups = groups
+    .map((group, i) => ({ group, index: i }))
+    .filter(entry => entry.group.children.length > 0);
+
+  if (nonEmptyGroups.length === 0) return;
+
+  const chosen = nonEmptyGroups[Math.floor(Math.random() * nonEmptyGroups.length)];
+  const group = chosen.group;
+  const i = chosen.index;
+
+  const last = group.children[group.children.length - 1];
+  last.traverse(obj => {
+    if (obj.geometry) obj.geometry.dispose();
+    if (obj.material) {
+      if (Array.isArray(obj.material)) {
+        obj.material.forEach(m => m.dispose());
+      } else {
+        obj.material.dispose();
+      }
+    }
+  });
+  group.remove(last);
+  stacks[i] = Math.max(0, stacks[i] - 1);
+
+  // Update Firebase count
+  const ref = db.ref(`crossings/line${i + 1}`);
+  ref.transaction(current => Math.max(0, (current || 0) - 1));
+
+  // ✅ Recalculate and update .extra_img visibility
+  const total = groups.reduce((sum, g) => sum + g.children.length, 0);
+  const visibleCount = Math.floor((total - 250) / 10);
+
+  // $('.extra_img').hide();
+  let showIndex = 0;
+  let refIndex = 0;
+  for (let j = 0; j < visibleCount; j++) {
+    const classIndex = shuffled[showIndex];
+    const selector = `.extra_img_${classIndex}.reflect_${refIndex}`;
+    $(selector).show();
+
+    refIndex++;
+    if (refIndex > 4) {
+      refIndex = 0;
+      showIndex++;
+    }
+  }
+}, 10000);
+
+
+
 
                 // --- Resize ---
                 function onWindowResize() {
@@ -1467,61 +1697,120 @@ function updateWaterColor() {
                 }
                 window.addEventListener('resize', onWindowResize, false);
                 onWindowResize();
-                window.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('.btn_000').addEventListener('click', () => {
-    const popup_1 = document.querySelector('.popup_1');
-    const currentOpacity = window.getComputedStyle(popup_1).opacity;
-    popup_1.style.opacity = currentOpacity === '1' ? '0' : '1';
-  });
 
-  document.querySelector('.btn_0').addEventListener('click', () => {
-    const popup_2 = document.querySelector('.popup_2');
-    const currentOpacity = window.getComputedStyle(popup_2).opacity;
-    popup_2.style.opacity = currentOpacity === '1' ? '0' : '1';
-  });
+
+
+
+                const labelElements = Array.from(document.querySelectorAll('[id^="particle_whirl-label-"]'));
+const baseLabelText = "웹 서퍼";
+const dynamicLabels = [];
+
+function createDynamicLabel(text) {
+  const label = document.createElement('div');
+  label.className = 'label';
+  label.innerHTML = `<img src="img/surfer.png">${text}`;
+  label.style.position = 'absolute';
+  document.body.appendChild(label);
+  dynamicLabels.push(label);
+  return label;
+}
+
+// Listen for new submissions
+firebase.database().ref('submissions').on('child_added', (snapshot) => {
+  const value = snapshot.val();
+  const key = snapshot.key;
+
+  const unusedLabel = labelElements.find(el => el.innerText.trim() === baseLabelText);
+
+  if (unusedLabel) {
+    unusedLabel.innerHTML = `<img src="img/surfer.png">${value.text}`;
+    unusedLabel.dataset.firebaseKey = key;
+  } else {
+    const newLabel = createDynamicLabel(value.text);
+    newLabel.dataset.firebaseKey = key;
+  }
 });
-window.addEventListener('DOMContentLoaded', () => {
-  const words = [
-    "바다",
-    "정보의 바다",
-    "인터넷",
-    "서핑하는 사람들",
-    "사용자",
-    "바닥의 표기",
-    "소셜미디어",
-    "템플릿 사이트",
-    "제한된 제스처",
-    "경로를 따르는 사용자들",
-    "플랫폼에 의존하는 사용자",
-    "쌓이는 탑",
-    "기술에 대한 욕망",
-    "대중 소비",
-    "거대 플랫폼 기업",
-    "반복되는 행위",
-    "자율성의 상실",
-    "고립된 개인",
-    "플랫폼 의존성",
-    "제어 불가능성",
-    "사용자 행위 제한",
-    "은유",
-    "정보의 흐름",
-    "소비 구조",
-    "통제",
-    "행위의 동기"
-  ];
 
-  const popup = document.querySelector('.popup_2');
-  let index = 0;
+const delayOffsets = {
+  0: 0,
+  1: 0.5,
+  2: 1.0,
+  3: 1.5,
+  4: 2.0
+};
+firebase.database().ref('clicks').on('child_added', (snapshot) => {
+  const { imgIndex, reflectIndex } = snapshot.val();
+  const key = `${imgIndex}-${reflectIndex}`;
+  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
+  const el = document.querySelector(selector);
 
-  function showNextWord() {
-    popup.textContent = words[index];
-    index = (index + 1) % words.length;
+  if (!shownImages.has(key) && el) {
+    el.style.display = 'block';
+    shownImages.add(key);
+
+    // If it's .extra_img_1.* apply looping with staggered delay
+    if (imgIndex === 1) {
+      el.classList.add('float-loop');
+      el.style.animationDelay = `${delayOffsets[reflectIndex] || 0}s`;
+    }
+  }
+});
+
+// Remove image only if user manually deletes the database entry
+firebase.database().ref('clicks').on('child_removed', (snapshot) => {
+  const { imgIndex, reflectIndex } = snapshot.val();
+  const key = `${imgIndex}-${reflectIndex}`;
+  shownImages.delete(key);
+
+  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
+  const el = document.querySelector(selector);
+  if (el) el.style.display = 'none';
+});
+
+// When a submission is removed → revert label or remove element
+// firebase.database().ref('submissions').on('child_removed', (snapshot) => {
+//   const key = snapshot.key;
+
+//   // Revert assigned label
+//   const assigned = [...labelElements, ...dynamicLabels].find(el => el.dataset.firebaseKey === key);
+//   if (assigned) {
+//     if (labelElements.includes(assigned)) {
+//       assigned.innerHTML = `<img src="img/surfer.png">${baseLabelText}`;
+//     } else {
+//       assigned.remove();
+//     }
+//   }
+// });
+
+const shownImages = new Set();
+
+firebase.database().ref('clicks').on('child_added', (snapshot) => {
+  const { imgIndex, reflectIndex } = snapshot.val();
+  const key = `${imgIndex}-${reflectIndex}`;
+  if (shownImages.has(key)) return; // skip duplicates
+
+  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
+  const el = document.querySelector(selector);
+  if (el) {
+    el.style.display = 'block';
+    shownImages.add(key);
   }
 
-  // Change word every 1.5 seconds
-  setInterval(showNextWord, 1500);
-  showNextWord(); // initial display
+  // auto-remove from db after 1 minute
+  // setTimeout(() => {
+  //   firebase.database().ref('clicks/' + snapshot.key).remove();
+  // }, 60000);
 });
+
+// firebase.database().ref('clicks').on('child_removed', (snapshot) => {
+//   const { imgIndex, reflectIndex } = snapshot.val();
+//   const key = `${imgIndex}-${reflectIndex}`;
+//   shownImages.delete(key);
+
+//   const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
+//   const el = document.querySelector(selector);
+//   if (el) el.style.display = 'none';
+// });
 
     </script>
 

@@ -1,0 +1,122 @@
+<!-- mobile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Select Reflect</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; background: #fff; display: flex; flex-direction: column; align-items: center; }
+    .grid { display: flex; flex-wrap: wrap; max-width: 500px; justify-content: center; gap: 10px; padding: 20px; }
+    .grid img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 2px solid #ccc; cursor: pointer; }
+    .grid img.disabled { opacity: 0.3; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+  <div class="grid" id="imgGrid"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBb7Hf1EfZFt4ZBV7D-83ZoYh2_268-fA0",
+      authDomain: "internetmap-40f5f.firebaseapp.com",
+      databaseURL: "https://internetmap-40f5f-default-rtdb.firebaseio.com",
+      projectId: "internetmap-40f5f",
+      storageBucket: "internetmap-40f5f.appspot.com",
+      messagingSenderId: "58899228247",
+      appId: "1:58899228247:web:d04ea480cc5ffbf4b06512"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const imageMap = {
+      "img-11.png": [5, 2],
+      "img-06.png": [1, 0],
+      "img-07.png": [2, 1],
+      "img-08.png": [3, 1],
+      "img-10.png": [4, 0],
+      "img-12.png": [6, 0],
+      "img-13.png": [7, 1],
+      "img-14.png": [8, 0],
+      "img-15.png": [0, 0],
+      "img-16.png": [9, 4],
+      "img-17.png": [10, 1],
+      "img-18.png": [11, 8],
+      "img-19.png": [12, 0],
+      "img-20.png": [13, 4]
+    };
+
+    const state = {}; // { "img-06.png": currentUsedCount }
+    const usedReflects = {}; // { "imgIndex-reflectIndex": true }
+    const container = document.getElementById("imgGrid");
+
+    Object.entries(imageMap).forEach(([filename, [imgIndex, maxReflect]]) => {
+      const thumb = document.createElement("img");
+      thumb.src = "extraimg/" + filename;
+      thumb.dataset.filename = filename;
+      thumb.dataset.imgIndex = imgIndex;
+      thumb.dataset.max = maxReflect;
+      container.appendChild(thumb);
+
+      state[filename] = 0;
+    });
+
+    // Fetch current used reflect states from Firebase
+    firebase.database().ref('clicks').once('value', (snapshot) => {
+      snapshot.forEach(child => {
+        const { imgIndex, reflectIndex } = child.val();
+        const key = `${imgIndex}-${reflectIndex}`;
+        usedReflects[key] = true;
+      });
+
+      // Disable used-up thumbnails
+      document.querySelectorAll('.grid img').forEach(img => {
+        const filename = img.dataset.filename;
+        const imgIndex = +img.dataset.imgIndex;
+        const maxReflect = +img.dataset.max;
+
+        let usedCount = 0;
+        for (let i = 0; i <= maxReflect; i++) {
+          if (usedReflects[`${imgIndex}-${i}`]) usedCount++;
+        }
+
+        state[filename] = usedCount;
+
+        if (usedCount > maxReflect) {
+          img.classList.add('disabled');
+        }
+      });
+    });
+
+    // Handle click
+    container.addEventListener('click', (e) => {
+      if (!e.target.matches('img')) return;
+      const img = e.target;
+      const filename = img.dataset.filename;
+      const imgIndex = +img.dataset.imgIndex;
+      const maxReflect = +img.dataset.max;
+      let reflectIndex = state[filename];
+
+      if (reflectIndex > maxReflect) return;
+
+      const key = `${imgIndex}-${reflectIndex}`;
+      if (usedReflects[key]) return;
+
+      usedReflects[key] = true;
+      state[filename]++;
+
+      firebase.database().ref('clicks').push({
+        imgIndex,
+        reflectIndex,
+        timestamp: Date.now()
+      });
+
+      if (state[filename] > maxReflect) {
+        img.classList.add('disabled');
+      }
+    });
+  </script>
+</body>
+</html>
