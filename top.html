@@ -14,6 +14,171 @@
             }
         }
     </script>
+
+      <style type="text/css">
+      
+                .extra_img{
+                  position: absolute;
+                  z-index: 100000;
+                  display: none;
+                }
+.extra_img_0.reflect_0 {
+    width: 18%;
+    left: 41%;
+    top: 21%; }
+.extra_img_1.reflect_0 { width: 9%; left: 50%; top: 30%; }
+.extra_img_1.reflect_1 { width: 9%; left: 30%; top: 30%; }
+.extra_img_1.reflect_2 { width: 9%; left: 60%; top: 30%; }
+.extra_img_1.reflect_3 { width: 9%; left: 70%; top: 30%; }
+.extra_img_1.reflect_4 { width: 9%; left: 20%; top: 30%; }
+.extra_img_2.reflect_0 { width: 16.59%; left: 70%; }
+.extra_img_2.reflect_1 { transform: scaleX(-1); width: 16.59%; left:13.41%; }
+.extra_img_3.reflect_0 { width: 9.75%; left: 86.5%; top: 8vw; }
+.extra_img_3.reflect_1 { transform: scaleX(-1); width: 9.75%; left:3.75%; top: 8vw; }
+.extra_img_4.reflect_0 { width: 4.5%; left: 50%; top: 40%; }
+.extra_img_4.reflect_1 { width: 4.5%; left: 50%; top: 50%; }
+.extra_img_4.reflect_2 { width: 4.5%; left: 50%; top: 45%; }
+.extra_img_4.reflect_3 { width: 4.5%; left: 50%; top: 50%; }
+.extra_img_4.reflect_4 { width: 4.5%; left: 50%; top: 30%; }
+.extra_img_4.reflect_5 { width: 4.5%; left: 50%; top: 55%; }
+.extra_img_4.reflect_6 { width: 4.5%; left: 50%; top: 40%; }
+.extra_img_4.reflect_7 { width: 4.5%; left: 50%; top: 30%; }
+.extra_img_5.reflect_0 { width: 20.35%; left: 49%; top: 25%; }
+.extra_img_5.reflect_1 { transform: translateX(-100%); width: 20.35%; left: 49%; top: 25%; }
+.extra_img_5.reflect_2 { transform: translateX(200%); width: 20.35%; left: 49%; top: 25%; }
+.extra_img_6.reflect_0 { width: 52%; left: 0%; }
+.extra_img_7.reflect_0 { width: 41.84%; right: 0; }
+.extra_img_7.reflect_1 { width: 41.84%; right: 0; transform: translateY(80%); }
+.extra_img_8.reflect_0 { width: 20.48%; left: 94%; top: -20%; }
+.extra_img_9.reflect_0 { top:50%; width: 12%; left: 70%; }
+.extra_img_9.reflect_1 { top:50%; width: 12%; left: 70%; transform: translateX(100%); }
+.extra_img_9.reflect_2 { top:50%; width: 12%; left: 70%; transform: translateX(200%); }
+.extra_img_9.reflect_3 { top:50%; width: 12%; left: 70%; transform: translateX(300%); }
+.extra_img_9.reflect_4 { top:50%; width: 12%; left: 70%; transform: translateX(400%); }
+.extra_img_10.reflect_0 { width: 7%; left: 60%; top: 20%; }
+.extra_img_10.reflect_1 { width: 7%; left: 33%; top: 20%; transform: scaleX(-1); }
+.extra_img_11.reflect_0 { width: 14.12%; top: 20%; }
+.extra_img_11.reflect_1 { width: 14.12%; top: 30%; transform: translateX(100%); }
+.extra_img_11.reflect_2 { width: 14.12%; top: 40%; transform: translateX(200%); }
+.extra_img_11.reflect_3 { width: 14.12%; top: 40%; transform: translateX(300%); }
+.extra_img_11.reflect_4 { width: 14.12%; top: 40%; transform: translateX(400%); }
+.extra_img_11.reflect_5 { width: 14.12%; top: 30%; transform: translateX(500%); }
+.extra_img_11.reflect_6 { width: 14.12%; top: 20%; transform: translateX(600%); }
+.extra_img_11.reflect_7 { width: 14.12%; top: 20%; transform: translateX(700%); }
+.extra_img_11.reflect_8 { width: 14.12%; top: 20%; transform: translateX(800%); }
+.extra_img_12.reflect_0 { width: 90%; left: 5%; top: 30%; }
+.extra_img_13.reflect_0 { width: 14%; left: 50%; top: 50%; }
+.extra_img_13.reflect_1 { width: 14%; left: 50%; top: 50%; transform: translate(80%, -100%); }
+.extra_img_13.reflect_2 { width: 14%; left: 50%; top: 50%; transform: translate(160%, -200%); }
+.extra_img_13.reflect_3 { width: 14%; left: 50%; top: 50%; transform: translate(240%, -300%); }
+.extra_img_13.reflect_4 { width: 14%; left: 50%; top: 50%; transform: translate(320%, -400%); }
+/* === KEYFRAMES === */
+@keyframes moveExtraImg8 {
+  0% {
+    left: 94%;
+    top: -20%;
+  }
+  99.9% {
+    left: -10%;
+    top: 100%;
+  }
+  100% {
+    left: 94%;
+    top: -20%;
+  }
+}
+
+.extra_img_8.reflect_0 {
+  position: absolute;
+  animation: moveExtraImg8 10s linear infinite;
+}
+@keyframes moveUpLoop {
+  0%   { transform: translateY(0); }
+  99.9% { transform: translateY(-200vh); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes moveLeftLoop {
+  0%   { transform: translateX(0); }
+  99.9% { transform: translateX(-200vw); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes moveRightLoop {
+  0%   { transform: translateX(0); }
+  99.9% { transform: translateX(200vw); }
+  100% { transform: translateX(0); }
+}
+
+/* === COMMON ANIMATION SETTINGS === */
+.extra_img_1,
+.extra_img_4 {
+  animation-duration: 18s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+
+/* === .extra_img_1.reflect_X (UPWARD) === */
+.extra_img_1.reflect_0 {
+  animation-name: moveUpLoop;
+  animation-delay: 0s;
+}
+.extra_img_1.reflect_1 {
+  animation-name: moveUpLoop;
+  animation-delay: 1s;
+}
+.extra_img_1.reflect_2 {
+  animation-name: moveUpLoop;
+  animation-delay: 2s;
+}
+.extra_img_1.reflect_3 {
+  animation-name: moveUpLoop;
+  animation-delay: 3s;
+}
+.extra_img_1.reflect_4 {
+  animation-name: moveUpLoop;
+  animation-delay: 4s;
+}
+
+/* === .extra_img_4.reflect_X (HORIZONTAL LEFT/RIGHT) === */
+.extra_img_4.reflect_0 {
+  animation-name: moveRightLoop;
+  animation-delay: 0s;
+}
+.extra_img_4.reflect_1 {
+  animation-name: moveLeftLoop;
+  animation-delay: 1s;
+}
+.extra_img_4.reflect_2 {
+  animation-name: moveRightLoop;
+  animation-delay: 2s;
+}
+.extra_img_4.reflect_3 {
+  animation-name: moveLeftLoop;
+  animation-delay: 3s;
+}
+.extra_img_4.reflect_4 {
+  animation-name: moveRightLoop;
+  animation-delay: 4s;
+}
+.extra_img_4.reflect_5 {
+  animation-name: moveLeftLoop;
+  animation-delay: 5s;
+}
+.extra_img_4.reflect_6 {
+  animation-name: moveRightLoop;
+  animation-delay: 6s;
+}
+.extra_img_4.reflect_7 {
+  animation-name: moveLeftLoop;
+  animation-delay: 7s;
+}
+
+
+/* etc… */
+
+  </style>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 <script type="text/javascript">
@@ -75,6 +240,53 @@ const db = firebase.database();
         <div class="label" id="particle-label-12"><img src="img/surfer.png">웹 서퍼</div>
         <!-- <img src="cloud.png" class="cloud"> -->
 
+<img class="extra_img extra_img_0 reflect_0" src="extraimg/top-15.png">
+<img class="extra_img extra_img_1 reflect_0" src="extraimg/top-06.png">
+<img class="extra_img extra_img_1 reflect_1" src="extraimg/top-06.png">
+<img class="extra_img extra_img_1 reflect_2" src="extraimg/top-06.png">
+<img class="extra_img extra_img_1 reflect_3" src="extraimg/top-06.png">
+<img class="extra_img extra_img_1 reflect_4" src="extraimg/top-06.png">
+<img class="extra_img extra_img_2 reflect_0" src="extraimg/top-07.png">
+<img class="extra_img extra_img_2 reflect_1" src="extraimg/top-07.png">
+<img class="extra_img extra_img_3 reflect_0" src="extraimg/top-08.png">
+<img class="extra_img extra_img_3 reflect_1" src="extraimg/top-08.png">
+<img class="extra_img extra_img_4 reflect_0" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_1" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_2" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_3" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_4" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_5" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_6" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_7" src="extraimg/top-10.png">
+<img class="extra_img extra_img_5 reflect_8" src="extraimg/top-11.png">
+<img class="extra_img extra_img_5 reflect_1" src="extraimg/top-11.png">
+<img class="extra_img extra_img_5 reflect_2" src="extraimg/top-11.png">
+<img class="extra_img extra_img_6 reflect_0" src="extraimg/top-12.png">
+<img class="extra_img extra_img_7 reflect_0" src="extraimg/top-13.png">
+<img class="extra_img extra_img_7 reflect_1" src="extraimg/top-13.png">
+<img class="extra_img extra_img_8 reflect_0" src="extraimg/top-14.png">
+<img class="extra_img extra_img_9 reflect_0" src="extraimg/top-16.png">
+<img class="extra_img extra_img_9 reflect_1" src="extraimg/top-16.png">
+<img class="extra_img extra_img_9 reflect_2" src="extraimg/top-16.png">
+<img class="extra_img extra_img_9 reflect_3" src="extraimg/top-16.png">
+<img class="extra_img extra_img_9 reflect_4" src="extraimg/top-16.png">
+<img class="extra_img extra_img_10 reflect_0" src="extraimg/top-17.png">
+<img class="extra_img extra_img_10 reflect_1" src="extraimg/top-17.png">
+<img class="extra_img extra_img_11 reflect_0" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_1" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_2" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_3" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_4" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_5" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_6" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_7" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_8" src="extraimg/top-18.png">
+<img class="extra_img extra_img_12 reflect_0" src="extraimg/top-19.png">
+<img class="extra_img extra_img_13 reflect_0" src="extraimg/top-20.png">
+<img class="extra_img extra_img_13 reflect_1" src="extraimg/top-20.png">
+<img class="extra_img extra_img_13 reflect_2" src="extraimg/top-20.png">
+<img class="extra_img extra_img_13 reflect_3" src="extraimg/top-20.png">
+<img class="extra_img extra_img_13 reflect_4" src="extraimg/top-20.png">
 
 <video id="webcam" autoplay muted playsinline></video>
 <div id="container" style="position: relative; width: 100vw; height: 100vh; overflow: hidden;">
@@ -276,7 +488,6 @@ const now = Date.now();
 
 // Only count crossing if it's been at least 1500ms since last time *this person* crossed *this line*
 if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime > 1500)) {
-  console.log(`👣 Person ${personIndex} ${name} crossed line ${firebaseLineNum}`);
 
   const ref = db.ref(`crossings/line${firebaseLineNum}`);
   ref.transaction(current => (current || 0) + 1);
@@ -304,8 +515,8 @@ if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime
 
 
   </script>
-<!-- <img class="btn btn_00 btnimg"  id="toggleCamera"src="img/back.png"> -->
-<!-- <img class="btn btn_0 btnimg" src="img/q-01.png"> -->
+<img class="btn btn_00 btnimg" src="img/qr-mobile.png">
+<img class="btn btn_0 btnimg" src="img/qr-icon.png">
 <!-- <img class="btn btn_00 btnimg"  id="toggleCamera"src="img/back.png"> -->
 <!-- <img class="btn btn_0 btnimg" src="img/q-01.png"> -->
  <script type="module">
@@ -680,14 +891,11 @@ const fbxLoader = new FBXLoader();
 let sortedFBXChildren = [];
 fbxLoader.load('img/st_new.fbx', (object) => {
     for (var i = object.children.length - 1; i >= 0; i--) {
-        console.log(object.children[i].position.y)
     }
     cubeGeometryFromFBX = object;
     // Sort children by original Y position (lowest first)
     sortedFBXChildren = [...object.children].sort((a, b) => a.position.y - b.position.y);
-    console.log(sortedFBXChildren)
     for (var i = sortedFBXChildren.length - 1; i >= 0; i--) {
-        console.log(sortedFBXChildren[i].position.y)
     }
 });
 
@@ -699,6 +907,19 @@ function padToTwoDigits(num) {
 
 function dropCube(index) {
     cube_counter++
+
+
+  const btn0 = document.querySelector('.btn_0');
+  if (btn0) {
+    if (cube_counter > 250) {
+      btn0.style.display = 'block';
+    } else {
+      btn0.style.display = 'none';
+    }
+  }
+
+
+
   if (!cubeGeometryFromFBX) {
     console.warn('FBX not loaded yet');
     return;
@@ -956,7 +1177,6 @@ scene.add(cloud);
 // Manually simulate drop count increase every second
 setInterval(() => {
         drop_count++;
-        console.log('🧱 Drop count:', drop_count);
 
         const targetOpacity = Math.min(0.5, (drop_count - 10) / 30);
         cloud.material.opacity = Math.max(0, targetOpacity);
@@ -1383,10 +1603,6 @@ function updateWaterColor() {
                 startColor = lerpColorRGBA('#ff83001a', '#00c1ff1a', p);
                 endColor = lerpColorRGBA('#ff7e4c24', '#4c95ff45', p);
             }
-            console.log(`
-              radial-gradient(${startColor}, ${endColor}),
-              url(img/netgrid.png)
-            `)
 
             buttons.style.backgroundImage = `radial-gradient(${startColor}, ${endColor}), url(img/netgrid.png)`;
 
@@ -1408,19 +1624,6 @@ function updateWaterColor() {
                 }
                 window.addEventListener('resize', onWindowResize, false);
                 onWindowResize();
-                window.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('.btn_000').addEventListener('click', () => {
-    const popup_1 = document.querySelector('.popup_1');
-    const currentOpacity = window.getComputedStyle(popup_1).opacity;
-    popup_1.style.opacity = currentOpacity === '1' ? '0' : '1';
-  });
-
-  document.querySelector('.btn_0').addEventListener('click', () => {
-    const popup_2 = document.querySelector('.popup_2');
-    const currentOpacity = window.getComputedStyle(popup_2).opacity;
-    popup_2.style.opacity = currentOpacity === '1' ? '0' : '1';
-  });
-});
 window.addEventListener('DOMContentLoaded', () => {
   const words = [
     "바다",
@@ -1451,17 +1654,33 @@ window.addEventListener('DOMContentLoaded', () => {
     "행위의 동기"
   ];
 
-  const popup = document.querySelector('.popup_2');
-  let index = 0;
+});
+const shownImages = new Set();
+console.log(firebase)
+// When a click is added (either manual or auto)
+firebase.database().ref('clicks').on('child_added', (snapshot) => {
+  console.log('!')
+  const { imgIndex, reflectIndex } = snapshot.val();
+  const key = `${imgIndex}-${reflectIndex}`;
+  if (shownImages.has(key)) return;
 
-  function showNextWord() {
-    popup.textContent = words[index];
-    index = (index + 1) % words.length;
+  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
+  const el = document.querySelector(selector);
+  if (el) {
+    el.style.display = 'block';
+    shownImages.add(key);
   }
+});
 
-  // Change word every 1.5 seconds
-  setInterval(showNextWord, 1500);
-  showNextWord(); // initial display
+// When a click is removed (auto or reset)
+firebase.database().ref('clicks').on('child_removed', (snapshot) => {
+  const { imgIndex, reflectIndex } = snapshot.val();
+  const key = `${imgIndex}-${reflectIndex}`;
+  shownImages.delete(key);
+
+  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
+  const el = document.querySelector(selector);
+  if (el) el.style.display = 'none';
 });
 
     </script>

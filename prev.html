@@ -25,164 +25,6 @@
                     transition: background-image 1s ease;
                     /*opacity: 0*/
                 }
-                .extra_img{
-                  position: absolute;
-                  z-index: 100000;
-                  display: none;
-                }
-.extra_img_0.reflect_0 { width: 12%; left: 44%; top: -2%; }
-.extra_img_1.reflect_0 { width: 9%; left: 50%; top: 30%; }
-.extra_img_1.reflect_1 { width: 9%; left: 30%; top: 30%; }
-.extra_img_1.reflect_2 { width: 9%; left: 60%; top: 30%; }
-.extra_img_1.reflect_3 { width: 9%; left: 70%; top: 30%; }
-.extra_img_1.reflect_4 { width: 9%; left: 20%; top: 30%; }
-.extra_img_2.reflect_0 { width: 16.59%; left: 70%; }
-.extra_img_2.reflect_1 { transform: scaleX(-1); width: 16.59%; left:13.41%; }
-.extra_img_3.reflect_0 { width: 9.75%; left: 86.5%; top: 8vw; }
-.extra_img_3.reflect_1 { transform: scaleX(-1); width: 9.75%; left:3.75%; top: 8vw; }
-.extra_img_4.reflect_0 { width: 4.5%; left: 50%; top: 40%; }
-.extra_img_4.reflect_1 { width: 4.5%; left: 50%; top: 50%; }
-.extra_img_4.reflect_2 { width: 4.5%; left: 50%; top: 45%; }
-.extra_img_4.reflect_3 { width: 4.5%; left: 50%; top: 50%; }
-.extra_img_4.reflect_4 { width: 4.5%; left: 50%; top: 30%; }
-.extra_img_4.reflect_5 { width: 4.5%; left: 50%; top: 55%; }
-.extra_img_4.reflect_6 { width: 4.5%; left: 50%; top: 40%; }
-.extra_img_4.reflect_7 { width: 4.5%; left: 50%; top: 30%; }
-.extra_img_5.reflect_0 { width: 20.35%; left: 49%; top: 25%; }
-.extra_img_5.reflect_1 { transform: translateX(-100%); width: 20.35%; left: 49%; top: 25%; }
-.extra_img_5.reflect_2 { transform: translateX(200%); width: 20.35%; left: 49%; top: 25%; }
-.extra_img_6.reflect_0 { width: 52%; left: 0%; }
-.extra_img_7.reflect_0 { width: 41.84%; right: 0; }
-.extra_img_7.reflect_1 { width: 41.84%; right: 0; transform: translateY(80%); }
-.extra_img_8.reflect_0 { width: 20.48%; left: 94%; top: -20%; }
-.extra_img_9.reflect_0 { top:50%; width: 12%; left: 70%; }
-.extra_img_9.reflect_1 { top:50%; width: 12%; left: 70%; transform: translateX(100%); }
-.extra_img_9.reflect_2 { top:50%; width: 12%; left: 70%; transform: translateX(200%); }
-.extra_img_9.reflect_3 { top:50%; width: 12%; left: 70%; transform: translateX(300%); }
-.extra_img_9.reflect_4 { top:50%; width: 12%; left: 70%; transform: translateX(400%); }
-.extra_img_10.reflect_0 { width: 7%; left: 60%; top: 20%; }
-.extra_img_10.reflect_1 { width: 7%; left: 33%; top: 20%; transform: scaleX(-1); }
-.extra_img_11.reflect_0 { width: 14.12%; top: 50%; }
-.extra_img_11.reflect_1 { width: 14.12%; top: 50%; transform: translateX(100%); }
-.extra_img_11.reflect_2 { width: 14.12%; top: 50%; transform: translateX(200%); }
-.extra_img_11.reflect_3 { width: 14.12%; top: 50%; transform: translateX(300%); }
-.extra_img_11.reflect_4 { width: 14.12%; top: 50%; transform: translateX(400%); }
-.extra_img_11.reflect_5 { width: 14.12%; top: 50%; transform: translateX(500%); }
-.extra_img_11.reflect_6 { width: 14.12%; top: 50%; transform: translateX(600%); }
-.extra_img_11.reflect_7 { width: 14.12%; top: 50%; transform: translateX(700%); }
-.extra_img_11.reflect_8 { width: 14.12%; top: 50%; transform: translateX(800%); }
-.extra_img_12.reflect_0 { width: 90%; left: 5%; top: 30%; }
-.extra_img_13.reflect_0 { width: 14%; left: 50%; top: 50%; }
-.extra_img_13.reflect_1 { width: 14%; left: 50%; top: 50%; transform: translate(80%, -100%); }
-.extra_img_13.reflect_2 { width: 14%; left: 50%; top: 50%; transform: translate(160%, -200%); }
-.extra_img_13.reflect_3 { width: 14%; left: 50%; top: 50%; transform: translate(240%, -300%); }
-.extra_img_13.reflect_4 { width: 14%; left: 50%; top: 50%; transform: translate(320%, -400%); }
-/* === KEYFRAMES === */
-@keyframes moveExtraImg8 {
-  0% {
-    left: 94%;
-    top: -20%;
-  }
-  99.9% {
-    left: -10%;
-    top: 100%;
-  }
-  100% {
-    left: 94%;
-    top: -20%;
-  }
-}
-
-.extra_img_8.reflect_0 {
-  position: absolute;
-  animation: moveExtraImg8 10s linear infinite;
-}
-@keyframes moveUpLoop {
-  0%   { transform: translateY(0); }
-  99.9% { transform: translateY(-200vh); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes moveLeftLoop {
-  0%   { transform: translateX(0); }
-  99.9% { transform: translateX(-200vw); }
-  100% { transform: translateX(0); }
-}
-
-@keyframes moveRightLoop {
-  0%   { transform: translateX(0); }
-  99.9% { transform: translateX(200vw); }
-  100% { transform: translateX(0); }
-}
-
-/* === COMMON ANIMATION SETTINGS === */
-.extra_img_1,
-.extra_img_4 {
-  animation-duration: 18s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  position: absolute;
-}
-
-/* === .extra_img_1.reflect_X (UPWARD) === */
-.extra_img_1.reflect_0 {
-  animation-name: moveUpLoop;
-  animation-delay: 0s;
-}
-.extra_img_1.reflect_1 {
-  animation-name: moveUpLoop;
-  animation-delay: 1s;
-}
-.extra_img_1.reflect_2 {
-  animation-name: moveUpLoop;
-  animation-delay: 2s;
-}
-.extra_img_1.reflect_3 {
-  animation-name: moveUpLoop;
-  animation-delay: 3s;
-}
-.extra_img_1.reflect_4 {
-  animation-name: moveUpLoop;
-  animation-delay: 4s;
-}
-
-/* === .extra_img_4.reflect_X (HORIZONTAL LEFT/RIGHT) === */
-.extra_img_4.reflect_0 {
-  animation-name: moveRightLoop;
-  animation-delay: 0s;
-}
-.extra_img_4.reflect_1 {
-  animation-name: moveLeftLoop;
-  animation-delay: 1s;
-}
-.extra_img_4.reflect_2 {
-  animation-name: moveRightLoop;
-  animation-delay: 2s;
-}
-.extra_img_4.reflect_3 {
-  animation-name: moveLeftLoop;
-  animation-delay: 3s;
-}
-.extra_img_4.reflect_4 {
-  animation-name: moveRightLoop;
-  animation-delay: 4s;
-}
-.extra_img_4.reflect_5 {
-  animation-name: moveLeftLoop;
-  animation-delay: 5s;
-}
-.extra_img_4.reflect_6 {
-  animation-name: moveRightLoop;
-  animation-delay: 6s;
-}
-.extra_img_4.reflect_7 {
-  animation-name: moveLeftLoop;
-  animation-delay: 7s;
-}
-
-
-/* etc… */
-
   </style>
     <script type="importmap">
         {
@@ -230,6 +72,22 @@ const db = firebase.database();
 <line class="st0 cls-1" x1="141.7" y1="839.5" x2="508.3" y2="454.5"/>//8
 <line class="st0 cls-1" x1="0" y1="571.9" x2="452.2" y2="426.9"/>//7
   </svg>
+  <!-- <button id="reset-btn" style="
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  background: red;
+  color: white;
+  font-size: 16px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+">
+  RESET!
+</button> -->
+
 
   <!-- TensorFlow + Pose Detection -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
@@ -399,6 +257,7 @@ if (point && point.score > 0.4) {
 
         // Only count crossing if it's been at least 1500ms since last time *this person* crossed *this line*
         if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime > 1500)) {
+          console.log(`👣 Person ${personIndex} ${name} crossed line ${firebaseLineNum}`);
 
           const ref = db.ref(`crossings/line${firebaseLineNum}`);
           ref.transaction(current => (current || 0) + 1);
@@ -425,67 +284,16 @@ if (point && point.score > 0.4) {
     setup();
 
 
-// document.getElementById('reset-btn').onclick = () => {
-//   for (let i = 1; i <= 12; i++) {
-//     const ref = db.ref(`crossings/line${i}`);
-//     ref.set(0);
-//   }
-//   console.log("✅ All lines reset to 0");
-// };
+    document.getElementById('reset-btn').onclick = () => {
+  for (let i = 1; i <= 12; i++) {
+    const ref = db.ref(`crossings/line${i}`);
+    ref.set(0);
+  }
+  console.log("✅ All lines reset to 0");
+};
 
   </script>
-<img class="extra_img extra_img_0 reflect_0" src="extraimg/img-15.png">
-<img class="extra_img extra_img_1 reflect_0" src="extraimg/img-06.png">
-<img class="extra_img extra_img_1 reflect_1" src="extraimg/img-06.png">
-<img class="extra_img extra_img_1 reflect_2" src="extraimg/img-06.png">
-<img class="extra_img extra_img_1 reflect_3" src="extraimg/img-06.png">
-<img class="extra_img extra_img_1 reflect_4" src="extraimg/img-06.png">
-<img class="extra_img extra_img_2 reflect_0" src="extraimg/img-07.png">
-<img class="extra_img extra_img_2 reflect_1" src="extraimg/img-07.png">
-<img class="extra_img extra_img_3 reflect_0" src="extraimg/img-08.png">
-<img class="extra_img extra_img_3 reflect_1" src="extraimg/img-08.png">
-<img class="extra_img extra_img_4 reflect_0" src="extraimg/img-10.png">
-<img class="extra_img extra_img_4 reflect_1" src="extraimg/img-10.png">
-<img class="extra_img extra_img_4 reflect_2" src="extraimg/img-10.png">
-<img class="extra_img extra_img_4 reflect_3" src="extraimg/img-10.png">
-<img class="extra_img extra_img_4 reflect_4" src="extraimg/img-10.png">
-<img class="extra_img extra_img_4 reflect_5" src="extraimg/img-10.png">
-<img class="extra_img extra_img_4 reflect_6" src="extraimg/img-10.png">
-<img class="extra_img extra_img_4 reflect_7" src="extraimg/img-10.png">
-<img class="extra_img extra_img_5 reflect_8" src="extraimg/img-11.png">
-<img class="extra_img extra_img_5 reflect_1" src="extraimg/img-11.png">
-<img class="extra_img extra_img_5 reflect_2" src="extraimg/img-11.png">
-<img class="extra_img extra_img_6 reflect_0" src="extraimg/img-12.png">
-<img class="extra_img extra_img_7 reflect_0" src="extraimg/img-13.png">
-<img class="extra_img extra_img_7 reflect_1" src="extraimg/img-13.png">
-<img class="extra_img extra_img_8 reflect_0" src="extraimg/img-14.png">
-<img class="extra_img extra_img_9 reflect_0" src="extraimg/img-16.png">
-<img class="extra_img extra_img_9 reflect_1" src="extraimg/img-16.png">
-<img class="extra_img extra_img_9 reflect_2" src="extraimg/img-16.png">
-<img class="extra_img extra_img_9 reflect_3" src="extraimg/img-16.png">
-<img class="extra_img extra_img_9 reflect_4" src="extraimg/img-16.png">
-<img class="extra_img extra_img_10 reflect_0" src="extraimg/img-17.png">
-<img class="extra_img extra_img_10 reflect_1" src="extraimg/img-17.png">
-<img class="extra_img extra_img_11 reflect_0" src="extraimg/img-18.png">
-<img class="extra_img extra_img_11 reflect_1" src="extraimg/img-18.png">
-<img class="extra_img extra_img_11 reflect_2" src="extraimg/img-18.png">
-<img class="extra_img extra_img_11 reflect_3" src="extraimg/img-18.png">
-<img class="extra_img extra_img_11 reflect_4" src="extraimg/img-18.png">
-<img class="extra_img extra_img_11 reflect_5" src="extraimg/img-18.png">
-<img class="extra_img extra_img_11 reflect_6" src="extraimg/img-18.png">
-<img class="extra_img extra_img_11 reflect_7" src="extraimg/img-18.png">
-<img class="extra_img extra_img_11 reflect_8" src="extraimg/img-18.png">
-<img class="extra_img extra_img_12 reflect_0" src="extraimg/img-19.png">
-<img class="extra_img extra_img_13 reflect_0" src="extraimg/img-20.png">
-<img class="extra_img extra_img_13 reflect_1" src="extraimg/img-20.png">
-<img class="extra_img extra_img_13 reflect_2" src="extraimg/img-20.png">
-<img class="extra_img extra_img_13 reflect_3" src="extraimg/img-20.png">
-<img class="extra_img extra_img_13 reflect_4" src="extraimg/img-20.png">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-
-</script>
 
 
   <div id="buttons"></div>
@@ -537,21 +345,18 @@ if (point && point.score > 0.4) {
     const count = snapshot.val() || 0;
     while (firebaseCounts[i] < count) {
       dropCube(i);
-
-  checkGroupMilestones(); // ✅ add this
       firebaseCounts[i]++;
     }
 
     // If count is reset to 0, clear group
     if (count === 0 && firebaseCounts[i] !== 0) {
-  firebaseCounts[i] = 0;
-  const group = groups[i];
-  while (group.children.length > 0) {
-    group.remove(group.children[0]);
-  }
-  checkGroupMilestones();
-}
+      firebaseCounts[i] = 0;
 
+      const group = innerGroups[i]; // assuming you have one group per line
+      while (group.children.length > 0) {
+        group.remove(group.children[0]);
+      }
+    }
   });
 }
 
@@ -678,8 +483,6 @@ camera.updateProjectionMatrix();
                 // --- Cube Groups and Drop Buttons ---
         const radius = 2.5;
         const groups = [];
-        const innerGroups = [];
-
         const groups_rot_index = [];
         const stacks = Array(total).fill(0);
         const dropHeight = 10;
@@ -719,8 +522,6 @@ camera.updateProjectionMatrix();
 
 
                 groups.push(group);
-                innerGroups.push(group);
-
 
                 groups_rot_index[i] = 0
         }
@@ -734,43 +535,6 @@ camera.updateProjectionMatrix();
         };
 
         // buttonContainer.appendChild(splashBtn);
-
-
-// Create and shuffle array [1 ~ 14]
-let shuffled = Array.from({ length: 14 }, (_, i) => i + 1);
-for (let i = shuffled.length - 1; i > 0; i--) {
-  const j = Math.floor(Math.random() * (i + 1));
-  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-}
-let totalChildrenMilestone = 250;
-let milestoneIndex = 0;
-let reflectIndex = 0;
-function checkGroupMilestones() {
-  let total = groups.reduce((sum, g) => sum + g.children.length, 0);
-console.log(total)
-  const visibleCount = Math.max(0, Math.floor((total - 250) / 10));
-
-  // Reset everything
-  // $('.extra_img').hide();
-  milestoneIndex = 0;
-  reflectIndex = 0;
-
-  // Show only the allowed number of images based on total cube count
-  for (let i = 0; i < visibleCount; i++) {
-    const classIndex = shuffled[milestoneIndex];
-    const selector = `.extra_img_${classIndex}.reflect_${reflectIndex}`;
-    $(selector).show();
-
-    reflectIndex++;
-    if (reflectIndex > 4) {
-      reflectIndex = 0;
-      milestoneIndex++;
-    }
-  }
-
-  // Reset base threshold
-  totalChildrenMilestone = 250 + visibleCount * 10;
-}
 
 
 
@@ -913,6 +677,7 @@ const fbxLoader = new FBXLoader();
 let sortedFBXChildren = [];
 fbxLoader.load('img/st_new.fbx', (object) => {
     for (var i = object.children.length - 1; i >= 0; i--) {
+        console.log(object.children[i].position.y)
     }
     cubeGeometryFromFBX = object;
     // Sort children by original Y position (lowest first)
@@ -929,6 +694,7 @@ function padToTwoDigits(num) {
 function dropCube(index) {
     cube_counter++
     if (!cubeGeometryFromFBX) {
+        console.warn('FBX not loaded yet');
         return;
     }
 
@@ -1075,11 +841,16 @@ if ([5, 6, 7, 8].includes(index+1)) {
 } else if ([1, 2, 11, 12].includes(index+1)) {
     threshold = 75;
 }
+console.log(index,threshold)
+
 if (threshold !== null) {
+      console.log('!!1')
     const groupSize = group.children.length;
     const exceeded = groupSize - threshold;
+      console.log([index+1,groupSize,threshold,-exceeded * (1 / 3)])
     if (exceeded > 0&&-exceeded * (1 / 3)<masterGroup.position.y) {
         masterGroup.position.y = -exceeded * (1 / 9);
+        console.log( -exceeded * (1 / 9))
     }
 }
 // 🔁 Auto-reset + reload if two or more groups exceed 100
@@ -1089,8 +860,9 @@ for (let i = 0; i < groups.length; i++) {
         over100Count++;
     }
 }
-checkGroupMilestones()
+
 if (over100Count >= 2) {
+    console.log('⚠️ Two or more groups exceeded 100 cubes — resetting Firebase and reloading...');
 
     // Reset Firebase first
     for (let i = 1; i <= 12; i++) {
@@ -1202,6 +974,7 @@ if (over100Count >= 2) {
 
 // Create cloud
 const cloudTexture = new THREE.TextureLoader().load('cloud.png', () => {
+        console.log('✅ cloud.png loaded');
 });
 
 const cloudMat = new THREE.MeshBasicMaterial({
@@ -1626,6 +1399,7 @@ function updateWaterColor() {
     }
     const buttons = document.getElementById('buttons');
     if (buttons) {
+        console.log('!')
         buttons.style.background = `radial-gradient(transparent 50%, ${color})`;
     }
 
@@ -1633,57 +1407,6 @@ function updateWaterColor() {
 }
 
                 animate();
-setInterval(() => {
-  const nonEmptyGroups = groups
-    .map((group, i) => ({ group, index: i }))
-    .filter(entry => entry.group.children.length > 0);
-
-  if (nonEmptyGroups.length === 0) return;
-
-  const chosen = nonEmptyGroups[Math.floor(Math.random() * nonEmptyGroups.length)];
-  const group = chosen.group;
-  const i = chosen.index;
-
-  const last = group.children[group.children.length - 1];
-  last.traverse(obj => {
-    if (obj.geometry) obj.geometry.dispose();
-    if (obj.material) {
-      if (Array.isArray(obj.material)) {
-        obj.material.forEach(m => m.dispose());
-      } else {
-        obj.material.dispose();
-      }
-    }
-  });
-  group.remove(last);
-  stacks[i] = Math.max(0, stacks[i] - 1);
-
-  // Update Firebase count
-  const ref = db.ref(`crossings/line${i + 1}`);
-  ref.transaction(current => Math.max(0, (current || 0) - 1));
-
-  // ✅ Recalculate and update .extra_img visibility
-  const total = groups.reduce((sum, g) => sum + g.children.length, 0);
-  const visibleCount = Math.floor((total - 250) / 10);
-
-  // $('.extra_img').hide();
-  let showIndex = 0;
-  let refIndex = 0;
-  for (let j = 0; j < visibleCount; j++) {
-    const classIndex = shuffled[showIndex];
-    const selector = `.extra_img_${classIndex}.reflect_${refIndex}`;
-    $(selector).show();
-
-    refIndex++;
-    if (refIndex > 4) {
-      refIndex = 0;
-      showIndex++;
-    }
-  }
-}, 10000);
-
-
-
 
                 // --- Resize ---
                 function onWindowResize() {
@@ -1697,121 +1420,6 @@ setInterval(() => {
                 }
                 window.addEventListener('resize', onWindowResize, false);
                 onWindowResize();
-
-
-
-
-                const labelElements = Array.from(document.querySelectorAll('[id^="particle_whirl-label-"]'));
-const baseLabelText = "웹 서퍼";
-const dynamicLabels = [];
-
-function createDynamicLabel(text) {
-  const label = document.createElement('div');
-  label.className = 'label';
-  label.innerHTML = `<img src="img/surfer.png">${text}`;
-  label.style.position = 'absolute';
-  document.body.appendChild(label);
-  dynamicLabels.push(label);
-  return label;
-}
-
-// Listen for new submissions
-firebase.database().ref('submissions').on('child_added', (snapshot) => {
-  const value = snapshot.val();
-  const key = snapshot.key;
-
-  const unusedLabel = labelElements.find(el => el.innerText.trim() === baseLabelText);
-
-  if (unusedLabel) {
-    unusedLabel.innerHTML = `<img src="img/surfer.png">${value.text}`;
-    unusedLabel.dataset.firebaseKey = key;
-  } else {
-    const newLabel = createDynamicLabel(value.text);
-    newLabel.dataset.firebaseKey = key;
-  }
-});
-
-const delayOffsets = {
-  0: 0,
-  1: 0.5,
-  2: 1.0,
-  3: 1.5,
-  4: 2.0
-};
-firebase.database().ref('clicks').on('child_added', (snapshot) => {
-  const { imgIndex, reflectIndex } = snapshot.val();
-  const key = `${imgIndex}-${reflectIndex}`;
-  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
-  const el = document.querySelector(selector);
-
-  if (!shownImages.has(key) && el) {
-    el.style.display = 'block';
-    shownImages.add(key);
-
-    // If it's .extra_img_1.* apply looping with staggered delay
-    if (imgIndex === 1) {
-      el.classList.add('float-loop');
-      el.style.animationDelay = `${delayOffsets[reflectIndex] || 0}s`;
-    }
-  }
-});
-
-// Remove image only if user manually deletes the database entry
-firebase.database().ref('clicks').on('child_removed', (snapshot) => {
-  const { imgIndex, reflectIndex } = snapshot.val();
-  const key = `${imgIndex}-${reflectIndex}`;
-  shownImages.delete(key);
-
-  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
-  const el = document.querySelector(selector);
-  if (el) el.style.display = 'none';
-});
-
-// When a submission is removed → revert label or remove element
-// firebase.database().ref('submissions').on('child_removed', (snapshot) => {
-//   const key = snapshot.key;
-
-//   // Revert assigned label
-//   const assigned = [...labelElements, ...dynamicLabels].find(el => el.dataset.firebaseKey === key);
-//   if (assigned) {
-//     if (labelElements.includes(assigned)) {
-//       assigned.innerHTML = `<img src="img/surfer.png">${baseLabelText}`;
-//     } else {
-//       assigned.remove();
-//     }
-//   }
-// });
-
-const shownImages = new Set();
-
-firebase.database().ref('clicks').on('child_added', (snapshot) => {
-  const { imgIndex, reflectIndex } = snapshot.val();
-  const key = `${imgIndex}-${reflectIndex}`;
-  if (shownImages.has(key)) return; // skip duplicates
-
-  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
-  const el = document.querySelector(selector);
-  if (el) {
-    el.style.display = 'block';
-    shownImages.add(key);
-  }
-
-  // auto-remove from db after 1 minute
-  // setTimeout(() => {
-  //   firebase.database().ref('clicks/' + snapshot.key).remove();
-  // }, 60000);
-});
-
-// firebase.database().ref('clicks').on('child_removed', (snapshot) => {
-//   const { imgIndex, reflectIndex } = snapshot.val();
-//   const key = `${imgIndex}-${reflectIndex}`;
-//   shownImages.delete(key);
-
-//   const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
-//   const el = document.querySelector(selector);
-//   if (el) el.style.display = 'none';
-// });
-
     </script>
 
 </body>

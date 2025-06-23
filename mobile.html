@@ -27,6 +27,7 @@
       border-radius: 8px;
       border: 1px solid #ccc;
       width: 100%;
+    box-sizing: border-box;
     }
     button {
       padding: 1rem;
@@ -45,8 +46,8 @@
 <body>
 
   <div class="container">
-    <input type="text" id="textInput" placeholder="이름을 적으셔요" maxlength="8">
-    <button onclick="handleSubmit()">제출!</button>
+    <input type="text" id="textInput" placeholder="서퍼의 이름을 적으세요." maxlength="8">
+    <button onclick="handleSubmit()">서핑 시작!</button>
   </div>
 
   <!-- Firebase CDN -->
@@ -79,7 +80,7 @@ const firebaseConfig = {
 
 
       if (!valid.test(value)) {
-        alert('Only letters and numbers, max 8 characters.');
+        alert('8글자 이하의 글자 혹은 숫자만 입력 가능합니다.');
         return;
       }
 
@@ -89,7 +90,7 @@ const firebaseConfig = {
       });
 
       input.value = '';
-      alert('Submitted!');
+      alert('서핑이 시작되었습니다.');
     }
   </script>
 
