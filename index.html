@@ -197,6 +197,9 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 <script type="text/javascript">
+  let autoWriteCooldownUntil = 0; // ms timestamp
+let autoWriteEnabled = true;
+
   // ✅ Your Firebase config (replace with your actual config)
 const firebaseConfig = {
   apiKey: "AIzaSyBb7Hf1EfZFt4ZBV7D-83ZoYh2_268-fA0",
@@ -761,17 +764,19 @@ for (let i = 0; i < visibleCount; i++) {
   const selector = `.extra_img_${classIndex}.reflect_${reflectIndex}`;
   const el = document.querySelector(selector);
 
-  if (el && getComputedStyle(el).display === 'none') {
-    // Show the image
-    el.style.display = 'block';
+if (el && getComputedStyle(el).display === 'none') {
+  el.style.display = 'block';
 
-    // ✅ Log to Firebase (only if not already visible)
+  // ❌ Skip writing if cooldown is active or toggle is off
+  if (autoWriteEnabled && Date.now() > autoWriteCooldownUntil) {
     db.ref('clicks').push({
       imgIndex: classIndex,
       reflectIndex: reflectIndex,
-      auto: true  // optional flag to mark it's auto-triggered
+      auto: true
     });
   }
+}
+
 
   reflectIndex++;
   if (reflectIndex > 4) {
@@ -1105,16 +1110,18 @@ for (let i = 0; i < groups.length; i++) {
 checkGroupMilestones()
 if (over100Count >= 2) {
 
-    // Reset Firebase first
-    for (let i = 1; i <= 12; i++) {
-        const ref = db.ref(`crossings/line${i}`);
-        ref.set(0);
-    }
+for (let i = 1; i <= 12; i++) {
+  const ref = db.ref(`crossings/line${i}`);
+  ref.set(0);
+}
+db.ref('clicks').remove();
 
-    // Wait a brief moment for Firebase to finish, then reload
-    setTimeout(() => {
-        location.reload();
-    }, 500); // adjust if needed
+autoWriteCooldownUntil = Date.now() + 10000; // 🔥 block auto-rewrites for 10s
+
+setTimeout(() => {
+  location.reload();
+}, 500);
+
 }
 
 
