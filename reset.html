@@ -8,25 +8,36 @@
 </head>
 <body>
   <h2>Reset Trigger Page</h2>
-  <button onclick="pushResetValues()">Push 101 to Index 6 & 7</button>
+
+  <!-- Original button -->
+  <button onclick="pushResetValues()">Reset</button>
+
+  <!-- Counter UI -->
+  <p>Current Count: <span id="counterValue">0</span></p>
+  <button onclick="incrementAndPush()">Increase & Push Count</button>
+  <button onclick="resetCounter()">Reset Count</button>
+
+  <!-- preload audio -->
+  <audio id="notifSound" src="400697__daphne_in_wonderland__messenger-notification-sound-imitation.wav" preload="auto"></audio>
 
   <script>
     // Replace this with your Firebase config
     var firebaseConfig = {
-  apiKey: "AIzaSyBb7Hf1EfZFt4ZBV7D-83ZoYh2_268-fA0",
-  authDomain: "internetmap-40f5f.firebaseapp.com",
-  databaseURL: "https://internetmap-40f5f-default-rtdb.firebaseio.com",
-  projectId: "internetmap-40f5f",
-  storageBucket: "internetmap-40f5f.firebasestorage.app",
-  messagingSenderId: "58899228247",
-  appId: "1:58899228247:web:d04ea480cc5ffbf4b06512",
-  measurementId: "G-TR5860MX5M"
+      apiKey: "AIzaSyBb7Hf1EfZFt4ZBV7D-83ZoYh2_268-fA0",
+      authDomain: "internetmap-40f5f.firebaseapp.com",
+      databaseURL: "https://internetmap-40f5f-default-rtdb.firebaseio.com",
+      projectId: "internetmap-40f5f",
+      storageBucket: "internetmap-40f5f.firebasestorage.app",
+      messagingSenderId: "58899228247",
+      appId: "1:58899228247:web:d04ea480cc5ffbf4b06512",
+      measurementId: "G-TR5860MX5M"
     };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
+    // --- Original function ---
     function pushResetValues() {
       const indicesToPush = [5, 6]; // line6, line7
       indicesToPush.forEach(i => {
@@ -35,6 +46,57 @@
         console.log(`crossings/line${i + 1} set to 101`);
       });
     }
+
+    // --- Counter logic ---
+    let counter = 0;
+    let lastValue = 0; // to detect increases
+
+    function incrementAndPush() {
+      counter++;
+      updateDisplay();
+      pushToFirebase(counter);
+    }
+
+    function resetCounter() {
+      counter = 0;
+      updateDisplay();
+      pushToFirebase(counter);
+      console.log("Counter reset to 0");
+    }
+
+    // --- Helpers ---
+    function updateDisplay() {
+      document.getElementById("counterValue").innerText = counter;
+    }
+
+    function pushToFirebase(val) {
+      db.ref("counter/value").set(val)
+        .then(() => {
+          console.log("Counter pushed:", val);
+        })
+        .catch(err => {
+          console.error("Error pushing counter:", err);
+        });
+    }
+
+    // --- Listener for counter changes ---
+    const counterRef = db.ref("counter/value");
+    const sound = document.getElementById("notifSound");
+
+    counterRef.on("value", (snapshot) => {
+      const val = snapshot.val() || 0;
+      updateDisplay();
+      counter = val;
+
+      if (val > lastValue) {
+        // play sound when number increases
+        sound.currentTime = 0; // rewind to start
+        sound.play().catch(err => {
+          console.warn("Audio play blocked until user interaction:", err);
+        });
+      }
+      lastValue = val;
+    });
   </script>
 </body>
 </html>

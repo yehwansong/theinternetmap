@@ -1,0 +1,3028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>The internet map</title>
+  <link rel="stylesheet" href="style.css" />
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "/js/three.module.js",
+                "OrbitControls": "/js/OrbitControls.js",
+                "FBXLoader": "/js/FBXLoader.js",
+                "OutlineEffect": "/js/OutlineEffect.js"
+            }
+        }
+    </script>
+
+      <style type="text/css">
+        body{
+    margin: 0;
+    overflow: hidden;
+    background: url(top.png);
+    background-size: 100% 100%;}
+    body{
+    margin: 0;
+    overflow: hidden;
+    background: url(top.png);
+    background-size: 100vw 100vh;
+    background-position: 0 76%;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: -10px;}
+       .cls-1{
+      /*display: none;*/
+       }
+                .extra_img{
+                  position: absolute;
+                  z-index: 100000;
+                  display: none;
+                }
+.extra_img_0.reflect_0 {
+    width: 18%;
+    left: 41%;
+    top: 21%; }
+.extra_img_1.reflect_0 { width: 9%; left: 50%; top: 30%; }
+.extra_img_1.reflect_1 { width: 9%; left: 30%; top: 30%; }
+.extra_img_1.reflect_2 { width: 9%; left: 60%; top: 30%; }
+.extra_img_1.reflect_3 { width: 9%; left: 70%; top: 30%; }
+.extra_img_1.reflect_4 { width: 9%; left: 20%; top: 30%; }
+.extra_img_2.reflect_0 { width: 16.59%; left: 70%; }
+.extra_img_2.reflect_1 { transform: scaleX(-1); width: 16.59%; left:13.41%; }
+.extra_img_3.reflect_0 { width: 9.75%; left: 86.5%; top: 8vw; }
+.extra_img_3.reflect_1 { transform: scaleX(-1); width: 9.75%; left:3.75%; top: 8vw; }
+.extra_img_4.reflect_0 { width: 4.5%; left: 50%; top: 40%; }
+.extra_img_4.reflect_1 { width: 4.5%; left: 50%; top: 50%; }
+.extra_img_4.reflect_2 { width: 4.5%; left: 50%; top: 45%; }
+.extra_img_4.reflect_3 { width: 4.5%; left: 50%; top: 50%; }
+.extra_img_4.reflect_4 { width: 4.5%; left: 50%; top: 30%; }
+.extra_img_4.reflect_5 { width: 4.5%; left: 50%; top: 55%; }
+.extra_img_4.reflect_6 { width: 4.5%; left: 50%; top: 40%; }
+.extra_img_4.reflect_7 { width: 4.5%; left: 50%; top: 30%; }
+.extra_img_5.reflect_0 { width: 20.35%; left: 49%; top: 25%; }
+.extra_img_5.reflect_1 { transform: translateX(-100%); width: 20.35%; left: 49%; top: 25%; }
+.extra_img_5.reflect_2 { transform: translateX(200%); width: 20.35%; left: 49%; top: 25%; }
+.extra_img_6.reflect_0 { width: 52%; left: 0%; }
+.extra_img_7.reflect_0 { width: 41.84%; right: 0; }
+.extra_img_7.reflect_1 { width: 41.84%; right: 0; transform: translateY(80%); }
+.extra_img_8.reflect_0 { width: 20.48%; left: 94%; top: -20%; }
+.extra_img_9.reflect_0 { top:50%; width: 12%; left: 70%; }
+.extra_img_9.reflect_1 { top:50%; width: 12%; left: 70%; transform: translateX(100%); }
+.extra_img_9.reflect_2 { top:50%; width: 12%; left: 70%; transform: translateX(200%); }
+.extra_img_9.reflect_3 { top:50%; width: 12%; left: 70%; transform: translateX(300%); }
+.extra_img_9.reflect_4 { top:50%; width: 12%; left: 70%; transform: translateX(400%); }
+.extra_img_10.reflect_0 { width: 7%; left: 60%; top: 20%; }
+.extra_img_10.reflect_1 { width: 7%; left: 33%; top: 20%; transform: scaleX(-1); }
+.extra_img_11.reflect_0 { width: 14.12%; top: 20%; }
+.extra_img_11.reflect_1 { width: 14.12%; top: 30%; transform: translateX(100%); }
+.extra_img_11.reflect_2 { width: 14.12%; top: 40%; transform: translateX(200%); }
+.extra_img_11.reflect_3 { width: 14.12%; top: 40%; transform: translateX(300%); }
+.extra_img_11.reflect_4 { width: 14.12%; top: 40%; transform: translateX(400%); }
+.extra_img_11.reflect_5 { width: 14.12%; top: 30%; transform: translateX(500%); }
+.extra_img_11.reflect_6 { width: 14.12%; top: 20%; transform: translateX(600%); }
+.extra_img_11.reflect_7 { width: 14.12%; top: 20%; transform: translateX(700%); }
+.extra_img_11.reflect_8 { width: 14.12%; top: 20%; transform: translateX(800%); }
+.extra_img_12.reflect_0 { width: 90%; left: 5%; top: 30%; }
+.extra_img_13.reflect_0 { width: 14%; left: 50%; top: 50%; }
+.extra_img_13.reflect_1 { width: 14%; left: 50%; top: 50%; transform: translate(80%, -100%); }
+.extra_img_13.reflect_2 { width: 14%; left: 50%; top: 50%; transform: translate(160%, -200%); }
+.extra_img_13.reflect_3 { width: 14%; left: 50%; top: 50%; transform: translate(240%, -300%); }
+.extra_img_13.reflect_4 { width: 14%; left: 50%; top: 50%; transform: translate(320%, -400%); }
+/* === KEYFRAMES === */
+
+@keyframes moveExtraImg8 {
+  0% {
+    left: 94%;
+    top: -20%;
+  }
+  99.9% {
+    left: -10%;
+    top: 100%;
+  }
+  100% {
+    left: 94%;
+    top: -20%;
+  }
+}
+
+.extra_img_8.reflect_0 {
+  position: absolute;
+  animation: moveExtraImg8 10s linear infinite;
+}
+@keyframes moveUpLoop {
+  0%   { transform: translateY(0); }
+  99.9% { transform: translateY(-200vh); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes moveLeftLoop {
+  0%   { transform: translateX(0); }
+  99.9% { transform: translateX(-200vw); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes moveRightLoop {
+  0%   { transform: translateX(0); }
+  99.9% { transform: translateX(200vw); }
+  100% { transform: translateX(0); }
+}
+
+/* === COMMON ANIMATION SETTINGS === */
+.extra_img_1,
+.extra_img_4 {
+  animation-duration: 18s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+
+/* === .extra_img_1.reflect_X (UPWARD) === */
+.extra_img_1.reflect_0 {
+  animation-name: moveUpLoop;
+  animation-delay: 0s;
+}
+.extra_img_1.reflect_1 {
+  animation-name: moveUpLoop;
+  animation-delay: 1s;
+}
+.extra_img_1.reflect_2 {
+  animation-name: moveUpLoop;
+  animation-delay: 2s;
+}
+.extra_img_1.reflect_3 {
+  animation-name: moveUpLoop;
+  animation-delay: 3s;
+}
+.extra_img_1.reflect_4 {
+  animation-name: moveUpLoop;
+  animation-delay: 4s;
+}
+
+/* === .extra_img_4.reflect_X (HORIZONTAL LEFT/RIGHT) === */
+.extra_img_4.reflect_0 {
+  animation-name: moveRightLoop;
+  animation-delay: 0s;
+}
+.extra_img_4.reflect_1 {
+  animation-name: moveLeftLoop;
+  animation-delay: 1s;
+}
+.extra_img_4.reflect_2 {
+  animation-name: moveRightLoop;
+  animation-delay: 2s;
+}
+.extra_img_4.reflect_3 {
+  animation-name: moveLeftLoop;
+  animation-delay: 3s;
+}
+.extra_img_4.reflect_4 {
+  animation-name: moveRightLoop;
+  animation-delay: 4s;
+}
+.extra_img_4.reflect_5 {
+  animation-name: moveLeftLoop;
+  animation-delay: 5s;
+}
+.extra_img_4.reflect_6 {
+  animation-name: moveRightLoop;
+  animation-delay: 6s;
+}
+.extra_img_4.reflect_7 {
+  animation-name: moveLeftLoop;
+  animation-delay: 7s;
+}
+
+
+/* etc… */
+
+.btn span{    
+    font-size: 15px;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    position: relative;
+    display: block;
+    color: white;
+    background: #0000008c;
+    line-height: 1.3;
+}
+.twitch_wrap, .tail{
+  transition: transform 1s; 
+    position: absolute !important;
+    width: 100vh !important;
+    height: 100vh !important;
+    padding-top: 0 !important;
+    overflow: hidden;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%);
+    z-index: 100000;
+}
+.text{
+    z-index: 10000000000;
+    position: absolute;
+    background: linear-gradient(180deg, #ffffff, #ffffff47);
+    min-width: 30vw;
+    min-height: 5vw;
+    border-radius: 1.5vw;
+    right: 5vw;
+    top: 3vw;
+    box-sizing: border-box;
+    padding: 2vh;
+    font-family: sans-serif;
+    font-size: 2vw;
+    box-shadow: 0vh 0vh 2vh black;
+  }
+.tail{display: none; border-radius: 50%}
+.tail-1{background-color: red;}
+.tail-2{background-color: orange;}
+.tail-3{background-color: yellow;}
+.tail-4{background-color: greenyellow;}
+.tail-5{background-color: skyblue;}
+.tail-6{background-color: blue;}
+.tail-7{background-color: blueviolet;}
+.tail-8{background-color: violet;}
+.tail-9{background-color: darkviolet;}
+.tail-10{background-color: black;}
+.tail-11{background-color: white;}
+/***outline animate*/
+    .count-0 .twitch_wrap,
+    .count-1 .twitch_wrap{transition: transform 6s;transform: translate(-50%, -50%) scale(0);}
+    .count-2 .twitch_wrap,
+    .count-3 .twitch_wrap,
+    .count-4 .twitch_wrap,
+    .count-5 .twitch_wrap,
+    .count-6 .twitch_wrap,
+    .count-7 .twitch_wrap,
+    .count-8 .twitch_wrap,
+    .count-9 .twitch_wrap{transition: transform 6s;transform: translate(-50%, -50%) scale(1);}
+    .count-10 .twitch_wrap,
+    .count-11 .twitch_wrap,
+    .count-12 .twitch_wrap,
+    .count-13 .twitch_wrap,
+    .count-14 .twitch_wrap,
+    .count-15 .twitch_wrap,
+    .count-16 .twitch_wrap,
+    .count-17 .twitch_wrap,
+    .count-18 .twitch_wrap,
+    .count-19 .twitch_wrap,
+    .count-20 .twitch_wrap,
+    .count-21 .twitch_wrap,
+    .count-22 .twitch_wrap{transition: transform 6s;transform: translate(-50%, -50%) scale(0.5);}
+    .count-34 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -50%) scale(0.2)}
+    .count-35 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -20%) scale(0.2)}
+    .count-36 .twitch_wrap{transition: transform 1s; transform: translate(-35%, -25%) scale(0.2)}
+    .count-37 .twitch_wrap{transition: transform 1s; transform: translate(-25%, -35%) scale(0.2)}
+    .count-38 .twitch_wrap{transition: transform 1s; transform: translate(-20%, -50%) scale(0.2)}
+    .count-39 .twitch_wrap{transition: transform 1s; transform: translate(-25%, -65%) scale(0.2)}
+    .count-40 .twitch_wrap{transition: transform 1s; transform: translate(-35%, -75%) scale(0.2)}
+    .count-41 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -80%) scale(0.2)}
+    .count-42 .twitch_wrap{transition: transform 1s; transform: translate(-65%, -75%) scale(0.2)}
+    .count-43 .twitch_wrap{transition: transform 1s; transform: translate(-75%, -65%) scale(0.2)}
+    .count-44 .twitch_wrap{transition: transform 1s; transform: translate(-85%, -50%) scale(0.2)}
+    .count-45 .twitch_wrap{transition: transform 1s; transform: translate(-75%, -35%) scale(0.2)}
+    .count-46 .twitch_wrap{transition: transform 1s; transform: translate(-65%, -20%) scale(0.2)}
+    .count-47 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -20%) scale(0.2)}
+    .count-48 .twitch_wrap{transition: transform 1s; transform: translate(-35%, -25%) scale(0.2)}
+    .count-49 .twitch_wrap{transition: transform 1s; transform: translate(-25%, -35%) scale(0.2)}
+    .count-50 .twitch_wrap{transition: transform 1s; transform: translate(-20%, -50%) scale(0.2)}
+    .count-51 .twitch_wrap{transition: transform 1s; transform: translate(-25%, -65%) scale(0.2)}
+    .count-52 .twitch_wrap{transition: transform 1s; transform: translate(-35%, -75%) scale(0.2)}
+    .count-53 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -80%) scale(0.2)}
+    .count-54 .twitch_wrap{transition: transform 1s; transform: translate(-65%, -75%) scale(0.2)}
+    .count-55 .twitch_wrap{transition: transform 1s; transform: translate(-75%, -65%) scale(0.2)}
+    .count-56 .twitch_wrap{transition: transform 1s; transform: translate(-85%, -50%) scale(0.2)}
+    .count-57 .twitch_wrap{transition: transform 1s; transform: translate(-75%, -35%) scale(0.2)}
+    .count-58 .twitch_wrap{transition: transform 1s; transform: translate(-65%, -21%) scale(0.2)}
+    .count-59 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -20%) scale(0.2)}
+    .count-60 .twitch_wrap{transition: transform 1s; transform: translate(-35%, -25%) scale(0.2)}
+    .count-61 .twitch_wrap{transition: transform 1s; transform: translate(-25%, -35%) scale(0.2)}
+    .count-62 .twitch_wrap{transition: transform 1s; transform: translate(-20%, -50%) scale(0.2)}
+    .count-63 .twitch_wrap{transition: transform 1s; transform: translate(-25%, -65%) scale(0.2)}
+    .count-64 .twitch_wrap{transition: transform 1s; transform: translate(-35%, -75%) scale(0.2)}
+    .count-65 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -80%) scale(0.2)}
+    .count-66 .twitch_wrap{transition: transform 1s; transform: translate(-65%, -75%) scale(0.2)}
+    .count-67 .twitch_wrap{transition: transform 1s; transform: translate(-75%, -65%) scale(0.2)}
+    .count-68 .twitch_wrap{transition: transform 1s; transform: translate(-85%, -50%) scale(0.2)}
+    .count-69 .twitch_wrap{transition: transform 1s; transform: translate(-75%, -35%) scale(0.2)}
+    .count-70 .twitch_wrap{transition: transform 1s; transform: translate(-65%, -21%) scale(0.2)}
+    .count-71 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -20%) scale(0.2)}
+    .count-72 .twitch_wrap{transition: transform 1s; transform: translate(-35%, -25%) scale(0.2)}
+    .count-73 .twitch_wrap{transition: transform 1s; transform: translate(-25%, -35%) scale(0.2)}
+    .count-74 .twitch_wrap{transition: transform 1s; transform: translate(-20%, -50%) scale(0.2)}
+    .count-75 .twitch_wrap{transition: transform 1s; transform: translate(-25%, -65%) scale(0.2)}
+    .count-76 .twitch_wrap{transition: transform 1s; transform: translate(-35%, -75%) scale(0.2)}
+    .count-77 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -80%) scale(0.2)}
+    .count-78 .twitch_wrap{transition: transform 1s; transform: translate(-65%, -75%) scale(0.2)}
+    .count-79 .twitch_wrap{transition: transform 1s; transform: translate(-75%, -65%) scale(0.2)}
+    .count-80 .twitch_wrap{transition: transform 1s; transform: translate(-85%, -50%) scale(0.2)}
+    .count-81 .twitch_wrap{transition: transform 1s; transform: translate(-75%, -35%) scale(0.2)}
+    .count-82 .twitch_wrap{transition: transform 1s; transform: translate(-65%, -21%) scale(0.2)}
+    .count-83 .twitch_wrap{transition: transform 1s; transform: translate(-75%, -65%) scale(0.2)}
+    .count-84 .twitch_wrap{transition: transform 1s; transform: translate(-65%, -21%) scale(0.2)}
+
+    .count-85 .twitch_wrap{transition: transform 1s; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-86 .twitch_wrap{transition: transform 1s; transform: translate(-35%, -25%) scale(0.2)}
+    .count-86 .tail-1{display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-87 .twitch_wrap{transition: transform 1s; transform: translate(-25%, -35%) scale(0.2)}
+    .count-87 .tail-2{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-87 .tail-1{display:block; transform: translate(-35%, -25%) scale(0.2)}
+
+    .count-88 .twitch_wrap{transform: translate(-20%, -50%) scale(0.2)}
+    .count-88 .tail-3{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-88 .tail-2{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-88 .tail-1{display:block; transform: translate(-25%, -35%) scale(0.2)}
+
+    .count-89 .twitch_wrap{transform: translate(-25%, -65%) scale(0.2)}
+    .count-89 .tail-4{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-89 .tail-3{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-89 .tail-2{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-89 .tail-1{display:block; transform: translate(-20%, -50%) scale(0.2)}
+
+    .count-90 .twitch_wrap{transform: translate(-35%, -75%) scale(0.2)}
+    .count-90 .tail-5{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-90 .tail-4{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-90 .tail-3{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-90 .tail-2{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-90 .tail-1{display:block; transform: translate(-25%, -65%) scale(0.2)}
+
+    .count-91 .twitch_wrap{transform: translate(-50%, -80%) scale(0.2)}
+    .count-91 .tail-6{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-91 .tail-5{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-91 .tail-4{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-91 .tail-3{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-91 .tail-2{display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-91 .tail-1{display:block; transform: translate(-35%, -75%) scale(0.2)}
+
+    .count-92 .twitch_wrap{transform: translate(-65%, -75%) scale(0.2)}
+    .count-92 .tail-7{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-92 .tail-6{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-92 .tail-5{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-92 .tail-4{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-92 .tail-3{display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-92 .tail-2{display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-92 .tail-1{display:block; transform: translate(-50%, -80%) scale(0.2)}
+
+    .count-93 .twitch_wrap{transform: translate(-75%, -65%) scale(0.2)}
+    .count-93 .tail-8{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-93 .tail-7{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-93 .tail-6{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-93 .tail-5{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-93 .tail-4{display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-93 .tail-3{display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-93 .tail-2{display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-93 .tail-1{display:block; transform: translate(-65%, -75%) scale(0.2)}
+
+    .count-94 .twitch_wrap{transform: translate(-85%, -50%) scale(0.2)}
+    .count-94 .tail-9{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-94 .tail-8{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-94 .tail-7{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-94 .tail-6{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-94 .tail-5{display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-94 .tail-4{display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-94 .tail-3{display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-94 .tail-2{display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-94 .tail-1{display:block; transform: translate(-75%, -65%) scale(0.2)}
+
+    .count-95 .twitch_wrap{transform: translate(-75%, -35%) scale(0.2)}
+    .count-95 .tail-10{transform: translate(-50%, -20%) scale(0.2)}
+    .count-95 .tail-9{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-95 .tail-8{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-95 .tail-7{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-95 .tail-6{display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-95 .tail-5{display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-95 .tail-4{display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-95 .tail-3{display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-95 .tail-2{display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-95 .tail-1{display:block; transform: translate(-80%, -50%) scale(0.2)}
+
+    .count-96 .twitch_wrap{transform: translate(-65%, -25%) scale(0.2)}
+    .count-96 .tail-11{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-96 .tail-10{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-96 .tail-9 {display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-96 .tail-8 {display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-96 .tail-7 {display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-96 .tail-6 {display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-96 .tail-5 {display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-96 .tail-4 {display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-96 .tail-3 {display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-96 .tail-2 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-96 .tail-1 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+
+    .count-97 .twitch_wrap{transform: translate(-50%, -20%) scale(0.2)}
+    .count-97 .twitch_wrap{display:block; transform: translate(-50%, -20%) scale(0.2)}
+    .count-97 .tail-11{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-97 .tail-10{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-97 .tail-9 {display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-97 .tail-8 {display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-97 .tail-7 {display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-97 .tail-6 {display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-97 .tail-5 {display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-97 .tail-4 {display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-97 .tail-3 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-97 .tail-2 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-97 .tail-1 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+
+    .count-98 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-98 .twitch_wrap{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-98 .tail-11{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-98 .tail-10{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-98 .tail-9 {display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-98 .tail-8 {display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-98 .tail-7 {display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-98 .tail-6 {display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-98 .tail-5 {display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-98 .tail-4 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-98 .tail-3 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-98 .tail-2 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-98 .tail-1 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-99 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-99 .twitch_wrap{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-99 .tail-11{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-99 .tail-10{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-99 .tail-9 {display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-99 .tail-8 {display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-99 .tail-7 {display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-99 .tail-6 {display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-99 .tail-5 {display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-99 .tail-4 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-99 .tail-3 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-99 .tail-2 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-99 .tail-1 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+
+
+
+/**/
+    .count-100 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-100 .twitch_wrap{display:block; transform: translate(-35%, -25%) scale(0.2)}
+    .count-100 .tail-11{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-100 .tail-10{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-100 .tail-9 {display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-100 .tail-8 {display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-100 .tail-7 {display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-100 .tail-6 {display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-100 .tail-5 {display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-100 .tail-4 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-100 .tail-3 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-100 .tail-2 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-100 .tail-1 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-101 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-101 .tail-1 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-101 .twitch_wrap{display:block; transform: translate(-25%, -35%) scale(0.2)}
+    .count-101 .tail-11{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-101 .tail-10{display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-101 .tail-9 {display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-101 .tail-8 {display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-101 .tail-7 {display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-101 .tail-6 {display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-101 .tail-5 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-101 .tail-4 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-101 .tail-3 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-101 .tail-2 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-102 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-102 .tail-2 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-102 .tail-1 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-102 .twitch_wrap{display:block; transform: translate(-20%, -50%) scale(0.2)}
+    .count-102 .tail-11{display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-102 .tail-10{display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-102 .tail-9 {display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-102 .tail-8 {display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-102 .tail-7 {display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-102 .tail-6 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-102 .tail-5 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-102 .tail-4 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-102 .tail-3 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-103 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-103 .tail-3 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-103 .tail-2 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-103 .tail-1 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-103 .twitch_wrap{display:block; transform: translate(-25%, -65%) scale(0.2)}
+    .count-103 .tail-11{display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-103 .tail-10{display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-103 .tail-9 {display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-103 .tail-8 {display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-103 .tail-7 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-103 .tail-6 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-103 .tail-5 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-103 .tail-4 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-104 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-104 .tail-4 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-104 .tail-3 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-104 .tail-2 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-104 .tail-1 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-104 .twitch_wrap{display:block; transform: translate(-35%, -75%) scale(0.2)}
+    .count-104 .tail-11{display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-104 .tail-10{display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-104 .tail-9 {display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-104 .tail-8 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-104 .tail-7 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-104 .tail-6 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-104 .tail-5 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-105 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-105 .tail-5 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-105 .tail-4 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-105 .tail-3 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-105 .tail-2 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-105 .tail-1 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-105 .twitch_wrap{display:block; transform: translate(-50%, -80%) scale(0.2)}
+    .count-105 .tail-11{display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-105 .tail-10{display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-105 .tail-9 {display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-105 .tail-8 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-105 .tail-7 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-105 .tail-6 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-106 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-106 .tail-6 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-106 .tail-5 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-106 .tail-4 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-106 .tail-3 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-106 .tail-2 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-106 .tail-1 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-106 .tail-12 {display:block; transform: translate(-65%, -75%) scale(0.2)}
+    .count-106 .tail-11{display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-106 .tail-10{display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-106 .tail-9 {display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-106 .tail-8 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-106 .tail-7 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-107 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-107 .tail-7 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-107 .tail-6 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-107 .tail-5 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-107 .tail-4 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-107 .tail-3 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-107 .tail-2 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-107 .tail-1 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-107 .twitch_wrap{display:block; transform: translate(-75%, -65%) scale(0.2)}
+    .count-107 .tail-11{display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-107 .tail-10{display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-107 .tail-9 {display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-107 .tail-8 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-108 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-108 .tail-8 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-108 .tail-7 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-108 .tail-6 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-108 .tail-5 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-108 .tail-4 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-108 .tail-3 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-108 .tail-2 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-108 .tail-1 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-108 .twitch_wrap{display:block; transform: translate(-80%, -50%) scale(0.2)}
+    .count-108 .tail-11{display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-108 .tail-10{display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-108 .tail-9 {display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-109 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-109 .tail-9 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-109 .tail-8 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-109 .tail-7 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-109 .tail-6 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-109 .tail-5 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-109 .tail-4 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-109 .tail-3 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-109 .tail-2 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-109 .tail-1 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-109 .twitch_wrap{display:block; transform: translate(-75%, -35%) scale(0.2)}
+    .count-109 .tail-11{display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-109 .tail-10{display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-110 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-110 .tail-10{display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-110 .tail-9 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-110 .tail-8 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-110 .tail-7 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-110 .tail-6 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-110 .tail-5 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-110 .tail-4 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-110 .tail-3 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-110 .tail-2 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-110 .tail-1 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-110 .twitch_wrap{display:block; transform: translate(-65%, -25%) scale(0.2)}
+    .count-110 .tail-11{display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-111 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-111 .tail-11{display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-111 .tail-10{display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-111 .tail-9 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-111 .tail-8 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-111 .tail-7 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-111 .tail-6 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-111 .tail-5 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-111 .tail-4 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-111 .tail-3 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-111 .tail-2 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-111 .tail-1 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-111 .twitch_wrap{display:block; transform: translate(-50%, -20%) scale(0.2)}
+
+    .count-112 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-112 .twitch_wrap{display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-112 .tail-11{display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-112 .tail-10{display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-112 .tail-9 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-112 .tail-8 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-112 .tail-7 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-112 .tail-6 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-112 .tail-5 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-112 .tail-4 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-112 .tail-3 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-112 .tail-2 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-112 .tail-1 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+/**/
+    .count-113 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-113 .tail-1 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-113 .twitch_wrap{display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-113 .tail-11{display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-113 .tail-10{display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-113 .tail-9 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-113 .tail-8 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-113 .tail-7 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-113 .tail-6 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-113 .tail-5 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-113 .tail-4 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-113 .tail-3 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-113 .tail-2 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-114 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-114 .tail-2 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-114 .tail-1 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-114 .twitch_wrap{display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-114 .tail-11{display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-114 .tail-10{display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-114 .tail-9 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-114 .tail-8 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-114 .tail-7 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-114 .tail-6 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-114 .tail-5 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-114 .tail-4 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-114 .tail-3 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-115 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-115 .tail-3 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-115 .tail-2 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-115 .tail-1 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-115 .twitch_wrap{display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-115 .tail-11{display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-115 .tail-10{display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-115 .tail-9 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-115 .tail-8 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-115 .tail-7 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-115 .tail-6 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-115 .tail-5 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-115 .tail-4 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-116 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-116 .tail-4 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-116 .tail-3 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-116 .tail-2 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-116 .tail-1 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-116 .twitch_wrap{display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-116 .tail-11{display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-116 .tail-10{display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-116 .tail-9 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-116 .tail-8 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-116 .tail-7 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-116 .tail-6 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-116 .tail-5 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-117 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-117 .tail-5 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-117 .tail-4 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-117 .tail-3 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-117 .tail-2 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-117 .tail-1 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-117 .twitch_wrap{display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-117 .tail-11{display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-117 .tail-10{display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-117 .tail-9 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-117 .tail-8 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-117 .tail-7 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-117 .tail-6 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-118 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-118 .tail-6 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-118 .tail-5 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-118 .tail-4 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-118 .tail-3 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-118 .tail-2 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-118 .tail-1 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-118 .twitch_wrap{display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-118 .tail-11{display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-118 .tail-10{display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-118 .tail-9 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-118 .tail-8 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-118 .tail-7 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-119 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-119 .tail-7 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-119 .tail-6 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-119 .tail-5 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-119 .tail-4 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-119 .tail-3 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-119 .tail-2 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-119 .tail-1 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-119 .twitch_wrap{display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-119 .tail-11{display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-119 .tail-10{display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-119 .tail-9 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-119 .tail-8 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-120 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-120 .tail-8 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-120 .tail-7 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-120 .tail-6 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-120 .tail-5 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-120 .tail-4 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-120 .tail-3 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-120 .tail-2 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-120 .tail-1 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-120 .twitch_wrap{display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-120 .tail-11{display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-120 .tail-10{display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-120 .tail-9 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-121 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-121 .tail-9 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-121 .tail-8 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-121 .tail-7 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-121 .tail-6 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-121 .tail-5 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-121 .tail-4 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-121 .tail-3 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-121 .tail-2 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-121 .tail-1 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-121 .twitch_wrap{display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-121 .tail-11{display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-121 .tail-10{display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-122 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-122 .tail-10{display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-122 .tail-9 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-122 .tail-8 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-122 .tail-7 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-122 .tail-6 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-122 .tail-5 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-122 .tail-4 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-122 .tail-3 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-122 .tail-2 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-122 .tail-1 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-122 .twitch_wrap{display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-122 .tail-11{display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-123 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-123 .tail-11{display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-123 .tail-10{display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-123 .tail-9 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-123 .tail-8 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-123 .tail-7 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-123 .tail-6 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-123 .tail-5 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-123 .tail-4 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-123 .tail-3 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-123 .tail-2 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-123 .tail-1 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-123 .twitch_wrap{display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-124 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-124 .twitch_wrap{display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-124 .tail-11{display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-124 .tail-10{display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-124 .tail-9 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-124 .tail-8 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-124 .tail-7 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-124 .tail-6 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-124 .tail-5 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-124 .tail-4 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-124 .tail-3 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-124 .tail-2 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-124 .tail-1 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-125 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-125 .tail-1 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-125 .twitch_wrap{display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-125 .tail-11{display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-125 .tail-10{display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-125 .tail-9 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-125 .tail-8 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-125 .tail-7 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-125 .tail-6 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-125 .tail-5 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-125 .tail-4 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-125 .tail-3 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-125 .tail-2 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-126 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-126 .tail-2 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-126 .tail-1 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-126 .twitch_wrap{display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-126 .tail-11{display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-126 .tail-10{display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-126 .tail-9 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-126 .tail-8 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-126 .tail-7 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-126 .tail-6 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-126 .tail-5 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-126 .tail-4 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-126 .tail-3 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-127 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-127 .tail-3 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-127 .tail-2 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-127 .tail-1 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-127 .twitch_wrap{display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-127 .tail-11{display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-127 .tail-10{display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-127 .tail-9 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-127 .tail-8 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-127 .tail-7 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-127 .tail-6 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-127 .tail-5 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-127 .tail-4 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-128 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-128 .tail-4 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-128 .tail-3 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-128 .tail-2 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-128 .tail-1 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-128 .twitch_wrap{display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-128 .tail-11{display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-128 .tail-10{display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-128 .tail-9 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-128 .tail-8 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-128 .tail-7 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-128 .tail-6 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-128 .tail-5 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-129 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-129 .tail-5 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-129 .tail-4 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-129 .tail-3 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-129 .tail-2 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-129 .tail-1 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-129 .twitch_wrap{display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-129 .tail-11{display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-129 .tail-10{display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-129 .tail-9 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-129 .tail-8 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-129 .tail-7 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-129 .tail-6 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-130 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-130 .tail-6 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-130 .tail-5 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-130 .tail-4 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-130 .tail-3 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-130 .tail-2 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-130 .tail-1 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-130 .twitch_wrap{display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-130 .tail-11{display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-130 .tail-10{display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-130 .tail-9 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-130 .tail-8 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-130 .tail-7 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-131 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-131 .tail-7 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-131 .tail-6 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-131 .tail-5 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-131 .tail-4 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-131 .tail-3 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-131 .tail-2 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-131 .tail-1 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-131 .twitch_wrap{display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-131 .tail-11{display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-131 .tail-10{display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-131 .tail-9 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-131 .tail-8 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-132 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-132 .tail-8 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-132 .tail-7 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-132 .tail-6 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-132 .tail-5 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-132 .tail-4 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-132 .tail-3 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-132 .tail-2 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-132 .tail-1 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-132 .twitch_wrap{display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-132 .tail-11{display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-132 .tail-10{display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-132 .tail-9 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-133 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-133 .tail-9 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-133 .tail-8 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-133 .tail-7 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-133 .tail-6 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-133 .tail-5 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-133 .tail-4 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-133 .tail-3 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-133 .tail-2 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-133 .tail-1 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-133 .twitch_wrap{display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-133 .tail-11{display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-133 .tail-10{display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-134 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-134 .tail-10{display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-134 .tail-9 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-134 .tail-8 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-134 .tail-7 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-134 .tail-6 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-134 .tail-5 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-134 .tail-4 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-134 .tail-3 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-134 .tail-2 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-134 .tail-1 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-134 .twitch_wrap{display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-134 .tail-11{display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-135 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-135 .tail-11{display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-135 .tail-10{display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-135 .tail-9 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-135 .tail-8 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-135 .tail-7 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-135 .tail-6 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-135 .tail-5 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-135 .tail-4 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-135 .tail-3 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-135 .tail-2 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-135 .tail-1 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+
+
+    .count-136 .tail-1 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-136 .twitch_wrap{display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-136 .tail-11{display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-136 .tail-10{display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-136 .tail-9 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-136 .tail-8 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-136 .tail-7 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-136 .tail-6 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-136 .tail-5 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-136 .tail-4 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-136 .tail-3 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-136 .tail-2 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-137 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-137 .tail-2 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-137 .tail-1 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-137 .twitch_wrap{display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-137 .tail-11{display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-137 .tail-10{display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-137 .tail-9 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-137 .tail-8 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-137 .tail-7 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-137 .tail-6 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-137 .tail-5 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-137 .tail-4 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-126 .tail-3 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-138 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-138 .tail-3 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-138 .tail-2 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-138 .tail-1 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-138 .twitch_wrap{display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-138 .tail-11{display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-138 .tail-10{display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-138 .tail-9 {display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-138 .tail-8 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-138 .tail-7 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-138 .tail-6 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-138 .tail-5 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-127 .tail-4 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-139 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-139 .tail-4 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-139 .tail-3 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-139 .tail-2 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-139 .tail-1 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-139 .twitch_wrap{display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-139 .tail-11{display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-139 .tail-10{display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-139 .tail-9 {display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-139 .tail-8 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-139 .tail-7 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-139 .tail-6 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-139 .tail-5 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-140 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-140 .tail-5 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-140 .tail-4 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-140 .tail-3 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-140 .tail-2 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-140 .tail-1 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-140 .twitch_wrap{display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-140 .tail-11{display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-140 .tail-10{display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-140 .tail-9 {display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-140 .tail-8 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-140 .tail-7 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-140 .tail-6 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+    .count-141 .twitch_wrap{transform: translate(-35%, -25%) scale(0.2)}
+    .count-141 .tail-6 {display:block; transform: translate(-30%, -15%) scale(0.2)}
+    .count-141 .tail-5 {display:block; transform: translate(-20%, -30%) scale(0.2)}
+    .count-141 .tail-4 {display:block; transform: translate(-10%, -50%) scale(0.2)}
+    .count-141 .tail-3 {display:block; transform: translate(-15%, -70%) scale(0.2)}
+    .count-141 .tail-2 {display:block; transform: translate(-30%, -85%) scale(0.2)}
+    .count-141 .tail-1 {display:block; transform: translate(-50%, -90%) scale(0.2)}
+    .count-141 .twitch_wrap{display:block; transform: translate(-70%, -85%) scale(0.2)}
+    .count-141 .tail-11{display:block; transform: translate(-85%, -70%) scale(0.2)}
+    .count-141 .tail-10{display:block; transform: translate(-90%, -50%) scale(0.2)}
+    .count-141 .tail-9 {display:block; transform: translate(-80%, -30%) scale(0.2)}
+    .count-141 .tail-8 {display:block; transform: translate(-70%, -15%) scale(0.2)}
+    .count-141 .tail-7 {display:block; transform: translate(-50%, -10%) scale(0.2)}
+
+
+
+    .count-142,
+    .count-143,
+    .count-144,
+    .count-145,
+    .count-146,
+    .count-147,
+    .count-148{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-149 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-150 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-151 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-152 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-153 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-154 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-155 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-156 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-157 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-158 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-159 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+    .count-160 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+
+.count-161 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+.count-162 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+.count-163 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+.count-164 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+.count-165 .twitch_wrap{transform:translate(-50%, -50%) scale(2)}
+.count-166 .twitch_wrap{transform:translate(-50%, -50%) scale(2)}
+.count-167 .twitch_wrap{transform:translate(-50%, -50%) scale(2)}
+.count-168 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+.count-169 .twitch_wrap{transform:translate(-50%, -50%) scale(2)}
+.count-170 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+.count-171 .twitch_wrap{transform:translate(-50%, -50%) scale(2)}
+
+.count-171 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;}
+.count-172 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;transition: transform 6s;transform: scale(0);}
+.count-172 .twitch_wrap{transform:translate(-50%, -50%) scale(2)}
+.count-173 .twitch_wrap{z-index: 1000000; transition: transform 6s;transform:translate(-50%, -50%) scale(0);}
+.count-173 #webcam{z-index: 100; background: red; height: 100vh; width: 100vw;}
+.count-174 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;transition: transform 6s;transform: scale(0);}
+.count-174 .twitch_wrap{transform:translate(-50%, -50%) scale(2)}
+.count-175 .twitch_wrap{z-index: 1000000; transition: transform 6s;transform:translate(-50%, -50%) scale(0);}
+.count-175 #webcam{z-index: 100; background: red; height: 100vh; width: 100vw;}
+.count-176 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;transition: transform 6s;transform: scale(0);}
+.count-176 .twitch_wrap{transform:translate(-50%, -50%) scale(2)}
+.count-177 .twitch_wrap{z-index: 1000000; transition: transform 6s;transform:translate(-50%, -50%) scale(0);}
+.count-177 #webcam{z-index: 100; background: red; height: 100vh; width: 100vw;}
+.count-178 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;transition: transform 6s;transform: scale(0);}
+.count-178 .twitch_wrap{transform:translate(-50%, -50%) scale(2)}
+.count-179 .twitch_wrap{z-index: 1000000; transition: transform 6s;transform:translate(-50%, -50%) scale(0);}
+.count-179 #webcam{z-index: 100; background: red; height: 100vh; width: 100vw;}
+.count-180 #webcam{z-index: 1000000; background: red; height: 100vh; width: 100vw;transition: transform 12s;transform: scale(0);}
+.count-180 .twitch_wrap{transform:translate(-50%, -50%) scale(0);transition: transform 12s;}
+
+
+
+.text{opacity: 0}
+.count-1 .text-1,
+.count-2 .text-2,
+.count-3 .text-3,
+.count-4 .text-4,
+.count-5 .text-5,
+.count-6 .text-6,
+.count-7 .text-7,
+.count-8 .text-8,
+.count-9 .text-9,
+.count-10 .text-10,
+.count-11 .text-11,
+.count-12 .text-12,
+.count-13 .text-13,
+.count-14 .text-14,
+.count-15 .text-15,
+.count-16 .text-16,
+.count-17 .text-17,
+.count-18 .text-18,
+.count-19 .text-19,
+.count-20 .text-20,
+.count-21 .text-21,
+.count-22 .text-22,
+.count-23 .text-23,
+.count-24 .text-24,
+.count-25 .text-25,
+.count-26 .text-26,
+.count-27 .text-27,
+.count-28 .text-28,
+.count-29 .text-29,
+.count-30 .text-30,
+.count-31 .text-31,
+.count-32 .text-32,
+.count-33 .text-33,
+.count-34 .text-34,
+.count-35 .text-35,
+.count-36 .text-36,
+.count-37 .text-37,
+.count-38 .text-38,
+.count-39 .text-39,
+.count-40 .text-40,
+.count-41 .text-41,
+.count-42 .text-42,
+.count-43 .text-43,
+.count-44 .text-44,
+.count-45 .text-45,
+.count-46 .text-46,
+.count-47 .text-47,
+.count-48 .text-48,
+.count-49 .text-49,
+.count-50 .text-50,
+.count-51 .text-51,
+.count-52 .text-52,
+.count-53 .text-53,
+.count-54 .text-54,
+.count-55 .text-55,
+.count-56 .text-56,
+.count-57 .text-57,
+.count-58 .text-58,
+.count-59 .text-59,
+.count-60 .text-60,
+.count-61 .text-61,
+.count-62 .text-62,
+.count-63 .text-63,
+.count-64 .text-64,
+.count-65 .text-65,
+.count-66 .text-66,
+.count-67 .text-67,
+.count-68 .text-68,
+.count-69 .text-69,
+.count-70 .text-70,
+.count-71 .text-71,
+.count-72 .text-72,
+.count-73 .text-73,
+.count-74 .text-74,
+.count-75 .text-75,
+.count-76 .text-76,
+.count-77 .text-77,
+.count-78 .text-78,
+.count-79 .text-79,
+.count-80 .text-80,
+.count-81 .text-81,
+.count-82 .text-82,
+.count-83 .text-83,
+.count-84 .text-84,
+.count-85 .text-85,
+.count-86 .text-86,
+.count-87 .text-87,
+.count-88 .text-88,
+.count-89 .text-89,
+.count-90 .text-90,
+.count-91 .text-91,
+.count-92 .text-92,
+.count-93 .text-93,
+.count-94 .text-94,
+.count-95 .text-95,
+.count-96 .text-96,
+.count-97 .text-97,
+.count-98 .text-98,
+.count-99 .text-99,
+.count-100 .text-100,
+.count-101 .text-101,
+.count-102 .text-102,
+.count-103 .text-103,
+.count-104 .text-104,
+.count-105 .text-105,
+.count-106 .text-106,
+.count-107 .text-107,
+.count-108 .text-108,
+.count-109 .text-109,
+.count-110 .text-110,
+.count-111 .text-111,
+.count-112 .text-112,
+.count-113 .text-113,
+.count-114 .text-114,
+.count-115 .text-115,
+.count-116 .text-116,
+.count-117 .text-117,
+.count-118 .text-118,
+.count-119 .text-119,
+.count-120 .text-120,
+.count-121 .text-121,
+.count-122 .text-122,
+.count-123 .text-123,
+.count-124 .text-124,
+.count-125 .text-125,
+.count-126 .text-126,
+.count-127 .text-127,
+.count-128 .text-128,
+.count-129 .text-129,
+.count-130 .text-130,
+.count-131 .text-131,
+.count-132 .text-132,
+.count-133 .text-133,
+.count-134 .text-134,
+.count-135 .text-135,
+.count-136 .text-136,
+.count-137 .text-137,
+.count-138 .text-138,
+.count-139 .text-139,
+.count-140 .text-140,
+.count-141 .text-141,
+.count-142 .text-142,
+.count-143 .text-143,
+.count-144 .text-144,
+.count-145 .text-145,
+.count-146 .text-146,
+.count-147 .text-147,
+.count-148 .text-148,
+.count-149 .text-149,
+.count-150 .text-150,
+.count-151 .text-151,
+.count-152 .text-152,
+.count-153 .text-153,
+.count-154 .text-154,
+.count-155 .text-155,
+.count-156 .text-156,
+.count-157 .text-157,
+.count-158 .text-158,
+.count-159 .text-159,
+.count-160 .text-160,
+.count-161 .text-161,
+.count-162 .text-162,
+.count-163 .text-163,
+.count-164 .text-164,
+.count-165 .text-165,
+.count-166 .text-166,
+.count-167 .text-167,
+.count-168 .text-168,
+.count-169 .text-169,
+.count-170 .text-170,
+.count-171 .text-171,
+.count-172 .text-172,
+.count-173 .text-173,
+.count-174 .text-174,
+.count-175 .text-175,
+.count-176 .text-176,
+.count-177 .text-177,
+.count-178 .text-178,
+.count-179 .text-179{opacity: 1}
+
+
+    .twitch_wrap{transform: translate(-50%, -50%) scale(0.5);
+      border-radius: 50%}
+    .twitch_wrap>iframe{
+    width: 250% !important;
+    height: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) scale(2);}
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<script type="text/javascript">
+  // ✅ Your Firebase config (replace with your actual config)
+const firebaseConfig = {
+  apiKey: "AIzaSyBb7Hf1EfZFt4ZBV7D-83ZoYh2_268-fA0",
+  authDomain: "internetmap-40f5f.firebaseapp.com",
+  databaseURL: "https://internetmap-40f5f-default-rtdb.firebaseio.com",
+  projectId: "internetmap-40f5f",
+  storageBucket: "internetmap-40f5f.firebasestorage.app",
+  messagingSenderId: "58899228247",
+  appId: "1:58899228247:web:d04ea480cc5ffbf4b06512",
+  measurementId: "G-TR5860MX5M"
+};
+
+// ✅ Init Firebase app and database
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+</script>
+</head>
+<body>
+<div class="tail tail-1"></div>
+<div class="tail tail-2"></div>
+<div class="tail tail-3"></div>
+<div class="tail tail-4"></div>
+<div class="tail tail-5"></div>
+<div class="tail tail-6"></div>
+<div class="tail tail-7"></div>
+<div class="tail tail-8"></div>
+<div class="tail tail-9"></div>
+<div class="tail tail-10"></div>
+<div class="tail tail-11"></div>
+<div class="tail tail-12"></div>
+<div class="text text-1">안녕하세요.</div>
+<div class="text text-2">여러분</div>
+<div class="text text-3">저는 지금 보시는 </div>
+<div class="text text-4">이 웹사이트를 만든</div>
+<div class="text text-5">송예환입니다.</div>
+<div class="text text-6">오늘 저는 </div>
+<div class="text text-7">사용자가 되어,</div>
+<div class="text text-8">여러분들께</div>
+<div class="text text-9">제 작품을 </div>
+<div class="text text-10">어떻게 구동하는지 </div>
+<div class="text text-11">설명해 드릴까 합니다.</div>
+<div class="text text-12">작품 정보의 바다는 </div>
+<div class="text text-13">웹사이트입니다.</div>
+<div class="text text-14">이렇게 </div>
+<div class="text text-15">크롬 브라우저에서 </div>
+<div class="text text-16">작동하고,</div>
+<div class="text text-17">그렇기 때문에 </div>
+<div class="text text-18">제 핸드폰으로도 </div>
+<div class="text text-19">어느정도 원격 조정이 가능합니다.</div>
+<div class="text text-20">일</div>
+<div class="text text-21">이</div>
+<div class="text text-22">삼</div>
+<div class="text text-23">월드 와이드 웹사이트이니,</div>
+<div class="text text-24">원격에서 </div>
+<div class="text text-25">접속도 가능합니다.</div>
+<div class="text text-26">이 작품을 설치한 뒤</div>
+<div class="text text-27">저는 뉴욕의 집으로 돌아가</div>
+<div class="text text-28">작품이 관람객 </div>
+<div class="text text-29">즉 사용자들에 의해 </div>
+<div class="text text-30">사용되는 것을 </div>
+<div class="text text-31">관찰했습니다.</div>
+<div class="text text-32">저는 오늘 사용자이니,</div>
+<div class="text text-33">조금 걸으면서 이야기를 하도록 하죠.</div>
+<div class="text text-34">사이트는 반복적으로 </div>
+<div class="text text-35">사이트는 반복적으로 </div>
+<div class="text text-36">원을 그리며 걸으면 </div>
+<div class="text text-37">원을 그리며 걸으면 </div>
+<div class="text text-38">블록을 쌓는 형태로 작동됩니다.</div>
+<div class="text text-39">블록을 쌓는 형태로 작동됩니다.</div>
+<div class="text text-40">저는 뉴욕에서</div>
+<div class="text text-41">저는 뉴욕에서</div>
+<div class="text text-42">저는 마치 하늘 위 관찰자가 되어</div>
+<div class="text text-43">저는 마치 하늘 위 관찰자가 되어</div>
+<div class="text text-44">그것을 뒤에서 바라보았습니다.</div>
+<div class="text text-45">그것을 뒤에서 바라보았습니다.</div>
+<div class="text text-46">사용자들의 움직임에 의해 </div>
+<div class="text text-47">사용자들의 움직임에 의해 </div>
+<div class="text text-48">작품에 블록이 쌓이는 것을 보앗습니다.</div>
+<div class="text text-49">작품에 블록이 쌓이는 것을 보앗습니다.</div>
+<div class="text text-50">제 작품이 사용자에 의해 </div>
+<div class="text text-51">제 작품이 사용자에 의해 </div>
+<div class="text text-52">완성되는 것을 보았습니다</div>
+<div class="text text-53">완성되는 것을 보았습니다</div>
+<div class="text text-54">사용자들에 사용해</div>
+<div class="text text-55">사용자들에 사용해</div>
+<div class="text text-56">제 작품을 완성했습니다. </div>
+<div class="text text-57">제 작품을 완성했습니다. </div>
+<div class="text text-58">저는 제 작품을 위해</div>
+<div class="text text-59">저는 제 작품을 위해</div>
+<div class="text text-60">사용자를 </div>
+<div class="text text-61">사용자를 </div>
+<div class="text text-62">사용하고 있는 걸까요?</div>
+<div class="text text-63">사용하고 있는 걸까요?</div>
+<div class="text text-64">과연 사용자는 </div>
+<div class="text text-65">과연 사용자는 </div>
+<div class="text text-66">사용을 하는 사람들일까</div>
+<div class="text text-67">사용을 하는 사람들일까</div>
+<div class="text text-68">사용을 당하는 사람들일까?</div>
+<div class="text text-69">사용을 당하는 사람들일까?</div>
+<div class="text text-70">나는 지금 사용을 하고 있나?</div>
+<div class="text text-71">나는 지금 사용을 하고 있나?</div>
+<div class="text text-72">사용을 당하고 있나?</div>
+<div class="text text-73">사용을 당하고 있나?</div>
+<div class="text text-74">나는 지금 사용을 하고 있나?</div>
+<div class="text text-75">나는 지금 사용을 하고 있나?</div>
+<div class="text text-76">사용을 당하고 있나?</div>
+<div class="text text-77">사용을 당하고 있나?</div>
+<div class="text text-78">나는 지금 사용을 하고 있나?</div>
+<div class="text text-79">나는 지금 사용을 하고 있나?</div>
+<div class="text text-80">사용을 당하고 있나?</div>
+<div class="text text-81">사용을 당하고 있나?</div>
+<div class="text text-82">정보의 바다 위 자유로운 서퍼!</div>
+<div class="text text-83">정보의 바다 위 자유로운 서퍼!</div>
+<div class="text text-84">광활한 인터넷! </div>
+<div class="text text-85">광활한 인터넷! </div>
+<div class="text text-86">무궁무진한 가능성의 세계! </div>
+<div class="text text-87">무궁무진한 가능성의 세계! </div>
+<div class="text text-88">나는 지금 사용을 하고 있나?</div>
+<div class="text text-89">나는 지금 사용을 하고 있나?</div>
+<div class="text text-90">사용을 당하고 있나?</div>
+<div class="text text-91">사용을 당하고 있나?</div>
+<div class="text text-92">사용하는 자와 사용당하는 자 </div>
+<div class="text text-93">사용하는 자와 사용당하는 자 </div>
+<div class="text text-94">사이의 줄다리기</div>
+<div class="text text-95">사이의 줄다리기</div>
+<div class="text text-96">정보의 바다 속</div>
+<div class="text text-97">정보의 바다 속</div>
+<div class="text text-98">사용당하는 자와</div>
+<div class="text text-99">사용당하는 자와</div>
+<div class="text text-100">사용을 하는 자</div>
+<div class="text text-101">사용을 하는 자</div>
+<div class="text text-102">그들도 결국 사용자이기 때문에 </div>
+<div class="text text-103">그들도 결국 사용자이기 때문에 </div>
+<div class="text text-104">그 와중에 사용하는 사용자가 </div>
+<div class="text text-105">그 와중에 사용하는 사용자가 </div>
+<div class="text text-106">되기 위해 노력하지요</div>
+<div class="text text-107">되기 위해 노력하지요</div>
+<div class="text text-108">모든것이 </div>
+<div class="text text-109">모든것이 </div>
+<div class="text text-110">함정을 만드는 사람과 </div>
+<div class="text text-111">함정을 만드는 사람과 </div>
+<div class="text text-112">함정을 피하는 사람의 </div>
+<div class="text text-113">함정을 피하는 사람의 </div>
+<div class="text text-114">싸움이라는 겁니다.</div>
+<div class="text text-115">싸움이라는 겁니다.</div>
+<div class="text text-116">어린시절 피아노 학원에서는</div>
+<div class="text text-117"></div>
+<div class="text text-118">곡을 열두번치면</div>
+<div class="text text-119"></div>
+<div class="text text-120">사탕을 주었습니다.</div>
+<div class="text text-121"></div>
+<div class="text text-122">사탕 같은 것 문방구에서 사면</div>
+<div class="text text-123"></div>
+<div class="text text-124">되는데, 저는 그 사탕을 </div>
+<div class="text text-125"></div>
+<div class="text text-126">받으려고 열심히도 쳤습니다.</div>
+<div class="text text-127"></div>
+<div class="text text-128">사이트는 반복적으로 </div>
+<div class="text text-129"></div>
+<div class="text text-130">원을 그리며 걸으면 </div>
+<div class="text text-131"></div>
+<div class="text text-132">블록이 떨어져 쌓이는</div>
+<div class="text text-133"></div>
+<div class="text text-134">형태로 작동됩니다.</div>
+<div class="text text-135"></div>
+<div class="text text-136">저는 긴장할때면</div>
+<div class="text text-137">머리 끝을 손으로</div>
+<div class="text text-138">마는 습관이 있습니다</div>
+<div class="text text-139">어느순간에는</div>
+<div class="text text-140">저도 모르게 손으로</div>
+<div class="text text-141">말고 있습니다.</div>
+<div class="text text-142">사이트는 반복적으로 습관적으로</div>
+<div class="text text-143">원을 그리며 걸으면 </div>
+<div class="text text-144">블록을 쌓는 형태로 작동됩니다.</div>
+<div class="text text-145">나는 지금 사용을 하고 있나?</div>
+<div class="text text-146">사용을 당하고 있나?</div>
+<div class="text text-147"></div>
+<div class="text text-148">과연 인터넷을 </div>
+<div class="text text-149">비판할 수 있을까?</div>
+<div class="text text-150">이것 보세요</div>
+<div class="text text-151">사용자하려는 자</div>
+<div class="text text-152">사용 당하는 자</div>
+<div class="text text-153">우리는 모두</div></div>
+<div class="text text-154">같은 정보의 바다에서</div>
+<div class="text text-155">숨쉬고 있는 걸요</div>
+<div class="text text-156">안녕하세요 </div>
+<div class="text text-157">여러분</div>
+<div class="text text-158">송예환입니다.</div>
+<div class="text text-159">저는 지금 보시는 </div>
+<div class="text text-160">이 웹사이트를 만든</div>
+<div class="text text-161">송예환입니다.</div>
+<div class="text text-162">오늘 저는 </div>
+<div class="text text-163">사용자가 </div>
+<div class="text text-164">되어 </div>
+<div class="text text-165">볼거에요</div>
+<div class="text text-166">여러분들께</div>
+<div class="text text-167">제 작품을 </div>
+<div class="text text-168">안녕하세요 </div>
+<div class="text text-169">여러분</div>
+<div class="text text-170">송예환입니다.</div>
+<div class="text text-171">저는 지금 보시는 </div>
+<div class="text text-172">이 웹사이트를 만든</div>
+<div class="text text-173">송예환입니다.</div>
+<div class="text text-174">오늘 저는 </div>
+<div class="text text-175">사용자가 </div>
+<div class="text text-176">되어 </div>
+<div class="text text-177">볼거에요</div>
+<div class="text text-178">여러분들께</div>
+<div class="text text-179">제 작품을 </div>
+
+<div class="twitch_wrap" style="position:relative;padding-top:56.25%;height:0;overflow:hidden;">
+  <iframe
+    src="https://player.twitch.tv/?channel=yehwanyensong&parent=localhost"
+    allowfullscreen
+    scrolling="no"
+    frameborder="0"
+    style="position:absolute;top:0;left:0;width:100%;height:100%;">
+  </iframe>
+</div>
+<!-- <div class="Tail" -->
+<div id="netgrid" class="netgrid"></div>
+  <div id="buttons"></div>
+  <div id="labels"></div>
+             <div class="bgicons_label bgicons_label_1"><img class="bgicons bgicons_1" src="img/bgicons-02.png"><span>정보의바다</span></div>
+             <div class="bgicons_label bgicons_label_2"><img class="bgicons bgicons_2" src="img/bgicons-03.png"><span>해저케이블</span></div>
+             <div class="bgicons_label bgicons_label_3"><img class="bgicons bgicons_3" src="img/bgicons-04.png"></div>
+        <div class="label" id="chain-label" style="position: absolute; pointer-events: none; color: blue; color: red;font-weight: bold;">data trading</div>
+        <div class="label" id="particle_whirl-label-1" ><img src="img/surfer.png">웹 서퍼1</div>
+        <div class="label" id="particle_whirl-label-2" ><img src="img/surfer.png">웹 서퍼2</div>
+        <div class="label" id="particle_whirl-label-3" ><img src="img/surfer.png">웹 서퍼3</div>
+        <div class="label" id="particle_whirl-label-4" ><img src="img/surfer.png">웹 서퍼4</div>
+        <div class="label" id="particle_whirl-label-5" ><img src="img/surfer.png">웹 서퍼5</div>
+        <div class="label" id="particle_whirl-label-6" ><img src="img/surfer.png">웹 서퍼6</div>
+        <div class="label" id="particle_whirl-label-7" ><img src="img/surfer.png">웹 서퍼7</div>
+        <div class="label" id="particle_whirl-label-8" ><img src="img/surfer.png">웹 서퍼8</div>
+        <div class="label" id="particle_whirl-label-9" ><img src="img/surfer.png">웹 서퍼9</div>
+        <div class="label" id="particle_whirl-label-10"><img src="img/surfer.png">웹 서퍼10</div>
+        <div class="label" id="particle_whirl-label-11"><img src="img/surfer.png">웹 서퍼11</div>
+        <div class="label" id="particle_whirl-label-12"><img src="img/surfer.png">웹 서퍼12</div>
+        <div class="label" id="particle_whirl-label-13"><img src="img/surfer.png">웹 서퍼13</div>
+        <div class="label" id="particle_whirl-label-14"><img src="img/surfer.png">웹 서퍼14</div>
+        <div class="label" id="particle_whirl-label-15"><img src="img/surfer.png">웹 서퍼15</div>
+        <div class="label" id="particle-label-1"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-2"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-3"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-4"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-5"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-6"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-7"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-8"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-9"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-10"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-11"><img src="img/surfer.png">웹 서퍼</div>
+        <div class="label" id="particle-label-12"><img src="img/surfer.png">웹 서퍼</div>
+        <!-- <img src="cloud.png" class="cloud"> -->
+
+<img class="extra_img extra_img_0 reflect_0" src="extraimg/top-15.png">
+<img class="extra_img extra_img_1 reflect_0" src="extraimg/top-06.png">
+<img class="extra_img extra_img_1 reflect_1" src="extraimg/top-06.png">
+<img class="extra_img extra_img_1 reflect_2" src="extraimg/top-06.png">
+<img class="extra_img extra_img_1 reflect_3" src="extraimg/top-06.png">
+<img class="extra_img extra_img_1 reflect_4" src="extraimg/top-06.png">
+<img class="extra_img extra_img_2 reflect_0" src="extraimg/top-07.png">
+<img class="extra_img extra_img_2 reflect_1" src="extraimg/top-07.png">
+<img class="extra_img extra_img_3 reflect_0" src="extraimg/top-08.png">
+<img class="extra_img extra_img_3 reflect_1" src="extraimg/top-08.png">
+<img class="extra_img extra_img_4 reflect_0" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_1" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_2" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_3" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_4" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_5" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_6" src="extraimg/top-10.png">
+<img class="extra_img extra_img_4 reflect_7" src="extraimg/top-10.png">
+<img class="extra_img extra_img_5 reflect_8" src="extraimg/top-11.png">
+<img class="extra_img extra_img_5 reflect_1" src="extraimg/top-11.png">
+<img class="extra_img extra_img_5 reflect_2" src="extraimg/top-11.png">
+<img class="extra_img extra_img_6 reflect_0" src="extraimg/top-12.png">
+<img class="extra_img extra_img_7 reflect_0" src="extraimg/top-13.png">
+<img class="extra_img extra_img_7 reflect_1" src="extraimg/top-13.png">
+<img class="extra_img extra_img_8 reflect_0" src="extraimg/top-14.png">
+<img class="extra_img extra_img_9 reflect_0" src="extraimg/top-16.png">
+<img class="extra_img extra_img_9 reflect_1" src="extraimg/top-16.png">
+<img class="extra_img extra_img_9 reflect_2" src="extraimg/top-16.png">
+<img class="extra_img extra_img_9 reflect_3" src="extraimg/top-16.png">
+<img class="extra_img extra_img_9 reflect_4" src="extraimg/top-16.png">
+<img class="extra_img extra_img_10 reflect_0" src="extraimg/top-17.png">
+<img class="extra_img extra_img_10 reflect_1" src="extraimg/top-17.png">
+<img class="extra_img extra_img_11 reflect_0" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_1" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_2" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_3" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_4" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_5" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_6" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_7" src="extraimg/top-18.png">
+<img class="extra_img extra_img_11 reflect_8" src="extraimg/top-18.png">
+<img class="extra_img extra_img_12 reflect_0" src="extraimg/top-19.png">
+<img class="extra_img extra_img_13 reflect_0" src="extraimg/top-20.png">
+<img class="extra_img extra_img_13 reflect_1" src="extraimg/top-20.png">
+<img class="extra_img extra_img_13 reflect_2" src="extraimg/top-20.png">
+<img class="extra_img extra_img_13 reflect_3" src="extraimg/top-20.png">
+<img class="extra_img extra_img_13 reflect_4" src="extraimg/top-20.png">
+
+<video id="webcam" autoplay muted playsinline></video>
+<div id="container" style="position: relative; width: 100vw; height: 100vh; overflow: hidden;">
+  <canvas id="output" style="position: absolute; top: 0; left: 0;"></canvas>
+  <svg id="svg-lines" viewBox="0 0 1258.24 928.4"
+       xmlns="http://www.w3.org/2000/svg">
+    <defs><style>.cls-1{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;}</style></defs>
+    <!-- your lines -->
+<line class="st0 cls-1" x1="848.5" y1="362.9" x2="1262.1" y2="368.6"/>//6
+<line class="st0 cls-1" x1="1213.6" y1="531.6" x2="829.2" y2="417.9"/>//5
+<line class="st0 cls-1" x1="1088.4" y1="694.9" x2="790.9" y2="435.2"/>//4
+<line class="st0 cls-1" x1="683.3" y1="935.3" x2="692.3" y2="454.5"/>//3
+<line class="st0 cls-1" x1="141.7" y1="867.3" x2="595.6" y2="439"/> //2
+<line class="st0 cls-1" x1="0" y1="554.8" x2="551.4" y2="394.7"/> // 1
+
+  </svg>
+  <!-- <button id="reset-btn" style="
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  background: red;
+  color: white;
+  font-size: 16px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+">
+  RESET!
+</button> -->
+
+<script>
+  setInterval(() => {
+    const url = window.location.href.split('?')[0]; // remove previous query
+    const timestamp = new Date().getTime();
+    window.location.href = `${url}?t=${timestamp}`;
+  }, 1000000);
+</script>
+
+  <!-- TensorFlow + Pose Detection -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+
+  <script>
+    let detector, video, canvas, ctx, svg ;
+let previousFeetPositions = {};   // key: person index + foot name
+let lastCrossedLine = {};         // key: person index + foot name
+const lastCrossedLineTimestamps = {};
+
+
+    async function setup() {
+      // Ensure backend is set first
+      await tf.setBackend('webgl');
+      await tf.ready();
+
+      video = document.getElementById('webcam');
+      canvas = document.getElementById('output');
+      svg = document.getElementById('svg-lines');
+      ctx = canvas.getContext('2d');
+
+      // Resize canvas to window
+      function resizeCanvas() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  svg.setAttribute('width', video.videoWidth);
+  svg.setAttribute('height', canvas.height);
+
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      // Start webcam
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+      video.srcObject = stream;
+      await new Promise(resolve => video.onloadedmetadata = resolve);
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  svg = document.getElementById('svg-lines');
+  svg.setAttribute('width', video.videoWidth);
+  svg.setAttribute('height', canvas.height);
+
+      // Create pose detector
+      detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
+        modelType: poseDetection.movenet.modelType.MULTIPOSE_LIGHTNING
+      });
+
+      detectLoop();
+    }
+
+    function scaleX(x) {
+      return (x / video.videoWidth) * canvas.width;
+    }
+
+    function scaleY(y) {
+      return (y / video.videoHeight) * canvas.height;
+    }
+    function pointToSegmentDistance(px, py, x1, y1, x2, y2) {
+  const A = px - x1;
+  const B = py - y1;
+  const C = x2 - x1;
+  const D = y2 - y1;
+
+  const dot = A * C + B * D;
+  const len_sq = C * C + D * D;
+  let param = -1;
+  if (len_sq !== 0) param = dot / len_sq;
+
+  let xx, yy;
+  if (param < 0) {
+    xx = x1;
+    yy = y1;
+  } else if (param > 1) {
+    xx = x2;
+    yy = y2;
+  } else {
+    xx = x1 + param * C;
+    yy = y1 + param * D;
+  }
+
+  const dx = px - xx;
+  const dy = py - yy;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+function getSideOfLine(px, py, x1, y1, x2, y2) {
+  const value = (x2 - x1) * (py - y1) - (y2 - y1) * (px - x1);
+  if (value > 0) return 1;
+  if (value < 0) return -1;
+  return 0; // exactly on the line
+}
+
+
+async function detectLoop() {
+  const poses = await detector.estimatePoses(video);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const centerX = canvas.width / 2;const centerY = canvas.height / 2;
+
+  const lines = document.querySelectorAll('#svg-lines line');
+
+for (let personIndex = 0; personIndex < poses.length; personIndex++) {
+      const pose = poses[personIndex];
+      const keypoints = pose.keypoints;
+
+      const leftAnkle = keypoints.find(k => k.name === 'left_ankle');
+      const rightAnkle = keypoints.find(k => k.name === 'right_ankle');
+
+      const point = rightAnkle;
+    const name = 'right_ankle';
+    const key = `${personIndex}_${name}`;
+
+    if (!previousFeetPositions[key]) previousFeetPositions[key] = null;
+
+    if (point && point.score > 0.4) {
+      const current = {
+        x: (point.x / video.videoWidth) * 1258.24,
+        y: (point.y / video.videoHeight) * 928.4
+      };
+
+      const prev = previousFeetPositions[key];
+      if (prev) {
+  const svgToFirebaseLineMap = [6, 5, 4, 3, 2, 1];
+
+  // Step 1: Find the closest line
+  let closestLine = null;
+  let closestDistance = Infinity;
+  let closestIndex = -1;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const x1 = parseFloat(line.getAttribute('x1'));
+    const y1 = parseFloat(line.getAttribute('y1'));
+    const x2 = parseFloat(line.getAttribute('x2'));
+    const y2 = parseFloat(line.getAttribute('y2'));
+
+    const distance = pointToSegmentDistance(current.x, current.y, x1, y1, x2, y2);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestLine = { x1, y1, x2, y2 };
+      closestIndex = i;
+    }
+  }
+
+  // Step 2: Only detect crossing for that line
+  if (closestLine) {
+    const firebaseLineNum = svgToFirebaseLineMap[closestIndex];
+    const sidePrev = getSideOfLine(prev.x, prev.y, closestLine.x1, closestLine.y1, closestLine.x2, closestLine.y2);
+    const sideCurr = getSideOfLine(current.x, current.y, closestLine.x1, closestLine.y1, closestLine.x2, closestLine.y2);
+
+    if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr) {
+if (!lastCrossedLineTimestamps[key]) lastCrossedLineTimestamps[key] = {};
+const lastTime = lastCrossedLineTimestamps[key][firebaseLineNum] || 0;
+const now = Date.now();
+
+// Only count crossing if it's been at least 1500ms since last time *this person* crossed *this line*
+if (sidePrev !== 0 && sideCurr !== 0 && sidePrev !== sideCurr && (now - lastTime > 1500)) {
+
+  const ref = db.ref(`crossings/line${firebaseLineNum}`);
+  ref.transaction(current => (current || 0) + 1);
+
+  lastCrossedLineTimestamps[key][firebaseLineNum] = now;
+}
+
+    }
+  }
+}
+
+
+      previousFeetPositions[key] = current;
+    }
+
+
+}
+
+  requestAnimationFrame(detectLoop);
+}
+
+
+    setup();
+
+
+
+  </script>
+<div class="btn btn_00 btnimg">
+  <img src="img/qr-mobile.png">
+  <span clsss="btn_00_title">이름 넣기</span>
+</div>
+<div class="btn btn_0 btnimg">
+  <img src="img/qr-icon.png">
+  <span clsss="btn_0_title">사물 넣기</span>
+</div>
+<!-- <img class="btn btn_00 btnimg"  id="toggleCamera"src="img/back.png"> -->
+<!-- <img class="btn btn_0 btnimg" src="img/q-01.png"> -->
+ <script type="module">
+
+var cube_counter = 0
+        const total = 12;
+    for (let i = 0; i < total; i++) {
+  const lineKey = `crossings/line${i + 1}`;
+  const ref = db.ref(lineKey);
+
+  ref.on('value', snapshot => {
+    const count = snapshot.val() || 0;
+
+    while (firebaseCounts[i] < count) {
+      dropCube(i); // ✅ drop cube when new count arrives
+      firebaseCounts[i]++;
+    }
+  });
+}
+
+// body class switcher – independent of your loop
+let prevBodyClass = null;
+const counterRef = db.ref("counter/value");
+
+counterRef.on("value", (snapshot) => {
+  console.log('!!!')
+  const count = Number(snapshot.val());
+  if (!Number.isFinite(count)) return;
+
+  const newClass = `count-${count}`;
+
+  if (prevBodyClass && prevBodyClass !== newClass) {
+    document.body.classList.remove(prevBodyClass);
+  }
+  if (!document.body.classList.contains(newClass)) {
+    document.body.classList.add(newClass);
+  }
+  prevBodyClass = newClass;
+}, (err) => console.error("counter/value listener error:", err));
+
+
+    import * as THREE from '/js/three.module.js';
+    import { FBXLoader } from '/js/FBXLoader.js';
+    // import { OutlineEffect } from '/js/OutlineEffect.js';
+
+        // --- Basic Setup ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xeeeeee);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFHardShadowMap;
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.NoToneMapping;
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// const effect = new OutlineEffect(renderer);
+
+
+        let aspect = window.innerWidth / window.innerHeight;
+        let frustumSize = 10;
+        const camera = new THREE.OrthographicCamera(
+                (frustumSize * aspect) / -2,
+                (frustumSize * aspect) / 2,
+                frustumSize / 2,
+                frustumSize / -2,
+                0.05, 
+                100
+        );
+        camera.position.set(0, 10, 0);
+        camera.lookAt(0, 1.2, 0);
+        camera.zoom = 1.4; // > 1 zooms in, < 1 zooms out
+camera.updateProjectionMatrix();
+
+
+
+// Inserted camera toggle logic
+let cameraTargetState = false; // false = default top view, true = angled view
+const camPos1 = new THREE.Vector3(0, 10, 0);
+const camPos2 = new THREE.Vector3(0, 7, 7);
+const camLookAt = new THREE.Vector3(0, 1.2, 0);
+const camZoom = 1.4;
+
+// const toggleBtn = document.getElementById("toggleCamera");
+// toggleBtn.addEventListener("click", () => {
+//     const startPos = camera.position.clone();
+//     const endPos = cameraTargetState ? camPos1 : camPos2;
+//     let t = 0;
+//     const duration = 1; // seconds
+//     const fps = 60;
+//     const totalFrames = duration * fps;
+
+//     function animateCameraMove() {
+//         if (t <= 1) {
+//             t += 1 / totalFrames;
+//             camera.position.lerpVectors(startPos, endPos, t);
+//             camera.lookAt(camLookAt);
+//             camera.zoom = camZoom;
+//             camera.updateProjectionMatrix();
+//             requestAnimationFrame(animateCameraMove);
+//         } else {
+//             camera.position.copy(endPos);
+//             camera.lookAt(camLookAt);
+//             camera.zoom = camZoom;
+//             camera.updateProjectionMatrix();
+//             cameraTargetState = !cameraTargetState;
+//         }
+//     }
+//     animateCameraMove();
+// });
+
+        // --- Lighting + Water Plane ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const directionalLight = new THREE.DirectionalLight(0xfffffff, 1.2);
+        directionalLight.position.set(3, 10, 5); // angle to reach water + ground
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.set(1024, 1024);
+        directionalLight.shadow.bias = -0.001;
+        scene.add(directionalLight);
+
+        directionalLight.shadow.camera.left = -20;
+        directionalLight.shadow.camera.right = 20;
+        directionalLight.shadow.camera.top = 20;
+        directionalLight.shadow.camera.bottom = -20;
+        directionalLight.shadow.camera.near = 1;
+        directionalLight.shadow.camera.far = 50;
+        directionalLight.shadow.bias = -0.001;
+
+
+        directionalLight.position.set(5, 10, 7.5);
+        scene.add(ambientLight, directionalLight);
+
+        var clockwise = true
+
+        const obstacles = [];
+        const obstacleRadius = 0.08;
+        const obstacleGeo = new THREE.CylinderGeometry(obstacleRadius, obstacleRadius, 0.05, 32);
+        const obstacleMat = new THREE.MeshStandardMaterial({ color: 0xff4444 });
+
+        var obstaclePositions = [
+            // new THREE.Vector3(-2, -1.5, 0),
+            // new THREE.Vector3(0, 0, 0),
+            // new THREE.Vector3(3, 1.5, 0)
+        ];
+
+
+        const waterGeometry = new THREE.PlaneGeometry(20, 20);
+        const waterMat = new THREE.MeshStandardMaterial({
+                color: 0x7ebbff,
+                transparent: true,
+                opacity: 0.35,
+                depthWrite: false,             // ✅ Already set
+        });
+        const water = new THREE.Mesh(waterGeometry, waterMat);
+        water.rotation.x = -Math.PI / 2;
+        water.position.y = 0;
+        water.receiveShadow = true;
+        water.renderOrder = 1; // ✅ Renders before particles
+        scene.add(water);
+
+
+        const totalRainFrames = 99;
+        let rainFrame = 0;
+        let rainFrameTime = 0;
+        const rainTexture = new THREE.TextureLoader().load('rain.png');
+        rainTexture.wrapS = THREE.RepeatWrapping;
+        rainTexture.wrapT = THREE.RepeatWrapping;
+        rainTexture.repeat.set(1 / totalRainFrames, 1); // 40 frames across 1 row
+        const rainSprite = new THREE.Mesh(
+            new THREE.PlaneGeometry(1/1.2, 1.25/1.2),
+            new THREE.MeshBasicMaterial({
+                map: rainTexture,
+                transparent: true,
+                depthWrite: false,
+                side: THREE.DoubleSide
+            })
+        );
+        rainSprite.renderOrder = 1000;
+        // scene.add(rainSprite);
+
+        const groundGeo = new THREE.PlaneGeometry(20, 20);
+        const groundMat = new THREE.ShadowMaterial({ opacity: 0.7 }); // 🌫️ softer shadow
+
+        let currentVisibleChainIndex = -1; // new variable 
+        const groundPlane = new THREE.Mesh(groundGeo, groundMat);
+        groundPlane.rotation.x = -Math.PI / 2;
+        groundPlane.position.y = 0; // below water
+        groundPlane.receiveShadow = true;
+        scene.add(groundPlane);
+
+
+        let lightAngle = 0;
+
+                // --- Cube Groups and Drop Buttons ---
+        const radius = 2.5;
+        const groups = [];
+        const groups_rot_index = [];
+        const stacks = Array(total).fill(0);
+        const dropHeight = 10;
+        var drop_count = 0
+        let index5_drop_count = 0
+
+        const waterDropTexture = new THREE.CanvasTexture(createWaterDropCanvas());
+
+        const customTexture = new THREE.TextureLoader().load('streamline-01.png');
+
+        customTexture.wrapS = THREE.ClampToEdgeWrapping;
+        customTexture.wrapT = THREE.ClampToEdgeWrapping;
+        customTexture.encoding = THREE.sRGBEncoding;
+
+
+
+//buttons
+        const buttonContainer = document.getElementById('buttons');
+        for (let i = 0; i < total; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = (i + 1).toString();
+                btn.style.margin = '2px';
+                // btn.onclick = () => dropCube(i);
+                buttonContainer.appendChild(btn);
+
+                const angle = (Math.PI * 2 / total) * i+(Math.PI * 2 / total)/2;
+                const group = new THREE.Group();
+                group.rotation.y = angle;
+                group.castShadow = true; // ✅ allow shadow casting
+                group.receiveShadow = false; // just in case
+                scene.add(group);
+
+                groups.push(group);
+
+                groups_rot_index[i] = 0
+        }
+        const firebaseCounts = new Array(total).fill(0); // tracks how many cubes dropped per group
+
+    for (let i = 0; i < 12; i++) {
+        const lineKey = `crossings/line${i + 1}`;
+        const ref = db.ref(lineKey);
+
+        ref.on('value', snapshot => {
+            const count = snapshot.val() || 0;
+
+            while (firebaseCounts[i] < count) {
+                dropCube(i); // drop into group[i]
+                firebaseCounts[i]++;
+            }
+        });
+    }
+
+        const splashBtn = document.createElement('button');
+        splashBtn.innerText = 'Splash!';
+        splashBtn.style.margin = '2px';
+        splashBtn.onclick = () => {
+                const worldPos = new THREE.Vector3(0, 0, 0); // Replace with your actual position logic
+                playSplashAnimation(new THREE.Vector3(worldPos.x, 1.01, worldPos.z));
+        };
+
+        buttonContainer.appendChild(splashBtn);
+
+
+
+
+
+
+        function spawnRippleSprite(x, z) {
+                const frameCount = 45; // how many frames in the sprite sheet
+                const duration = 1000; // total animation duration in ms
+                const frameDuration = duration / frameCount;
+
+                const texture = new THREE.TextureLoader().load("ripple-sprite.png");
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.repeat.set(1 / frameCount, 1);
+
+                const material = new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                side: THREE.DoubleSide,
+                depthWrite: false,
+                });
+
+                const geometry = new THREE.PlaneGeometry(2, 2);
+                const ripple = new THREE.Mesh(geometry, material);
+                ripple.rotation.x = -Math.PI / 2;
+                ripple.position.set(x, 1.001, z);
+                scene.add(ripple);
+
+                let currentFrame = 0;
+
+                const interval = setInterval(() => {
+                currentFrame++;
+                if (currentFrame >= frameCount) {
+                    clearInterval(interval);
+                    scene.remove(ripple);
+                    ripple.geometry.dispose();
+                    ripple.material.dispose();
+                    texture.dispose();
+                } else {
+                    texture.offset.x = currentFrame / frameCount;
+                }
+                }, frameDuration);
+        }
+        function playSplashAnimation(position) {
+                const totalFrames = 12;
+                const duration = 800; // ms
+                const frameDuration = duration / totalFrames;
+
+                const texture = new THREE.TextureLoader().load('splash.png');
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.set(1 / totalFrames, 1); // single row
+
+                const material = new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                depthWrite: false,
+                side: THREE.DoubleSide,
+                });
+
+                const geometry = new THREE.PlaneGeometry(2, 2);
+                const splash = new THREE.Mesh(geometry, material);
+                splash.rotation.x = -Math.PI / 2;
+                splash.position.copy(position);
+                splash.renderOrder = 999;
+                scene.add(splash);
+
+                let frame = 0;
+                const interval = setInterval(() => {
+                texture.offset.x = frame / totalFrames;
+                frame++;
+                        if (frame >= totalFrames) {
+                                clearInterval(interval);
+                                scene.remfove(splash);
+                                splash.geometry.dispose();
+                                splash.material.dispose();
+                                texture.dispose();
+                        }
+                }, frameDuration);
+        }
+
+        function toScreenPosition(obj, camera) {
+                const vector = new THREE.Vector3();
+                const widthHalf = window.innerWidth / 2;
+                const heightHalf = window.innerHeight / 2;
+
+                obj.updateMatrixWorld();
+                vector.setFromMatrixPosition(obj.matrixWorld);
+                vector.project(camera);
+
+                return {
+                        x: ( vector.x * widthHalf ) + widthHalf,
+                        y: -( vector.y * heightHalf ) + heightHalf
+                };
+        }
+        function createWaterDropCanvas() {
+                const canvas = document.createElement('canvas');
+                canvas.width = 128;
+                canvas.height = 128;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = 'transparent';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.font = '100px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('💧', canvas.width / 2, canvas.height / 2);
+
+                return canvas;
+        }
+        function createCombinedTexture(baseColorHex, overlayImagePath) {
+                const canvas = document.createElement('canvas');
+                canvas.width = 512;
+                canvas.height = 512;
+                const ctx = canvas.getContext('2d');
+
+                // fill base color
+                ctx.fillStyle = baseColorHex;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const image = new Image();
+                const texture = new THREE.CanvasTexture(canvas);
+
+                image.onload = () => {
+                        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                        texture.needsUpdate = true;
+                };
+                image.src = overlayImagePath;
+
+                return texture;
+        }
+
+let cubeGeometryFromFBX = null;
+const fbxLoader = new FBXLoader();
+let sortedFBXChildren = [];
+fbxLoader.load('img/st_new.fbx', (object) => {
+    for (var i = object.children.length - 1; i >= 0; i--) {
+    }
+    cubeGeometryFromFBX = object;
+    // Sort children by original Y position (lowest first)
+    sortedFBXChildren = [...object.children].sort((a, b) => a.position.y - b.position.y);
+    for (var i = sortedFBXChildren.length - 1; i >= 0; i--) {
+    }
+});
+
+
+function padToTwoDigits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+
+function dropCube(index) {
+    cube_counter++
+
+
+  const btn0 = document.querySelector('.btn_0');
+  if (btn0) {
+    if (cube_counter > 250) {
+      btn0.style.display = 'block';
+    } else {
+      btn0.style.display = 'none';
+    }
+  }
+
+
+
+  if (!cubeGeometryFromFBX) {
+    console.warn('FBX not loaded yet');
+    return;
+  }
+
+  const group = groups[index];
+  const inner_group = new THREE.Group();
+
+  const sx = 0.3, sy = 0.3, sz = 0.3, pz = 0;
+
+  groups_rot_index[index] = (groups_rot_index[index] + 1) % 2;
+  inner_group.rotation.y = 0;
+
+  const gradientTexture = new THREE.TextureLoader().load('img/gradient4.png');
+  gradientTexture.minFilter = THREE.NearestFilter;
+  gradientTexture.magFilter = THREE.NearestFilter;
+  gradientTexture.generateMipmaps = false;
+
+const loader = new THREE.TextureLoader();
+const padded = padToTwoDigits(cube_counter%85+1); // "01"
+const topTexture = loader.load(`img/text/text-${padded}.png`);
+
+// Create 6 materials, one for each face
+const cubeMaterials = [
+  new THREE.MeshBasicMaterial({ map: topTexture }), // right
+  new THREE.MeshBasicMaterial({ map: topTexture }), // left
+  new THREE.MeshBasicMaterial({ map: topTexture }), // top (this will be replaced below)
+  new THREE.MeshBasicMaterial({ map: topTexture }), // bottom
+  new THREE.MeshBasicMaterial({ map: topTexture }), // front (texture here)
+  new THREE.MeshBasicMaterial({ map: topTexture })  // back
+];
+
+const childIndex = group.children.length % sortedFBXChildren.length;
+const fbxChild = sortedFBXChildren[childIndex];
+
+  const cube = fbxChild.clone();
+const scale_whole = 0.0175
+  cube.material = cubeMaterials
+  cube.scale.set(sortedFBXChildren[childIndex].scale.x*scale_whole, sortedFBXChildren[childIndex].scale.y*scale_whole, sortedFBXChildren[childIndex].scale.z*scale_whole);
+  cube.position.set(sortedFBXChildren[childIndex].position.x*scale_whole, dropHeight, radius + sortedFBXChildren[childIndex].position.z*scale_whole);
+  cube.castShadow = true;
+  cube.renderOrder = 20;
+
+  // Add overlay planes if index === 5
+    if (index === 5) {
+        const overlayTexture = new THREE.TextureLoader().load('streamline-01.png');
+
+        const backOverlay = new THREE.Mesh(
+          new THREE.PlaneGeometry(2 * sx, 1 * sy),
+          new THREE.MeshBasicMaterial({
+            map: overlayTexture,
+            transparent: true,
+            depthWrite: false,
+            side: THREE.DoubleSide
+          })
+        );
+        backOverlay.position.z = -0.5 * sz - 0.001;
+        backOverlay.position.y = 0;
+        cube.add(backOverlay);
+
+        const topOverlay = new THREE.Mesh(
+          new THREE.PlaneGeometry(2 * sx, 1 * sz),
+          new THREE.MeshBasicMaterial({
+            map: overlayTexture,
+            transparent: true,
+            depthWrite: false,
+            side: THREE.DoubleSide
+          })
+        );
+        topOverlay.rotation.x = -Math.PI / 2;
+        topOverlay.position.y = 0.5 * sy + 0.001;
+        topOverlay.position.z = 0;
+        cube.add(topOverlay);
+    }
+// 🔲 Add visible black edges around the cube
+const edgeGeo = new THREE.EdgesGeometry(cube.geometry);
+const edgeMat = new THREE.LineBasicMaterial({ 
+  color: 0x000000,
+  // transparent: true,
+  opacity: 1 // ✅ Appears thinner visually 
+});
+const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+
+// Match scale and position
+edges.scale.copy(cube.scale);
+edges.position.copy(cube.position);
+edges.rotation.copy(cube.rotation);
+edges.renderOrder = cube.renderOrder + 1;
+
+inner_group.add(edges); // ⬅️ Add the edge lines to the same group
+
+    inner_group.add(cube);
+    group.add(inner_group);
+
+    // Stacking logic
+    const boxHeight = 1 * sy;
+    const currentStackY = stacks[index];
+    const targetY = sortedFBXChildren[childIndex].position.y*scale_whole;
+    stacks[index] += boxHeight;
+
+    // Particle/chain trigger logic
+    drop_count++;
+    if (drop_count > 10 && (drop_count - 10) <= 50) {
+        const visibleCount = Math.floor((particles_whirl.length / 50) * (drop_count - 10));
+        for (let i = 0; i < visibleCount; i++) {
+          particles_whirl[i].visible = true;
+        }
+    }
+    if (drop_count > 10 && (drop_count - 10) <= 50) {
+    const indexToShow = Math.floor((drop_count - 10) / 2);
+        if (indexToShow !== currentVisibleChainIndex) {
+            currentVisibleChainIndex = indexToShow;
+            if(chain[currentVisibleChainIndex]){
+                chain[currentVisibleChainIndex].visible = true;
+            }
+        }
+    }
+// 🔁 Auto-reset + reload if two or more groups exceed 100
+let over100Count = 0;
+for (let i = 0; i < groups.length; i++) {
+    if (groups[i].children.length > 100) {
+        over100Count++;
+    }
+}
+
+if (over100Count >= 2) {
+    console.log('⚠️ Two or more groups exceeded 100 cubes — resetting Firebase and reloading...');
+
+    // Reset Firebase first
+    for (let i = 1; i <= 12; i++) {
+        const ref = db.ref(`crossings/line${i}`);
+        ref.set(0);
+    }
+
+    // Wait a brief moment for Firebase to finish, then reload
+    setTimeout(() => {
+        location.reload();
+    }, 500); // adjust if needed
+}
+
+  // Animate cube dropping
+  let progress = 0;
+  const duration = 60;
+
+  function animateDrop() {
+    if (progress < 1) {
+      progress += 1 / duration;
+      const eased = 1 - (1 - progress) * (1 - progress);
+      cube.position.y = dropHeight * (1 - eased) + targetY * eased;
+      requestAnimationFrame(animateDrop);
+    } else {
+      cube.position.y = targetY;
+        edges.scale.copy(cube.scale);
+        edges.position.copy(cube.position);
+        edges.rotation.copy(cube.rotation);
+
+      const worldPos = new THREE.Vector3();
+      cube.getWorldPosition(worldPos);
+
+      // 💧 Ripple if hitting water
+      if (targetY <= 1.05) {
+        spawnRippleSprite(worldPos.x, worldPos.z);
+      }
+
+      // 💬 Explosion label
+        const labelContainer = document.getElementById('labels');
+        if (targetY > 1.0) {
+            const screenPos = toScreenPosition(cube, camera);
+            const label = document.createElement('div');
+            label.innerText = 'Freebasis';
+            label.style.position = 'absolute';
+            label.style.left = `${screenPos.x}px`;
+            label.style.top = `${screenPos.y}px`;
+            label.style.pointerEvents = 'none';
+
+            labelContainer.appendChild(label);
+        }
+
+
+      // 🔴 Invisible obstacle
+      const obstacle = new THREE.Mesh(obstacleGeo, obstacleMat);
+      obstacle.position.copy(worldPos);
+      obstacle.rotation.z = Math.PI / 2;
+      obstacle.visible = false;
+      scene.add(obstacle);
+      obstacles.push(obstacle);
+
+      // 🌧️ Rain follows cube (index 5)
+      if (index === 5) {
+        rainSprite.position.set(worldPos.x, worldPos.y + 1.25, worldPos.z);
+        rainSprite.lookAt(camera.position);
+      }
+    }
+  }
+
+  animateDrop();
+}
+
+
+
+        // --- Whirlpool Setup ---
+        const vortexCenter = new THREE.Vector3(0, 1, 0);
+        var vortexRadius = 0;
+        var vortexStrength = 0.0;
+        var counter = 0
+
+        const ringGeo = new THREE.RingGeometry(vortexRadius - 0.05, vortexRadius + 0.05, 64);
+        const ringMat = new THREE.MeshBasicMaterial({
+                color: 0x0000ff,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.DoubleSide
+        });
+        const whirlpool = new THREE.Mesh(ringGeo, ringMat);
+        whirlpool.rotation.x = Math.PI / 2;
+        whirlpool.position.copy(vortexCenter);
+        // scene.add(whirlpool);
+
+        // --- Particle Setup ---
+        const particles = [];
+        const numParticles = 150;
+        const particleGeo = new THREE.PlaneGeometry(0.1*3, 0.05*3);
+        const arrowTexture = new THREE.TextureLoader().load('img/arrow.png');
+
+        const particleMat = new THREE.MeshBasicMaterial({
+          map: arrowTexture,
+          transparent: true,
+          depthWrite: true,
+          depthTest: true,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending
+        });
+
+
+// let drop_count = 0;
+
+// Create cloud
+const cloudTexture = new THREE.TextureLoader().load('cloud.png', () => {
+        console.log('✅ cloud.png loaded');
+});
+
+const cloudMat = new THREE.MeshBasicMaterial({
+        map: cloudTexture,
+        transparent: true,
+        opacity: 0, // start invisible
+        depthWrite: false,
+        side: THREE.DoubleSide
+});
+
+const cloud = new THREE.Mesh(new THREE.PlaneGeometry(8/3, 4/3), cloudMat);
+cloud.position.set(0, 5, 5); // In front of camera
+cloud.renderOrder = 999;
+scene.add(cloud);
+
+// Manually simulate drop count increase every second
+setInterval(() => {
+        drop_count++;
+
+        const targetOpacity = Math.min(0.5, (drop_count - 10) / 30);
+        cloud.material.opacity = Math.max(0, targetOpacity);
+        cloud.material.needsUpdate = true;
+
+}, 1000); // 1 cube per second
+
+const anchor = new THREE.Mesh(
+    new THREE.BoxGeometry(0.1, 0.1, 0.1),
+    new THREE.MeshBasicMaterial({ visible: false })
+);
+scene.add(anchor);
+
+
+
+        const particles_whirl = [];
+        const numParticles_whirl = 100;
+        const particleGeo_whirl = new THREE.PlaneGeometry(0.1*3, 0.05*3);
+
+        const particleMat_whirl = new THREE.MeshBasicMaterial({
+          map: arrowTexture,
+          transparent: true,
+          depthWrite: true,
+          depthTest: true,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending
+        });
+
+        const chain = [];
+        const numLinks = 20;
+        const linkLength = 0.1;
+        const gravity = new THREE.Vector3(0, -0.005, 0); // simple downward force
+        const chainGeo = new THREE.PlaneGeometry(0.1*2, 0.05*2);
+        const chainTexture = new THREE.TextureLoader().load('img/chain.png');
+
+        const chainMat = new THREE.MeshBasicMaterial({
+          map: chainTexture,
+          transparent: true,
+          depthWrite: true,
+          depthTest: true,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending
+        });
+
+        for (let i = 0; i < numLinks; i++) {
+            const link = new THREE.Mesh(chainGeo, chainMat.clone());
+            link.position.set(0, 1.5 - i * linkLength, 0); // hanging from y = 1.5
+            link.userData.velocity = new THREE.Vector3();
+            scene.add(link);
+            chain.push(link);
+    chain[i].visible = false
+        }
+
+        for (let i = 0; i < numParticles_whirl; i++) {
+            const particle_whirl = new THREE.Mesh(particleGeo_whirl, particleMat_whirl.clone());
+            particle_whirl.visible = false
+            const angle_init = Math.random() * Math.PI * 2;
+            const startX_whirl = vortexCenter.x + Math.cos(angle_init) * vortexRadius;
+            const startZ_whirl = vortexCenter.z + Math.sin(angle_init) * vortexRadius;
+            particle_whirl.position.set(startX_whirl, 0.1, startZ_whirl);
+            particle_whirl.userData.originalZ = startZ_whirl;
+
+
+            // Pre-angled direction based on offset from obstacle
+            let angle = 0;
+
+            const speed_whirl = 0;
+            particle_whirl.userData.velocity = new THREE.Vector3(
+                Math.cos(angle) * speed_whirl,
+                0,
+                Math.sin(angle) * speed_whirl
+            );
+            particle_whirl.rotation.y = angle;
+
+
+            particles_whirl.push(particle_whirl);
+            particle_whirl.renderOrder = 10; // ✅ Renders on top of water
+            scene.add(particle_whirl);
+
+        }
+        for (let i = 0; i < numParticles; i++) {
+            const particle = new THREE.Mesh(particleGeo, particleMat.clone());
+            const startX = Math.random() * 20 - 10;
+            const startZ = 1 + (Math.random() - 0.5) * 15;
+            particle.position.set(startX, 0.1, startZ);
+            particle.userData.originalZ = startZ;
+
+            // Find nearest obstacle
+            let nearest = null;
+            let nearestDist = Infinity;
+            for (let obstacle of obstacles) {
+                const dx = startX - obstacle.position.x;
+                const dz = startZ - obstacle.position.z;
+                const dist = Math.sqrt(dx * dx + dz * dz);
+                if (dist < nearestDist) {
+                    nearest = obstacle;
+                    nearestDist = dist;
+                }
+            }
+
+            // Pre-angled direction based on offset from obstacle
+            let angle = 0;
+            if (nearest) {
+                const dz = startZ - nearest.position.z;
+                angle = -0.3 * (dz / 2.5);
+            }
+
+            const speed = 0.02;
+            particle.userData.velocity = new THREE.Vector3(
+                Math.cos(angle) * speed,
+                0,
+                Math.sin(angle) * speed
+            );
+            particle.rotation.y = angle;
+            particles.push(particle);
+            particle.renderOrder = 10; // ✅ Renders on top of water
+
+            scene.add(particle);
+
+        }
+
+        // --- Particle Animation with Whirlpool Effect ---
+        function animateFlow() {
+                counter ++
+
+                vortexRadius = 2 ;
+                vortexStrength = 0.1;
+// vortexStrength = Math.abs(Math.sin(counter/100))*0.15
+// vortexStrength = 0
+                for (let p of particles) {
+                        const pos = p.position;
+                        const vel = p.userData.velocity.clone();
+                        const originalZ = p.userData.originalZ;
+
+                        for (let obstacle of obstacles) {
+                            const dx = pos.x - obstacle.position.x;
+                            const dz = pos.z - obstacle.position.z;
+                            const dist = Math.sqrt(dx * dx + dz * dz);
+
+                            const influenceRadius = 2;
+                            if (dist < influenceRadius) {
+                                const strength = 1 - dist / influenceRadius;
+                                const repulsion = 0.05 * strength;
+                                vel.z += repulsion * Math.sign(dz);
+                                vel.x *= 1 - 0.2 * strength;
+                            }
+
+                            if (pos.x > obstacle.position.x + obstacleRadius) {
+                                const diffZ = pos.z - originalZ;
+                                vel.z -= diffZ * 0.02;
+                            }
+                        }
+                        // Whirlpool influence
+                        const dx = pos.x - vortexCenter.x;
+                        const dz = pos.z - vortexCenter.z;
+                        const dist = Math.sqrt(dx * dx + dz * dz);
+                        pos.add(vel);
+
+
+                        const angle = Math.atan2(vel.x, vel.z)+Math.PI / 2;
+                        p.rotation.z = angle;
+
+                        if (pos.x > 10) {
+                            pos.x = -10;
+                            pos.z = 1 + (Math.random() - 0.5) * 15;
+                            p.userData.originalZ = pos.z;
+
+                            const resetAngle = 0;
+                            p.userData.velocity.set(
+                                Math.cos(resetAngle) * 0.02,
+                                Math.sin(resetAngle) * 0.02,
+                                0
+                            );
+                            p.rotation.y = resetAngle;
+                        }
+                }
+                for (let p_whirl of particles_whirl) {
+                        const pos_whirl = p_whirl.position;
+                        const vel_whirl = p_whirl.userData.velocity.clone();
+                        const originalZ_whirl = p_whirl.userData.originalZ_whirl;
+
+                        // Whirlpool influence
+                        const dx = pos_whirl.x - vortexCenter.x;
+                        const dz = pos_whirl.z - vortexCenter.z;
+                        const dist = Math.sqrt(dx * dx + dz * dz);
+                        if (dist < vortexRadius) {
+                            const strength = 1 - dist / vortexRadius;
+                            const tangentX = -dz;
+                            const tangentZ = dx;
+
+                            vel_whirl.x += tangentX * vortexStrength * strength;
+                            vel_whirl.z += tangentZ * vortexStrength * strength;
+
+                            vel_whirl.x -= dx * 0.01 * strength;
+                            vel_whirl.z -= dz * 0.01 * strength;
+                         }
+
+                        pos_whirl.add(vel_whirl);
+
+
+                        const angle_whirl = Math.atan2(vel_whirl.x, vel_whirl.z)+Math.PI / 2;
+                        p_whirl.rotation.z = angle_whirl;
+
+                        if (dist > vortexRadius || dist < vortexRadius/10) {
+                            const angle = Math.random() * Math.PI * 2;
+                            pos_whirl.x = vortexCenter.x + Math.cos(angle) * vortexRadius;
+                            pos_whirl.z = vortexCenter.z + Math.sin(angle) * vortexRadius;
+                            p_whirl.userData.originalZ = pos_whirl.z;
+
+                            const resetAngle_whirl = 0;
+                            p_whirl.userData.velocity.set(
+                                Math.cos(resetAngle_whirl) * 0.02,
+                                Math.sin(resetAngle_whirl) * 0.02,
+                                0
+                            );
+                            p_whirl.rotation.y = resetAngle_whirl;
+                        }
+                }
+
+
+                const gravity = new THREE.Vector3(0, -0.005, 0);
+                const windStrength = Math.max(0, Math.sin(counter / 80)) * 0.005;
+                const wind = new THREE.Vector3(windStrength, 0, 0);
+                for (let i = 1; i < chain.length; i++) {
+                        const link = chain[i];
+                        const prev = chain[i - 1];
+
+                        // Apply gravity and wind
+                        link.userData.velocity.add(gravity);
+                        link.userData.velocity.add(wind);
+
+                        // Apply velocity
+                        link.position.add(link.userData.velocity);
+
+                        // Constraint: keep fixed distance from previous
+                        const dir = new THREE.Vector3().subVectors(link.position, prev.position);
+                        const dist = dir.length();
+                        const diff = dist - linkLength;
+
+                        // Re-align only the current link
+                        if (dist > 0.0001) {
+                        dir.normalize().multiplyScalar(diff);
+                        link.position.add(dir.negate());
+                        }
+
+                        // ✅ Face toward the previous link
+                        link.rotation.z = Math.atan2(prev.position.y - link.position.y, prev.position.x - link.position.x);
+
+                        // Damping
+                        link.userData.velocity.multiplyScalar(0.1);
+                }
+
+
+
+                chain[0].position.set(0, 0, 0);
+                chain[0].visible = false
+                chain[0].userData.velocity.set(0, 0, 0);
+
+        }
+function updateLabels() {
+    const chainLabel = document.getElementById('chain-label');
+    if (currentVisibleChainIndex >= 0) {
+        const link = chain[Math.min(currentVisibleChainIndex, chain.length - 1)];
+        const screen = toScreenPosition(link, camera);
+        chainLabel.style.left = `${screen.x}px`;
+        chainLabel.style.top = `${screen.y}px`;
+        chainLabel.style.display = 'block';
+    } else {
+        chainLabel.style.display = 'none';
+    }
+
+    const particleLabels = [
+        document.getElementById('particle-label-1'),
+        document.getElementById('particle-label-2'),
+        document.getElementById('particle-label-3')
+    ];
+    const visibleParticles = particles.filter(p => p.visible).slice(0, 3);
+
+    for (let i = 0; i < particleLabels.length; i++) {
+        const label = particleLabels[i];
+        const particle = visibleParticles[i];
+        if (particle) {
+            const screen = toScreenPosition(particle, camera);
+            label.style.left = `${screen.x}px`;
+            label.style.top = `${screen.y}px`;
+            label.style.display = 'block';
+        } else {
+            label.style.display = 'none';
+        }
+    }
+
+    const whirlLabels = [
+        document.getElementById('particle_whirl-label-1'),
+        document.getElementById('particle_whirl-label-2'),
+        document.getElementById('particle_whirl-label-3'),
+        document.getElementById('particle_whirl-label-4'),
+        document.getElementById('particle_whirl-label-5'),
+        document.getElementById('particle_whirl-label-6'),
+        document.getElementById('particle_whirl-label-7'),
+        document.getElementById('particle_whirl-label-8'),
+        document.getElementById('particle_whirl-label-9'),
+        document.getElementById('particle_whirl-label-10'),
+        document.getElementById('particle_whirl-label-11'),
+        document.getElementById('particle_whirl-label-12'),
+    ];
+    const visibleWhirls = particles_whirl.filter(p => p.visible).slice(0, whirlLabels.length);
+
+    for (let i = 0; i < whirlLabels.length; i++) {
+        const label = whirlLabels[i];
+        const particle = visibleWhirls[i];
+        if (particle) {
+            const screen = toScreenPosition(particle, camera);
+            label.style.left = `${screen.x}px`;
+            label.style.top = `${screen.y}px`;
+            label.style.display = 'block';
+        } else {
+            label.style.display = 'none';
+        }
+    }
+}
+
+function animate() {
+     updateWaterColor()
+    requestAnimationFrame(animate);
+
+    // ☀️ Animate the directional light
+    lightAngle += 0.01;
+    const radius = 10;
+    directionalLight.position.set(
+        Math.cos(lightAngle) * radius,
+        10,
+        Math.sin(lightAngle) * radius
+    );
+    directionalLight.target.position.set(0, 0, 0);
+    scene.add(directionalLight.target);
+
+    // Rain sprite animation
+    rainFrameTime++;
+    if (rainFrameTime % 2 === 0) {
+        rainFrame = (rainFrame + 1) % (totalRainFrames/3);
+        rainTexture.offset.x = rainFrame / totalRainFrames;
+    }
+
+    // Label follow logic (no changes needed)
+    updateLabels();
+
+    // Particle + chain motion
+    animateFlow();
+        // ☁️ Animate cloud opacity based on drop_count
+        const targetOpacity = Math.min(1, (drop_count - 10) / 30);
+        cloud.material.opacity += (targetOpacity - cloud.material.opacity) * 0.05;
+        cloud.material.needsUpdate = true;
+
+    // 🧠 Final render with outline
+    renderer.shadowMap.autoUpdate = true;
+renderer.render(scene, camera); // for shadows ✅
+
+renderer.autoClear = false;
+renderer.render(scene, camera);
+
+renderer.autoClear = true;
+
+
+    // effect.render(scene, camera);
+}
+function lerpColorRGBA(a, b, t) {
+    const c1 = parseColor(a);
+    const c2 = parseColor(b);
+    const r = Math.round(c1.r + (c2.r - c1.r) * t);
+    const g = Math.round(c1.g + (c2.g - c1.g) * t);
+    const b_ = Math.round(c1.b + (c2.b - c1.b) * t);
+    const a_ = +(c1.a + (c2.a - c1.a) * t).toFixed(3);
+    return `rgba(${r}, ${g}, ${b_}, ${a_})`;
+}
+
+function parseColor(hex) {
+    const clean = hex.replace('#', '');
+    const r = parseInt(clean.slice(0, 2), 16);
+    const g = parseInt(clean.slice(2, 4), 16);
+    const b = parseInt(clean.slice(4, 6), 16);
+    const a = clean.length >= 8 ? parseInt(clean.slice(6, 8), 16) / 255 : 1;
+    return { r, g, b, a };
+}
+
+function updateWaterColor() {
+    const now = new Date();
+    const seconds = now.getMinutes() * 60 + now.getSeconds();
+    const t = seconds % 600; // 10-minute loop
+    const buttons = document.getElementById('netgrid');
+
+        if (buttons) {
+            let startColor, endColor;
+
+            if (t < 300) {
+                // Blue phase
+                startColor = '#00c1ff1a';
+                endColor = '#4c95ff45';
+            } else if (t < 360) {
+                // Blue → Orange
+                const p = (t - 300) / 60;
+                startColor = lerpColorRGBA('#00c1ff1a', '#ff83001a', p);
+                endColor = lerpColorRGBA('#4c95ff45', '#ff7e4c24', p);
+            } else if (t < 390) {
+                // Stable Orange
+                startColor = '#ff83001a';
+                endColor = '#ff7e4c24';
+            } else if (t < 420) {
+                // Orange → Black
+                const p = (t - 390) / 30;
+                startColor = lerpColorRGBA('#ff83001a', '#00000015', p);
+                endColor = lerpColorRGBA('#ff7e4c24', '#00000040', p);
+            } else if (t < 450) {
+                // Black → Orange
+                const p = (t - 420) / 30;
+                startColor = lerpColorRGBA('#00000015', '#ff83001a', p);
+                endColor = lerpColorRGBA('#00000040', '#ff7e4c24', p);
+            } else if (t < 480) {
+                // Stable Orange
+                startColor = '#ff83001a';
+                endColor = '#ff7e4c24';
+            } else {
+                // Orange → Blue
+                const p = (t - 480) / 120;
+                startColor = lerpColorRGBA('#ff83001a', '#00c1ff1a', p);
+                endColor = lerpColorRGBA('#ff7e4c24', '#4c95ff45', p);
+            }
+
+            buttons.style.backgroundImage = `radial-gradient(${startColor}, ${endColor}), url(img/netgrid.png)`;
+
+}
+
+}
+
+                animate();
+
+                // --- Resize ---
+                function onWindowResize() {
+                        aspect = window.innerWidth / window.innerHeight;
+                        camera.left = (-frustumSize * aspect) / 2;
+                        camera.right = (frustumSize * aspect) / 2;
+                        camera.top = frustumSize / 2;
+                        camera.bottom = -frustumSize / 2;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(window.innerWidth, window.innerHeight);
+                }
+                window.addEventListener('resize', onWindowResize, false);
+                onWindowResize();
+window.addEventListener('DOMContentLoaded', () => {
+  const words = [
+    "바다",
+    "정보의 바다",
+    "인터넷",
+    "서핑하는 사람들",
+    "사용자",
+    "바닥의 표기",
+    "소셜미디어",
+    "템플릿 사이트",
+    "제한된 제스처",
+    "경로를 따르는 사용자들",
+    "플랫폼에 의존하는 사용자",
+    "쌓이는 탑",
+    "기술에 대한 욕망",
+    "대중 소비",
+    "거대 플랫폼 기업",
+    "반복되는 행위",
+    "자율성의 상실",
+    "고립된 개인",
+    "플랫폼 의존성",
+    "제어 불가능성",
+    "사용자 행위 제한",
+    "은유",
+    "정보의 흐름",
+    "소비 구조",
+    "통제",
+    "행위의 동기"
+  ];
+
+});
+const shownImages = new Set();
+console.log(firebase)
+// When a click is added (either manual or auto)
+firebase.database().ref('clicks').on('child_added', (snapshot) => {
+  console.log('!')
+  const { imgIndex, reflectIndex } = snapshot.val();
+  const key = `${imgIndex}-${reflectIndex}`;
+  if (shownImages.has(key)) return;
+
+  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
+  const el = document.querySelector(selector);
+  if (el) {
+    el.style.display = 'block';
+    shownImages.add(key);
+  }
+});
+
+// When a click is removed (auto or reset)
+firebase.database().ref('clicks').on('child_removed', (snapshot) => {
+  const { imgIndex, reflectIndex } = snapshot.val();
+  const key = `${imgIndex}-${reflectIndex}`;
+  shownImages.delete(key);
+
+  const selector = `.extra_img_${imgIndex}.reflect_${reflectIndex}`;
+  const el = document.querySelector(selector);
+  if (el) el.style.display = 'none';
+});
+
+    </script>
+
+</body>
+</html>
